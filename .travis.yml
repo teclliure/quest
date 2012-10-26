@@ -1,3 +1,4 @@
+# http://about.travis-ci.org/docs/user/build-configuration/
 language: php
 
 php:
@@ -12,3 +13,5 @@ script: phpunit --coverage-clover "clover" -c app
 
 after_success:
     - curl -sL https://bit.ly/artifact-uploader | php
+
+

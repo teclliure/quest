@@ -1,5 +1,5 @@
 {
-    "hash": "871ca732d39c832f0b78012cc83cec2e",
+    "hash": "d6543a60feae9463845ec8948e98cffe",
     "packages": [
         {
             "name": "doctrine/common",
@@ -1016,12 +1016,12 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/symfony/symfony.git",
-                "reference": "1277e6746b2333338124ad0574fa7d5b8c77c47c"
+                "reference": "43aa20fcb6e5b92d898e06700d7933d9a158f135"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/symfony/zipball/1277e6746b2333338124ad0574fa7d5b8c77c47c",
-                "reference": "1277e6746b2333338124ad0574fa7d5b8c77c47c",
+                "url": "https://github.com/symfony/symfony/zipball/43aa20fcb6e5b92d898e06700d7933d9a158f135",
+                "reference": "43aa20fcb6e5b92d898e06700d7933d9a158f135",
                 "shasum": ""
             },
             "require": {
@@ -1070,7 +1070,7 @@
                 "propel/propel1": "dev-master",
                 "monolog/monolog": "1.*"
             },
-            "time": "1351170710",
+            "time": "1351353561",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1156,18 +1156,18 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/fabpot/Twig.git",
-                "reference": "61393dc9fb8982110048624aa573aec4aee0b465"
+                "reference": "0505c2fefd5eaa81c628b0cf8a9b8a2bc612321c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/fabpot/Twig/zipball/61393dc9fb8982110048624aa573aec4aee0b465",
-                "reference": "61393dc9fb8982110048624aa573aec4aee0b465",
+                "url": "https://github.com/fabpot/Twig/zipball/0505c2fefd5eaa81c628b0cf8a9b8a2bc612321c",
+                "reference": "0505c2fefd5eaa81c628b0cf8a9b8a2bc612321c",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.2.4"
             },
-            "time": "1350737598",
+            "time": "1351434618",
             "type": "library",
             "extra": {
                 "branch-alias": {

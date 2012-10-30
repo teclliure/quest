@@ -1,0 +1,7 @@
+parameters:
+#    teclliure_question.example.class: Teclliure\Bundle\QuestionBundle\Example
+
+services:
+#    teclliure_question.example:
+#        class: %teclliure_question.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

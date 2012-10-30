@@ -1,3 +1,7 @@
+teclliure_user:
+    resource: "@TeclliureUserBundle/Resources/config/routing.yml"
+    prefix:   /
+
 teclliure_question:
     resource: "@TeclliureQuestionBundle/Resources/config/routing.yml"
     prefix:   /

@@ -1,6 +1,6 @@
 <?php
 
-namespace Teclliure\Bundle\QuestionBundle;
+namespace Teclliure\QuestionBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

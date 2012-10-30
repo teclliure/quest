@@ -1,6 +1,6 @@
 <?php
 
-namespace Teclliure\Bundle\QuestionBundle\Controller;
+namespace Teclliure\QuestionBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 

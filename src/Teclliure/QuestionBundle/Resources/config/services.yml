@@ -1,5 +1,5 @@
 parameters:
-#    teclliure_question.example.class: Teclliure\Bundle\QuestionBundle\Example
+#    teclliure_question.example.class: Teclliure\QuestionBundle\Example
 
 services:
 #    teclliure_question.example:

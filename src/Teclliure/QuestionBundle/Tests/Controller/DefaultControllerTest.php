@@ -1,6 +1,6 @@
 <?php
 
-namespace Teclliure\Bundle\QuestionBundle\Tests\Controller;
+namespace Teclliure\QuestionBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 

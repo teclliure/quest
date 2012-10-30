@@ -1,0 +1,3 @@
+teclliure_user_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: TeclliureUserBundle:Default:index }

@@ -1,0 +1,37 @@
+<?php
+
+namespace Teclliure\QuestionBundle\Entity;
+
+use Gedmo\Mapping\Annotation as Gedmo;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="question_group")
+ * @ORM\Entity(repositoryClass="Gedmo\Sortable\Entity\Repository\SortableRepository")
+ */
+class QuestionGroup
+{
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue
+     */
+    private $id;
+
+    /** @ORM\Column(type="string", length=100) */
+    private $name;
+
+    /** @ORM\Column(type="text") */
+    private $help;
+
+    /**
+     * @Gedmo\SortablePosition
+     * @ORM\Column(name="position", type="integer")
+     */
+    private $position;
+
+    /** @ORM\ManyToOne(targetEntity="Teclliure\QuestionBundle\Entity\Questionary") */
+    protected $questionary;
+
+}

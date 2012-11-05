@@ -2,6 +2,7 @@
 
 namespace Teclliure\UserBundle\Controller;
 
+use Teclliure\UserBundle\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class DefaultController extends Controller

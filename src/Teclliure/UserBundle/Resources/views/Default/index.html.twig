@@ -1,1 +1,15 @@
+{% extends '::frontend.html.twig' %}
+
+{% block id 'user' %}
+{% block title %}Frontpage Quest - Hello{% endblock %}
+
+{% block article %}
 Hello {{ name }}!
+{% endblock %}
+
+{% block aside %}
+<section id="lateral">
+<h2>Aside block</h2>
+<p>Lorem ipsum dolor sit amet...</p>
+</section>
+{% endblock %}

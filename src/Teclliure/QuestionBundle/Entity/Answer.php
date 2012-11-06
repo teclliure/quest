@@ -3,6 +3,7 @@ namespace Teclliure\QuestionBundle\Entity;
 
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(name="answer")
@@ -17,19 +18,37 @@ class Answer
      */
     private $id;
 
-    /** @ORM\Column(type="string", length=255) */
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
     private $answer;
 
-    /** @ORM\Column(type="text") */
+    /**
+     * @ORM\Column(type="text")
+     *
+     */
     private $help;
+
+     /**
+     * @ORM\Column(type="integer")
+     *
+     * @Assert\Type(type="integer")
+     * @Assert\Range(min = 0)
+     */
+    protected $rawValue;
+
 
     /**
      * @Gedmo\SortablePosition
+     *
      * @ORM\Column(name="position", type="integer")
      */
     private $position;
 
-    /** @ORM\ManyToOne(targetEntity="Teclliure\QuestionBundle\Entity\Question") */
+    /**
+     * @ORM\ManyToOne(targetEntity="Teclliure\QuestionBundle\Entity\Question")
+     *
+     */
     private $question;
 
 

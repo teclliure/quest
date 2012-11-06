@@ -1,0 +1,189 @@
+/*	DEFAULT TEXT STYLING
+	---------------------------------------------------------------------------------------
+		By default, all elements (including headings) are
+		set to inherit text styling from their parent
+		In order to keep styling separate from document structure
+		it is recommended NOT to apply styling directly to
+		headings etc., but instead to their containers, or using classes and ids
+	*/
+
+body{
+    font-family			: helvetica,arial,sans-serif;
+    font-size			: 12px;
+    color				: #333;
+    line-height			: 1.5em;
+    font-weight			: normal;
+    text-decoration 	: none;
+}
+
+ul.bullet-list{
+    list-style-type		: disc;
+    padding-left		: 2em;
+}
+ul.bullet-list ul{
+    list-style-type		: circle;
+    padding-left		: 2em;
+}
+ul.bullet-list ul ul{
+    list-style-type		: square;
+    padding-left		: 2em;
+}
+ul.bullet-list ul ul ul{
+    list-style-type		: disc;
+    padding-left		: 2em;
+}
+
+ol.ordered-list{
+    list-style-type		: decimal;
+    padding-left		: 2em;
+}
+ol.ordered-list ol{
+    list-style-type		: lower-alpha;
+    padding-left		: 2em;
+}
+ol.ordered-list ol ol{
+    list-style-type		: lower-roman;
+    padding-left		: 2em;
+}
+
+ol.multi-level-list{
+    padding-left		: 1em;
+    counter-reset		: ol-level1;
+}
+ol.multi-level-list > li{
+    counter-increment	: ol-level1;
+}
+ol.multi-level-list ol{
+    padding-left		: 2em;
+    counter-reset		: ol-level2;
+}
+ol.multi-level-list ol > li{
+    counter-increment	: ol-level2;
+}
+ol.multi-level-list ol ol{
+    padding-left		: 3em;
+    counter-reset		: ol-level3;
+}
+ol.multi-level-list ol ol > li{
+    counter-increment	: ol-level3;
+}
+ol.multi-level-list > li:before{
+    content				: counter(ol-level1) ". ";
+}
+ol.multi-level-list ol > li:before{
+    content				: counter(ol-level1) "." counter(ol-level2) ". ";
+}
+ol.multi-level-list ol ol > li:before{
+    content				: counter(ol-level1) "." counter(ol-level2) "." counter(ol-level3) ". ";
+}
+
+
+/*	PAGE WIDTHS AND POSITIONING
+---------------------------------------------------------------------------------------
+    The minimum width of the main containers should
+    be the same as the width of the wraps in order
+    to force their backgrounds to span the full width
+    even in case of horizontal scroll
+
+    In order to assure proper rendering on mobile devices
+    the viewport width should ideally be set to the same
+    or slightly wider
+*/
+
+/* center all content at once */
+/*
+body{
+    min-width	: 960px;
+}
+#wrap{
+    width		: 960px;
+    margin		: 0px auto !important;
+}
+*/
+
+/* center wrapped content */
+body,
+#wrap {
+    min-width	: 960px;
+}
+
+#wrap{
+    width		: 960px;
+    margin-right: auto !important;
+    margin-left	: auto !important;
+}
+
+/*
+ * HTML5 Boilerplate
+ *
+ * What follows is the result of much research on cross-browser styling.
+ * Credit left inline and big thanks to Nicolas Gallagher, Jonathan Neal,
+ * Kroc Camen, and the H5BP dev community and team.
+ */
+
+/* ==========================================================================
+   Base styles: opinionated defaults
+   ========================================================================== */
+
+html,
+button,
+input,
+select,
+textarea {
+    color: #222;
+}
+
+/*
+ * Remove text-shadow in selection highlight: h5bp.com/i
+ * These selection declarations have to be separate.
+ * Customize the background color to match your design.
+ */
+
+::-moz-selection {
+    background: #b3d4fc;
+    text-shadow: none;
+}
+
+::selection {
+    background: #b3d4fc;
+    text-shadow: none;
+}
+
+/*
+ * A better looking default horizontal rule
+ */
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
+
+/*
+ * Remove the gap between images and the bottom of their containers: h5bp.com/i/440
+ */
+
+img {
+    vertical-align: middle;
+}
+
+/*
+ * Remove default fieldset styles.
+ */
+
+fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+/*
+ * Allow only vertical resizing of textareas.
+ */
+
+textarea {
+    resize: vertical;
+}

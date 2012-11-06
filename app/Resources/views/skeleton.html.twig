@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content=" minimum-scale=1.0, maximum-scale=1.0, width=device-width; user-scalable=no">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>{% block title %}{% endblock %} | Quest Devel</title>
+
+    {% stylesheets
+    '@TeclliureUserBundle/Resources/public/bootstrap/css/bootstrap.min.css'
+    '@TeclliureUserBundle/Resources/public/bootstrap/css/bootstrap-responsive.min.css'
+    '@TeclliureUserBundle/Resources/public/css/style.css'
+    %}
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" href="{{ asset_url }}" media="screen" type="text/css"/>
+    {% endstylesheets %}
+
+    {% block stylesheets %}{% endblock %}
+    {% block top_javascripts %}{% endblock %}
+</head>
+<body>
+
+<div class="container">
+    <div id="top" class="row">
+        <div class="span12">
+            <ul id="skiplinks" class="pull-left hidden-desktop">
+                <li><a href="#content-container" title="Go to main content">content</a></li>
+                <li><a href="#navigation" title="go to navigation">navigation</a></li>
+            </ul>
+            <div id="language_selector" class="pull-right">
+                {% block language_selector %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div id="banner" class="span12">
+            <div class="hero-unit">
+                <h1 id="logo-text"><a href="{{ path('home') }}">Quest Demo</a></h1>
+                <p id="slogan">Symfony2 Quest Application</p>
+            </div>
+        </div>
+
+        {% block breadrumb %}
+            <div id="breadcrumb" class="span12">
+                <ul class="breadcrumb boxed">
+                    <li><a href="">Bread1</a></li>
+                    <li><a href="">Bread2</a></li>
+                </ul>
+            </div>
+        {% endblock %}
+        {#
+        {% set currentItem = knp_menu_get('main').currentItem %}
+        {% if currentItem %}
+        <div id="breadcrumb" class="span12">
+            <ul class="breadcrumb boxed">
+                {% for title, url in currentItem.breadcrumbsArray %}
+                    <li><a href="{{url}}">{{ title }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        #}
+    </div>
+
+    <div  class="row">
+        <div id="content-container" class="span12 boxed">
+            <div class="row">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+
+    <hr/>
+
+    <div id="footer" class="row">
+        {% block footer %}
+            <div id="menu-service">
+                {# {{ knp_menu_render('service') }} #}
+            </div>
+            <div class="span12">
+                <p>Powered by <a href="http://symfony.com/">Symfony</a></p>
+            </div>
+        {% endblock %}
+    </div>
+</div>
+{% block javascripts %}{% endblock %}
+</body>
+</html>

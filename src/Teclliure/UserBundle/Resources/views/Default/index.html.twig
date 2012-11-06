@@ -1,15 +1,15 @@
-{% extends '::frontend.html.twig' %}
+{% extends '::two_columns.html.twig' %}
 
 {% block id 'user' %}
-{% block title %}Frontpage Quest - Hello{% endblock %}
+{% block title %}Frontpage Quest{% endblock %}
 
-{% block article %}
+{% block inner_content %}
 Hello {{ name }}!
 {% endblock %}
 
-{% block aside %}
-<section id="lateral">
-<h2>Aside block</h2>
+{% block left_content %}
+<div class="well">
+<h2>Extra content</h2>
 <p>Lorem ipsum dolor sit amet...</p>
-</section>
+</div>
 {% endblock %}

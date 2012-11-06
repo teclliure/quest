@@ -1,3 +1,7 @@
+home:
+    pattern:  /
+    defaults: { _controller: TeclliureUserBundle:Default:index }
+
 teclliure_category:
     resource: "@TeclliureCategoryBundle/Controller/"
     type:     annotation

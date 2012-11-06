@@ -1,3 +1,13 @@
+teclliure_category:
+    resource: "@TeclliureCategoryBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+teclliure_patient:
+    resource: "@TeclliurePatientBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 teclliure_user:
     resource: "@TeclliureUserBundle/Resources/config/routing.yml"
     prefix:   /

@@ -23,6 +23,8 @@ class AppKernel extends Kernel
             new Teclliure\UserBundle\TeclliureUserBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
+            new Teclliure\PatientBundle\TeclliurePatientBundle(),
+            new Teclliure\CategoryBundle\TeclliureCategoryBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

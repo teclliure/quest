@@ -1,12 +1,13 @@
 <?php
 
-namespace Teclliure\UserBundle\Entity;
+namespace Teclliure\CategoryBundle\Entity;
 
+use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="Cupon\UsuarioBundle\Entity\UserRepository")
+ * @ORM\Entity(repositoryClass="Teclliure\UserBundle\Entity\UserRepository")
  * @ORM\Table(name="user")
  *
  * Teclliure\UserBundle\Entity\User
@@ -39,6 +40,25 @@ class User
      * @var string $salt
      */
     private $salt;
+
+    /**
+     * @var datetime $created
+     *
+     * @ORM\Column(type="datetime")
+     *
+     * @Gedmo\Timestampable(on="create")
+     *
+     */
+    private $created;
+
+    /**
+     * @var datetime $updated
+     *
+     * @ORM\Column(type="datetime")
+     *
+     * @Gedmo\Timestampable(on="update")
+     */
+    private $updated;
 
 
     /**

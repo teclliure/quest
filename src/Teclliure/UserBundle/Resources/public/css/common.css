@@ -1,189 +1,447 @@
-/*	DEFAULT TEXT STYLING
-	---------------------------------------------------------------------------------------
-		By default, all elements (including headings) are
-		set to inherit text styling from their parent
-		In order to keep styling separate from document structure
-		it is recommended NOT to apply styling directly to
-		headings etc., but instead to their containers, or using classes and ids
-	*/
+/*
+	* Gridless version 2.0
 
-body{
-    font-family			: helvetica,arial,sans-serif;
-    font-size			: 12px;
-    color				: #333;
-    line-height			: 1.5em;
-    font-weight			: normal;
-    text-decoration 	: none;
-}
+	* Credit is left inline and big thanks to Nicolas Gallagher and Jonathan Neal
 
-ul.bullet-list{
-    list-style-type		: disc;
-    padding-left		: 2em;
-}
-ul.bullet-list ul{
-    list-style-type		: circle;
-    padding-left		: 2em;
-}
-ul.bullet-list ul ul{
-    list-style-type		: square;
-    padding-left		: 2em;
-}
-ul.bullet-list ul ul ul{
-    list-style-type		: disc;
-    padding-left		: 2em;
-}
-
-ol.ordered-list{
-    list-style-type		: decimal;
-    padding-left		: 2em;
-}
-ol.ordered-list ol{
-    list-style-type		: lower-alpha;
-    padding-left		: 2em;
-}
-ol.ordered-list ol ol{
-    list-style-type		: lower-roman;
-    padding-left		: 2em;
-}
-
-ol.multi-level-list{
-    padding-left		: 1em;
-    counter-reset		: ol-level1;
-}
-ol.multi-level-list > li{
-    counter-increment	: ol-level1;
-}
-ol.multi-level-list ol{
-    padding-left		: 2em;
-    counter-reset		: ol-level2;
-}
-ol.multi-level-list ol > li{
-    counter-increment	: ol-level2;
-}
-ol.multi-level-list ol ol{
-    padding-left		: 3em;
-    counter-reset		: ol-level3;
-}
-ol.multi-level-list ol ol > li{
-    counter-increment	: ol-level3;
-}
-ol.multi-level-list > li:before{
-    content				: counter(ol-level1) ". ";
-}
-ol.multi-level-list ol > li:before{
-    content				: counter(ol-level1) "." counter(ol-level2) ". ";
-}
-ol.multi-level-list ol ol > li:before{
-    content				: counter(ol-level1) "." counter(ol-level2) "." counter(ol-level3) ". ";
-}
-
-
-/*	PAGE WIDTHS AND POSITIONING
----------------------------------------------------------------------------------------
-    The minimum width of the main containers should
-    be the same as the width of the wraps in order
-    to force their backgrounds to span the full width
-    even in case of horizontal scroll
-
-    In order to assure proper rendering on mobile devices
-    the viewport width should ideally be set to the same
-    or slightly wider
+	* Across this document we use safe CSS hacks: http://mathiasbynens.be/notes/safe-css-hacks
+	* Selectors beggining with an underscore (_selector: property) target only IE6
+	* Selectors beggining with an asterisk (*selector: property) target only IE6 and IE7
 */
 
-/* center all content at once */
+/* HTML5 display definitions
+---------------------------------------- */
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, dialog {
+    display: block;
+}
+
+/* Corrects inline-block not defined in IE6/7/8 and FF3 */
+audio, canvas, video {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+}
+
+audio:not([controls]) {
+    display: none;
+}
+
+/* Ensures content is hidden from all presentations, including screenreaders */
+[hidden] {
+    display: none;
+    visibility: hidden;
+}
+
+/* Base structure
+---------------------------------------- */
+
 /*
-body{
-    min-width	: 960px;
+	* The body will work like a 'div#wrapper' (for this to work, the 'body' needs to have a set width)
+
+	* To add a background to the PAGE, set it in the 'html' element
+	* To add a background to the WRAPPER, set it in the 'body' element
+*/
+html {
+    height: 100%;
+    font-size: 100%;
+    overflow-y: scroll; /* Force a scrollbar in non-IE */
+    -webkit-text-size-adjust: 100%; /* Prevent iOS text size adjust on orientation change without disabling user zoom */
+    -ms-text-size-adjust: 100%;
 }
-#wrap{
-    width		: 960px;
-    margin		: 0px auto !important;
+
+body {
+    margin: 0 auto;
+    min-height: 100%;
 }
+
+/* Fonts settings based on the 100E2R standard: http://www.informationarchitects.jp/en/100e2r/ */
+body, button, input, select, textarea {
+    font: 1em/1.625 Georgia, serif;
+    color: #222; /* Full black on white is too much contrast, #222 is a better default */
+}
+
+/* Add and/or remove tags as your baseline grid needs */
+p, blockquote, q, pre, address, hr, code, samp, dl, ol, ul, form, table, fieldset, menu, h4, h5, h6, img, figure, figcaption, button, hr {
+    margin: 0 0 1.625em;
+}
+
+/* Headings/small
+---------------------------------------- */
+
+/*
+	* Font sizes are based on the golden ratio of 16
+	* See this for the modular scale: ow.ly/5jGl6
+	* Line-heights and margins are adjusted to keep a 26px (1.625em) vertical rhythm across elements
 */
 
-/* center wrapped content */
-body,
-#wrap {
-    min-width	: 960px;
+h1, h2, h3, h4, h5, h6 {
+    font-family: Palatino, 'Palatino Linotype', 'Book Antiqua', FreeSerif, Georgia, serif;
+    font-size: 1em;
+    font-weight: bold;
 }
 
-#wrap{
-    width		: 960px;
-    margin-right: auto !important;
-    margin-left	: auto !important;
+h1 {
+    font-size: 4.25em; /* 68px */
+    line-height: 1.1471em;
+    margin: 0 0 0.3824em;
 }
 
-/*
- * HTML5 Boilerplate
- *
- * What follows is the result of much research on cross-browser styling.
- * Credit left inline and big thanks to Nicolas Gallagher, Jonathan Neal,
- * Kroc Camen, and the H5BP dev community and team.
- */
+h2 {
+    font-size: 2.625em; /* 42px */
+    line-height: 1.2381em;
+    margin: 0 0 0.619em;
+}
 
-/* ==========================================================================
-   Base styles: opinionated defaults
-   ========================================================================== */
+h3 {
+    font-size: 1.625em; /* 26px */
+    line-height: 1em;
+    margin: 0 0 1em;
+}
 
-html,
-button,
-input,
-select,
+small {
+    font-size: 0.625em; /* 10px */
+    margin: 0 0 2.6em;
+}
+
+/* Preformatted text and code
+---------------------------------------- */
+
+/* Allows line wrapping of 'pre' */
+pre {
+    white-space: pre;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+pre, code, kbd, samp {
+    font: 1em/1.625em Menlo, Consolas, 'DejaVu Sans Mono', Monaco, 'Courier New', Courier, monospace;
+}
+
+/* Tables
+---------------------------------------- */
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+th {
+    text-align: left;
+}
+
+tr, th, td {
+    padding-right: 1.625em;
+}
+
+/* Forms
+---------------------------------------- */
+
+form {
+    margin: 0;
+}
+
+fieldset {
+    border: 0;
+    padding: 0;
+}
+
 textarea {
-    color: #222;
+    overflow: auto;
+    vertical-align: top;
 }
 
-/*
- * Remove text-shadow in selection highlight: h5bp.com/i
- * These selection declarations have to be separate.
- * Customize the background color to match your design.
- */
-
-::-moz-selection {
-    background: #b3d4fc;
-    text-shadow: none;
+legend {
+    border: 0;
+    *margin-left: -7px;
 }
 
-::selection {
-    background: #b3d4fc;
-    text-shadow: none;
+button, input, select, textarea {
+    vertical-align: baseline;
+    *vertical-align: middle;
 }
 
-/*
- * A better looking default horizontal rule
- */
+button, input {
+    line-height: normal;
+    *overflow: visible;
+}
+
+button, input[type="button"], input[type="reset"], input[type="submit"] {
+    cursor: pointer;
+    -webkit-appearance: button;
+}
+
+input[type="checkbox"], input[type="radio"] {
+    box-sizing: border-box;
+}
+
+input[type="search"] {
+    -webkit-appearance: textfield;
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+}
+
+input[type="search"]::-webkit-search-decoration {
+    -webkit-appearance: none;
+}
+
+button::-moz-focus-inner, input::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+
+/* Reintroduce inner spacing in 'table' to avoid overlap and whitespace issues in IE6/7 */
+table button, table input {
+    *overflow: auto;
+}
+
+/* Quotes
+---------------------------------------- */
+
+blockquote, q {
+    quotes: none;
+}
+
+blockquote:before, blockquote:after, q:before, q:after {
+    content: '';
+    content: none;
+}
+
+blockquote, q, cite {
+    font-style: italic;
+}
+
+blockquote {
+    padding-left: 1.625em;
+    border-left: 1px solid #ddd;
+}
+
+blockquote > p {
+    padding: 0;
+}
+
+/* Lists
+---------------------------------------- */
+
+ul, ol {
+    list-style-position: inside;
+    padding: 0;
+}
+
+li ul, li ol {
+    margin: 0 1.625em;
+}
+
+dl dd {
+    margin-left: 1.625em;
+}
+
+/* Links
+---------------------------------------- */
+
+a, a:visited {
+    text-decoration: none;
+    color: #06c;
+}
+
+a:hover {
+    border-bottom: 1px solid;
+}
+
+a:focus {
+    outline: thin dotted;
+}
+
+/* Better CSS outline suppression: people.opera.com/patrickl/experiments/keyboard/test */
+a:hover, a:active {
+    outline: none;
+}
+
+/* Figures
+---------------------------------------- */
+
+figure {
+    margin: 0;
+}
+
+/* Embedded content
+---------------------------------------- */
+
+img, object, video {
+    max-width: 100%; /* Automatically scales images larger than the container. Consider this first: http://unstoppablerobotninja.com/entry/fluid-images/ */
+    /* _width: 100%; /* IE6 doesn't support max-width, so we just use width. If the image is larger than the container, just uncomment this. If it is smaller than the container, uncomment and change the 100% value to an absolute one */
+}
+
+img {
+    border: 0;
+    -ms-interpolation-mode: bicubic; /* Improve IE's resizing of images: css-tricks.com/ie-fix-bicubic-scaling-for-images */
+}
+
+/* Corrects overflow displayed oddly in IE9 */
+svg:not(:root) {
+    overflow: hidden;
+}
+
+/* Abbreviations
+---------------------------------------- */
+
+abbr[title], dfn[title] {
+    border-bottom: 1px dotted;
+    cursor: help;
+}
+
+/* Marked/inserted/deleted text
+---------------------------------------- */
+
+mark {
+    background: #ff0;
+}
+
+ins {
+    text-decoration: none;
+    background: #ff9;
+}
+
+del {
+    text-decoration: line-through;
+}
+
+/* Others
+---------------------------------------- */
 
 hr {
     display: block;
     height: 1px;
     border: 0;
-    border-top: 1px solid #ccc;
-    margin: 1em 0;
-    padding: 0;
+    border-bottom: 1px solid #ddd;
 }
 
-/*
- * Remove the gap between images and the bottom of their containers: h5bp.com/i/440
- */
-
-img {
-    vertical-align: middle;
+strong, b, dt {
+    font-weight: bold;
 }
 
-/*
- * Remove default fieldset styles.
- */
-
-fieldset {
-    border: 0;
-    margin: 0;
-    padding: 0;
+dfn {
+    font-style: italic;
 }
 
-/*
- * Allow only vertical resizing of textareas.
- */
+var, address {
+    font-style: normal;
+}
 
-textarea {
-    resize: vertical;
+/* Position 'sub' and 'sup' without affecting line-height: gist.github.com/413930 */
+sub, sup {
+    font-size: 0.625em;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+}
+
+sup {
+    top: -0.5em;
+}
+
+sub {
+    bottom: -0.25em;
+}
+
+/* Helper classes
+---------------------------------------- */
+
+/*
+	* Micro clearfix hack, more semantically titled with 'group'
+	* Source: nicolasgallagher.com/micro-clearfix-hack/
+*/
+.group:before, .group:after {
+    content: "";
+    display: table;
+}
+
+.group:after {
+    clear: both;
+}
+
+.group {
+    *zoom: 1;
+}
+
+/* Primary styles
+---------------------------------------- */
+
+
+
+
+
+
+
+
+
+/* Media queries
+---------------------------------------- */
+
+/* The media queries included in here are only placeholder. Modify them as your content requires */
+
+@media only screen and (min-width: 480px) {
+    /* Wide mobile (480px+) styles go here */
+}
+
+@media only screen and (min-width: 768px) {
+    /* Tablets/netbooks (768px+) styles go here */
+}
+
+@media only screen and (min-width: 1024px) {
+    /* Desktops (1024px+) styles go here */
+}
+
+/* Print styles
+---------------------------------------- */
+
+/* Print styles inlined to avoid extra HTTP connection */
+
+@media print {
+    * {
+        background: transparent !important;
+        color: black !important; /* Black prints faster: sanbeiji.com/archives/953 */
+        text-shadow: none !important;
+        filter: none !important;
+        -ms-filter: none !important;
+    }
+
+    a, a:visited {
+        text-decoration: underline;
+    }
+
+    a[href]:after {
+        content: " (" attr(href) ")";
+    }
+
+    abbr[title]:after {
+        content: " (" attr(title) ")";
+    }
+
+    /* Do not show javascript and internal links */
+    a[href^="javascript:"]:after, a[href^="#"]:after {
+        content: "";
+    }
+
+    /* Printing Tables: css-discuss.incutio.com/wiki/Printing_Tables */
+    thead {
+        display: table-header-group;
+    }
+
+    tr, img {
+        page-break-inside: avoid;
+    }
+
+    @page {
+        margin: 0.5cm;
+    }
+
+    p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+    }
+
+    h2, h3 {
+        page-break-after: avoid;
+    }
 }

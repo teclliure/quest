@@ -154,4 +154,27 @@ class Answer
     {
         return $this->question;
     }
+
+    /**
+     * Set rawValue
+     *
+     * @param integer $rawValue
+     * @return Answer
+     */
+    public function setRawValue($rawValue)
+    {
+        $this->rawValue = $rawValue;
+    
+        return $this;
+    }
+
+    /**
+     * Get rawValue
+     *
+     * @return integer 
+     */
+    public function getRawValue()
+    {
+        return $this->rawValue;
+    }
 }

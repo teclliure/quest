@@ -23,9 +23,13 @@ security:
           form_login:
             check_path: login_check
             login_path: login
+            use_referer: true
           logout:
               path:   logout
               target: /
+          remember_me:
+            key: quest32dSa23
+            lifetime: 3600
 
 
     access_control:

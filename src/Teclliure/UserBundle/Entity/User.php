@@ -61,6 +61,20 @@ class User implements UserInterface
     private $updated;
 
 
+    function eraseCredentials()
+    {
+    }
+
+    function getRoles()
+    {
+        return array('ROLE_USER');
+    }
+
+    function getUsername()
+    {
+        return $this->getEmail();
+    }
+
     /**
      * Get id
      *
@@ -140,17 +154,49 @@ class User implements UserInterface
         return $this->salt;
     }
 
-    function eraseCredentials()
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     * @return User
+     */
+    public function setCreated($created)
     {
+        $this->created = $created;
+
+        return $this;
     }
 
-    function getRoles()
+    /**
+     * Get created
+     *
+     * @return \DateTime 
+     */
+    public function getCreated()
     {
-        return array('ROLE_USER');
-    }
-    function getUsername()
-    {
-        return $this->getEmail();
+        return $this->created;
     }
 
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     * @return User
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime 
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
+    }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Teclliure\CategoryBundle\Entity;
+namespace Teclliure\UserBundle\Entity;
 
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * Teclliure\UserBundle\Entity\User
  */
-class User
+class User implements UserInterface
 {
     /**
      * @ORM\Id
@@ -139,4 +139,18 @@ class User
     {
         return $this->salt;
     }
+
+    function eraseCredentials()
+    {
+    }
+
+    function getRoles()
+    {
+        return array('ROLE_USER');
+    }
+    function getUsername()
+    {
+        return $this->getEmail();
+    }
+
 }

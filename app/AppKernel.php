@@ -19,12 +19,12 @@ class AppKernel extends Kernel
             new JMS\AopBundle\JMSAopBundle(),
             new JMS\DiExtraBundle\JMSDiExtraBundle($this),
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
-            new Teclliure\QuestionBundle\TeclliureQuestionBundle(),
-            new Teclliure\UserBundle\TeclliureUserBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new Teclliure\PatientBundle\TeclliurePatientBundle(),
             new Teclliure\CategoryBundle\TeclliureCategoryBundle(),
+            new Teclliure\QuestionBundle\TeclliureQuestionBundle(),
+            new Teclliure\UserBundle\TeclliureUserBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

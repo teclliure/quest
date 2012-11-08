@@ -14,7 +14,7 @@ teclliure_patient:
 
 teclliure_user:
     resource: "@TeclliureUserBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /user
 
 teclliure_question:
     resource: "@TeclliureQuestionBundle/Resources/config/routing.yml"

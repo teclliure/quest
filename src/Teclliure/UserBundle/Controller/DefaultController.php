@@ -4,11 +4,23 @@ namespace Teclliure\UserBundle\Controller;
 
 use Teclliure\UserBundle\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Security\Core\SecurityContext;
+
 
 class DefaultController extends Controller
 {
-    public function indexAction()
+    public function loginAction()
     {
-        return $this->render('TeclliureUserBundle:Default:index.html.twig', array('name' => 'Quest'));
+        $peticion = $this->getRequest();
+        $sesion = $peticion->getSession();
+
+        $error = $peticion->attributes->get(
+            SecurityContext::AUTHENTICATION_ERROR,
+            $sesion->get(SecurityContext::AUTHENTICATION_ERROR)
+        );
+        return $this->render('TeclliureUserBundle:Default:login.html.twig', array(
+            'last_username' => $sesion->get(SecurityContext::LAST_USERNAME),
+            'error' => $error
+        ));
     }
 }

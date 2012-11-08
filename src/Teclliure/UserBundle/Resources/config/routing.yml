@@ -1,3 +1,9 @@
-teclliure_user_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: TeclliureUserBundle:Default:index }
+login:
+  pattern:  /login
+  defaults: { _controller: TeclliureUserBundle:Default:login }
+
+login_check:
+  pattern:  /login_check
+
+logout:
+  pattern:  /logout

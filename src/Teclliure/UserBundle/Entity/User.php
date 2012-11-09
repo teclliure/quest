@@ -81,7 +81,13 @@ class User implements UserInterface
 
     function getRoles()
     {
-        return array('ROLE_USER');
+        $perms = array('ROLE_USER');
+
+        if ($this->getIsAdmin())
+        {
+            $perms[]='ROLE_ADMIN';
+        }
+        return $perms;
     }
 
     function getUsername()

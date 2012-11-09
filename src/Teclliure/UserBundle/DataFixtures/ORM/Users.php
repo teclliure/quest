@@ -26,8 +26,8 @@ class Users extends AbstractFixture implements OrderedFixtureInterface, Containe
     public function load(ObjectManager $manager)
     {
         $dataArray = array(
-            array('email' => 'marc@teclliure.net', 'password' => '1234'),
-            array('email' => 'marc@sindominio.net', 'password' => '4321'),
+            array('email' => 'marc@teclliure.net', 'password' => '1234','is_admin'=>1),
+            array('email' => 'marc@sindominio.net', 'password' => '4321','is_admin'=>0),
         );
         foreach ($dataArray as $key => $data) {
             $entity = new User();
@@ -39,6 +39,7 @@ class Users extends AbstractFixture implements OrderedFixtureInterface, Containe
 
             $entity->setEmail($data['email']);
             $entity->setPassword($password);
+            $entity->setIsAdmin($data['is_admin']);
             $entity->setSalt($salt);
 
             $manager->persist($entity);

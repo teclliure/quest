@@ -42,11 +42,25 @@ class User implements UserInterface
     private $salt;
 
     /**
+     * @ORM\Column(type="boolean")
+     *
+     * @Assert\Type(type="bool")
+     */
+    private $is_admin = 0;
+
+    /**
+     * @ORM\Column(type="boolean")
+     *
+     * @Assert\Type(type="bool")
+     */
+    private $active = 1;
+
+
+    /**
      * @var datetime $created
      *
-     * @ORM\Column(type="datetime")
-     *
      * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime")
      *
      */
     private $created;
@@ -55,7 +69,6 @@ class User implements UserInterface
      * @var datetime $updated
      *
      * @ORM\Column(type="datetime")
-     *
      * @Gedmo\Timestampable(on="update")
      */
     private $updated;

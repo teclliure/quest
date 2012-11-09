@@ -11,15 +11,19 @@ class DefaultController extends Controller
 {
     public function loginAction()
     {
-        $peticion = $this->getRequest();
-        $sesion = $peticion->getSession();
+        $request = $this->getRequest();
+        $session = $request->getSession();
 
-        $error = $peticion->attributes->get(
-            SecurityContext::AUTHENTICATION_ERROR,
-            $sesion->get(SecurityContext::AUTHENTICATION_ERROR)
-        );
+        // get the login error if there is one
+        if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
+            $error = $request->attributes->get(SecurityContext::AUTHENTICATION_ERROR);
+        } else {
+            $error = $session->get(SecurityContext::AUTHENTICATION_ERROR);
+            $session->remove(SecurityContext::AUTHENTICATION_ERROR);
+        }
+
         return $this->render('TeclliureUserBundle:Default:login.html.twig', array(
-            'last_username' => $sesion->get(SecurityContext::LAST_USERNAME),
+            'last_username' => $session->get(SecurityContext::LAST_USERNAME),
             'error' => $error
         ));
     }

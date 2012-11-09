@@ -5,6 +5,7 @@ namespace Teclliure\UserBundle\Entity;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="Teclliure\UserBundle\Entity\UserRepository")
@@ -211,5 +212,51 @@ class User implements UserInterface
     public function getUpdated()
     {
         return $this->updated;
+    }
+
+    /**
+     * Set is_admin
+     *
+     * @param boolean $isAdmin
+     * @return User
+     */
+    public function setIsAdmin($isAdmin)
+    {
+        $this->is_admin = $isAdmin;
+    
+        return $this;
+    }
+
+    /**
+     * Get is_admin
+     *
+     * @return boolean 
+     */
+    public function getIsAdmin()
+    {
+        return $this->is_admin;
+    }
+
+    /**
+     * Set active
+     *
+     * @param boolean $active
+     * @return User
+     */
+    public function setActive($active)
+    {
+        $this->active = $active;
+    
+        return $this;
+    }
+
+    /**
+     * Get active
+     *
+     * @return boolean 
+     */
+    public function getActive()
+    {
+        return $this->active;
     }
 }

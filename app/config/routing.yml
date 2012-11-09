@@ -1,20 +1,20 @@
-teclliure_dashboard:
-    resource: "@TeclliureDashboardBundle/Resources/config/routing.yml"
-    prefix:   /
-
 home:
     pattern:  /
-    defaults: { _controller: TeclliureUserBundle:Default:index }
+    defaults: { _controller: TeclliureDashboardBundle:Default:index }
+
+teclliure_dashboard:
+    resource: "@TeclliureDashboardBundle/Resources/config/routing.yml"
+    prefix:   /dashboard
 
 teclliure_category:
     resource: "@TeclliureCategoryBundle/Controller/"
     type:     annotation
-    prefix:   /
+    prefix:   /category
 
 teclliure_patient:
     resource: "@TeclliurePatientBundle/Controller/"
     type:     annotation
-    prefix:   /
+    prefix:   /patient
 
 teclliure_user:
     resource: "@TeclliureUserBundle/Resources/config/routing.yml"
@@ -22,7 +22,7 @@ teclliure_user:
 
 teclliure_question:
     resource: "@TeclliureQuestionBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /question
 
 # Internal routing configuration to handle ESI
 #_internal:

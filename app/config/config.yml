@@ -16,6 +16,7 @@ framework:
     default_locale:  "%locale%"
     trust_proxy_headers: false # Whether or not the Request object should trust proxy headers (X_FORWARDED_FOR/HTTP_CLIENT_IP)
     session:         ~
+    translator: ~
 
 # Twig Configuration
 twig:
@@ -66,3 +67,27 @@ stof_doctrine_extensions:
         default:
             timestampable: true
             sortable: true
+
+sonata_block:
+    default_contexts: [cms]
+    blocks:
+        sonata.admin.block.admin_list:
+            contexts: [admin]
+        sonata.block.service.text: ~
+        sonata.block.service.action: ~
+        sonata.block.service.rss: ~
+
+sonata_intl:
+    timezone:
+        # default timezone used as fallback
+        default: Europe/Madrid
+
+        # locale specific overrides
+        locales:
+            es: Europe/Madrid
+            fr: Europe/Paris
+            en_UK: Europe/London
+
+sonata_admin:
+    title: 'Quest - Backend'
+    # title_logo: /bundles/backend/logotipo.png

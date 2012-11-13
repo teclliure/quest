@@ -2,6 +2,15 @@ parameters:
 #    teclliure_user.example.class: Teclliure\UserBundle\Example
 
 services:
+    sonata.teclliure.admin.user:
+        class: Teclliure\UserBundle\Admin\UserAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm,group: 'Users and permissions', label: Users }
+        arguments:
+            - null
+            - Teclliure\UserBundle\Entity\User
+            - TeclliureUserBundle:Admin
+
 #    teclliure_user.example:
 #        class: %teclliure_user.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]

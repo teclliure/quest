@@ -26,6 +26,13 @@ class AppKernel extends Kernel
             new Teclliure\QuestionBundle\TeclliureQuestionBundle(),
             new Teclliure\UserBundle\TeclliureUserBundle(),
             new Teclliure\DashboardBundle\TeclliureDashboardBundle(),
+            new Sonata\jQueryBundle\SonatajQueryBundle(),
+            new Sonata\BlockBundle\SonataBlockBundle(),
+            new Sonata\CacheBundle\SonataCacheBundle(),
+            new Sonata\AdminBundle\SonataAdminBundle(),
+            new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
+            new Knp\Bundle\MenuBundle\KnpMenuBundle(),
+            new Sonata\IntlBundle\SonataIntlBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

@@ -47,14 +47,14 @@ class User implements UserInterface
      *
      * @Assert\Type(type="bool")
      */
-    private $is_admin = 0;
+    private $is_admin = false;
 
     /**
      * @ORM\Column(type="boolean")
      *
      * @Assert\Type(type="bool")
      */
-    private $active = 1;
+    private $active = true;
 
 
     /**

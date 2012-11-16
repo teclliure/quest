@@ -1,32 +1,31 @@
 <?php
 
-namespace Teclliure\UserBundle\Form;
+namespace Teclliure\QuestionBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class UserType extends AbstractType
+class QuestionaryType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('email')
-        ->add('password')
-        ->add('is_admin')
-        ->add('active')
+            ->add('name')
+            ->add('description')
+            ->add('active')
         ;
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Teclliure\UserBundle\Entity\User'
+            'data_class' => 'Teclliure\QuestionBundle\Entity\Questionary'
         ));
     }
 
     public function getName()
     {
-        return 'teclliure_userbundle_usertype';
+        return 'teclliure_questionbundle_questionarytype';
     }
 }

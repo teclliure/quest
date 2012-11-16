@@ -1,0 +1,30 @@
+questionary:
+    pattern:  /
+    defaults: { _controller: "TeclliureQuestionBundle:Questionary:index" }
+
+questionary_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "TeclliureQuestionBundle:Questionary:show" }
+
+questionary_new:
+    pattern:  /new
+    defaults: { _controller: "TeclliureQuestionBundle:Questionary:new" }
+
+questionary_create:
+    pattern:  /create
+    defaults: { _controller: "TeclliureQuestionBundle:Questionary:create" }
+    requirements: { _method: post }
+
+questionary_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "TeclliureQuestionBundle:Questionary:edit" }
+
+questionary_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "TeclliureQuestionBundle:Questionary:update" }
+    requirements: { _method: post }
+
+questionary_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "TeclliureQuestionBundle:Questionary:delete" }
+    requirements: { _method: post }

@@ -33,6 +33,10 @@ _sonata_admin:
     type: sonata_admin
     prefix: /admin
 
+TeclliureQuestionBundle_questionary:
+    resource: "@TeclliureQuestionBundle/Resources/config/routing/questionary.yml"
+    prefix:   /admin/questionary
+
 # Internal routing configuration to handle ESI
 #_internal:
 #    resource: "@FrameworkBundle/Resources/config/routing/internal.xml"

@@ -51,8 +51,6 @@ class Answer
      */
     private $question;
 
-
-
     /**
      * Get id
      *

@@ -6,10 +6,14 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
+
 
 /**
  * @ORM\Entity(repositoryClass="Teclliure\UserBundle\Entity\UserRepository")
  * @ORM\Table(name="user")
+ * @DoctrineAssert\UniqueEntity("email")
+ *
  *
  * Teclliure\UserBundle\Entity\User
  */
@@ -26,12 +30,17 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
+     * @Assert\NotBlank()
+     * @Assert\Email()
+     *
      * @var string $email
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min = 5)
+     *
      * @var string $password
      */
     private $password;
@@ -61,7 +70,10 @@ class User implements UserInterface
      * @var datetime $created
      *
      * @Gedmo\Timestampable(on="create")
+     *
      * @ORM\Column(type="datetime")
+     *
+     * @Assert\DateTime()
      *
      */
     private $created;
@@ -70,7 +82,11 @@ class User implements UserInterface
      * @var datetime $updated
      *
      * @ORM\Column(type="datetime")
+     *
      * @Gedmo\Timestampable(on="update")
+     *
+     * @Assert\DateTime()
+     *
      */
     private $updated;
 

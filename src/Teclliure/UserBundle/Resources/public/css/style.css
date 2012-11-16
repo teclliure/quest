@@ -4,7 +4,7 @@
 }
 
 a, a:visited {
-    background:inherit;
+    /*background:inherit;*/
     color:#79A325;
     text-decoration:none;
 }

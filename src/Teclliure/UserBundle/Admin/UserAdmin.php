@@ -32,10 +32,14 @@ class UserAdmin extends Admin {
     protected function configureFormFields(FormMapper $mapper)
     {
         $mapper
-        ->add('email')
-        ->add('password')
-        ->add('is_admin','checkbox')
-        ->add('active','checkbox')
+        ->add('email','email')
+        ->add('password', 'repeated', array(
+            'type' => 'password',
+            'invalid_message' => 'Two passwords must be the same',
+            'options' => array('label' => 'Password 2')
+        ))
+        ->add('is_admin','checkbox', array('required' => false))
+        ->add('active','checkbox', array('required' => false))
         ;
     }
 }

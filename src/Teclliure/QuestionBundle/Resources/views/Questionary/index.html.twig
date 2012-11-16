@@ -1,0 +1,44 @@
+{% extends '::one_column.html.twig' %}
+
+{% block title %}{{ "Questionary list" | trans }}{% endblock %}
+
+{% block inner_content %}
+<table class="records_list">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Created</th>
+            <th>Updated</th>
+            <th>Active</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td><a href="{{ path('questionary_show', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
+            <td>{{ entity.description }}</td>
+            <td>{% if entity.created %}{{ entity.created|date('Y-m-d H:i:s') }}{% endif %}</td>
+            <td>{% if entity.updated %}{{ entity.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
+            <td>{{ entity.active }}</td>
+            <td>
+                <div class="btn-group btn-group-vertical">
+                    <a class="btn btn-mini" href="{{ path('questionary_show', { 'id': entity.id }) }}">
+                        <i class="icon-eye-open"></i> Show
+                    </a>
+                    <a class="btn btn-mini" href="{{ path('questionary_edit', { 'id': entity.id }) }}">
+                        <i class="icon-edit"></i> Edit
+                    </a>
+                </div>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+
+<a class="btn btn-primary" href="{{ path('questionary_new') }}">
+    Create a new entry
+</a>
+{% endblock %}

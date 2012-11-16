@@ -16,7 +16,7 @@ framework:
     default_locale:  "%locale%"
     trust_proxy_headers: false # Whether or not the Request object should trust proxy headers (X_FORWARDED_FOR/HTTP_CLIENT_IP)
     session:         ~
-    translator: ~
+    translator: { fallback: en }
 
 # Twig Configuration
 twig:
@@ -90,4 +90,7 @@ sonata_intl:
 
 sonata_admin:
     title: 'Quest - Backend'
+    templates:
+        layout: ::sonata_standard_layout.html.twig
+
     # title_logo: /bundles/backend/logotipo.png

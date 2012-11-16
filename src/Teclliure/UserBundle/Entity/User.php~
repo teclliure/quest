@@ -47,14 +47,14 @@ class User implements UserInterface
      *
      * @Assert\Type(type="bool")
      */
-    private $is_admin = 0;
+    private $is_admin = false;
 
     /**
      * @ORM\Column(type="boolean")
      *
      * @Assert\Type(type="bool")
      */
-    private $active = 1;
+    private $active = true;
 
 
     /**
@@ -81,7 +81,13 @@ class User implements UserInterface
 
     function getRoles()
     {
-        return array('ROLE_USER');
+        $perms = array('ROLE_USER');
+
+        if ($this->getIsAdmin())
+        {
+            $perms[]='ROLE_ADMIN';
+        }
+        return $perms;
     }
 
     function getUsername()
@@ -212,5 +218,51 @@ class User implements UserInterface
     public function getUpdated()
     {
         return $this->updated;
+    }
+
+    /**
+     * Set is_admin
+     *
+     * @param boolean $isAdmin
+     * @return User
+     */
+    public function setIsAdmin($isAdmin)
+    {
+        $this->is_admin = $isAdmin;
+    
+        return $this;
+    }
+
+    /**
+     * Get is_admin
+     *
+     * @return boolean 
+     */
+    public function getIsAdmin()
+    {
+        return $this->is_admin;
+    }
+
+    /**
+     * Set active
+     *
+     * @param boolean $active
+     * @return User
+     */
+    public function setActive($active)
+    {
+        $this->active = $active;
+    
+        return $this;
+    }
+
+    /**
+     * Get active
+     *
+     * @return boolean 
+     */
+    public function getActive()
+    {
+        return $this->active;
     }
 }

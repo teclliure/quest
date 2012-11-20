@@ -6,10 +6,14 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
+
 
 /**
  * @ORM\Entity(repositoryClass="Teclliure\UserBundle\Entity\UserRepository")
  * @ORM\Table(name="user")
+ * @DoctrineAssert\UniqueEntity("email")
+ *
  *
  * Teclliure\UserBundle\Entity\User
  */
@@ -26,12 +30,17 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
+     * @Assert\NotBlank()
+     * @Assert\Email()
+     *
      * @var string $email
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min = 5)
+     *
      * @var string $password
      */
     private $password;
@@ -56,12 +65,21 @@ class User implements UserInterface
      */
     private $active = true;
 
+    /**
+     * @ORM\Column(type="date")
+     *
+     * @Assert\Date()
+     */
+    private $expire_date;
 
     /**
      * @var datetime $created
      *
      * @Gedmo\Timestampable(on="create")
+     *
      * @ORM\Column(type="datetime")
+     *
+     * @Assert\DateTime()
      *
      */
     private $created;
@@ -70,7 +88,11 @@ class User implements UserInterface
      * @var datetime $updated
      *
      * @ORM\Column(type="datetime")
+     *
      * @Gedmo\Timestampable(on="update")
+     *
+     * @Assert\DateTime()
+     *
      */
     private $updated;
 
@@ -136,8 +158,15 @@ class User implements UserInterface
      */
     public function setPassword($password)
     {
-        $this->password = $password;
-    
+        $salt = md5(time());
+        $encoder = $this->container->get('security.encoder_factory')
+            ->getEncoder($this);
+        $passwordEncoded = $encoder->encodePassword($password, $salt);
+
+        $this->setSalt($salt);
+
+        $this->password = $passwordEncoded;
+
         return $this;
     }
 
@@ -264,5 +293,28 @@ class User implements UserInterface
     public function getActive()
     {
         return $this->active;
+    }
+
+    /**
+     * Set expire_date
+     *
+     * @param \DateTime $expireDate
+     * @return User
+     */
+    public function setExpireDate($expireDate)
+    {
+        $this->expire_date = $expireDate;
+    
+        return $this;
+    }
+
+    /**
+     * Get expire_date
+     *
+     * @return \DateTime 
+     */
+    public function getExpireDate()
+    {
+        return $this->expire_date;
     }
 }

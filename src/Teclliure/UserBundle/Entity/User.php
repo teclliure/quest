@@ -65,6 +65,12 @@ class User implements UserInterface
      */
     private $active = true;
 
+    /**
+     * @ORM\Column(type="date")
+     *
+     * @Assert\Date()
+     */
+    private $expire_date;
 
     /**
      * @var datetime $created
@@ -152,8 +158,15 @@ class User implements UserInterface
      */
     public function setPassword($password)
     {
-        $this->password = $password;
-    
+        $salt = md5(time());
+        $encoder = $this->container->get('security.encoder_factory')
+            ->getEncoder($this);
+        $passwordEncoded = $encoder->encodePassword($password, $salt);
+
+        $this->setSalt($salt);
+
+        $this->password = $passwordEncoded;
+
         return $this;
     }
 
@@ -280,5 +293,28 @@ class User implements UserInterface
     public function getActive()
     {
         return $this->active;
+    }
+
+    /**
+     * Set expire_date
+     *
+     * @param \DateTime $expireDate
+     * @return User
+     */
+    public function setExpireDate($expireDate)
+    {
+        $this->expire_date = $expireDate;
+    
+        return $this;
+    }
+
+    /**
+     * Get expire_date
+     *
+     * @return \DateTime 
+     */
+    public function getExpireDate()
+    {
+        return $this->expire_date;
     }
 }

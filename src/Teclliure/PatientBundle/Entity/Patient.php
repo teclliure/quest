@@ -37,15 +37,17 @@ class Patient
     private $identification;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date", nullable = TRUE)
      *
-     * @Assert\DateTime
+     * @Assert\Date
      */
     private $birthDate;
 
     /**
      *
      * @ORM\Column(type="text", nullable = TRUE)
+     *
+     * @Assert\Length(min = 5, max = 2000)
      *
      */
     private $notes;

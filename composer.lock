@@ -398,12 +398,12 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/l3pp4rd/DoctrineExtensions.git",
-                "reference": "473210190cf196674da2304c30bc98906800fed7"
+                "reference": "3d838ada9a100ca56ec2487294761e64001f48c2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/l3pp4rd/DoctrineExtensions/zipball/473210190cf196674da2304c30bc98906800fed7",
-                "reference": "473210190cf196674da2304c30bc98906800fed7",
+                "url": "https://github.com/l3pp4rd/DoctrineExtensions/archive/3d838ada9a100ca56ec2487294761e64001f48c2.zip",
+                "reference": "3d838ada9a100ca56ec2487294761e64001f48c2",
                 "shasum": ""
             },
             "require": {
@@ -414,7 +414,7 @@
                 "doctrine/orm": ">=2.1",
                 "doctrine/mongodb-odm": "*"
             },
-            "time": "1351837444",
+            "time": "1352993555",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -433,7 +433,7 @@
             "authors": [
                 {
                     "name": "Gediminas Morkevicius",
-                    "email": "gediminas.morkevicius@gmail"
+                    "email": "gediminas.morkevicius@gmail.com"
                 }
             ],
             "description": "Doctrine2 behavioral extensions",
@@ -1993,18 +1993,18 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/fabpot/Twig.git",
-                "reference": "e1ad2bde9c2cf12e65a89ef5eadcccd048f1af0c"
+                "reference": "158ed4e88cc336724c9605f5f15a6ef859466703"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/fabpot/Twig/archive/e1ad2bde9c2cf12e65a89ef5eadcccd048f1af0c.zip",
-                "reference": "e1ad2bde9c2cf12e65a89ef5eadcccd048f1af0c",
+                "url": "https://github.com/fabpot/Twig/archive/158ed4e88cc336724c9605f5f15a6ef859466703.zip",
+                "reference": "158ed4e88cc336724c9605f5f15a6ef859466703",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.2.4"
             },
-            "time": "1352899988",
+            "time": "1353049473",
             "type": "library",
             "extra": {
                 "branch-alias": {

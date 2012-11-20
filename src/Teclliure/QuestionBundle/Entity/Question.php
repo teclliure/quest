@@ -4,6 +4,7 @@ namespace Teclliure\QuestionBundle\Entity;
 
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(name="question")
@@ -18,10 +19,21 @@ class Question
     */
     private $id;
 
-    /** @ORM\Column(type="string", length=255) */
+    /**
+     * @ORM\Column(type="string", length=255)
+     *
+     * @Assert\Length(min = 5, max = 255)
+     * @Assert\NotBlank()
+     *
+     */
     private $question;
 
-    /** @ORM\Column(type="text") */
+    /**
+     * @ORM\Column(type="text", nullable=TRUE)
+     *
+     * @Assert\Length(min = 5, max = 20000)
+     *
+     */
     private $help;
 
     /**
@@ -36,10 +48,18 @@ class Question
     */
     private $category;
 
-    /** @ORM\ManyToOne(targetEntity="Teclliure\QuestionBundle\Entity\Questionary") */
+    /**
+     *
+     * @ORM\ManyToOne(targetEntity="Teclliure\QuestionBundle\Entity\Questionary")
+     *
+     */
     protected $questionary;
 
-    /** @ORM\ManyToOne(targetEntity="Teclliure\QuestionBundle\Entity\QuestionGroup") */
+    /**
+     *
+     * @ORM\ManyToOne(targetEntity="Teclliure\QuestionBundle\Entity\QuestionGroup")
+     *
+     */
     protected $questionGroup;
 
     /**

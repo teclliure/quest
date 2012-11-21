@@ -47,8 +47,7 @@ class Users extends AbstractFixture implements OrderedFixtureInterface, Containe
 
         foreach ($dataArray as $key => $data) {
             $entity = $userManager->createUser();
-
-            $userManager->setUserPassword($entity, $data['password']);
+            $entity->setPlainPassword($data['password']);
             $entity->setEmail($data['email']);
             $entity->setIsAdmin($data['is_admin']);
             if (isset($data['disabled']) && $data['disabled'])
@@ -60,6 +59,7 @@ class Users extends AbstractFixture implements OrderedFixtureInterface, Containe
             {
                 $entity->setExpireDate($data['expire_date']);
             }
+            $userManager->updatePassword($entity);
             $manager->persist($entity);
 
             $this->addReference('user'.$key, $entity);

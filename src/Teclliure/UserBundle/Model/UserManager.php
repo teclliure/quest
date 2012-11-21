@@ -36,13 +36,15 @@ class UserManager
      * Sets user password
      *
      */
-    public function setUserPassword(User $user, $password)
+    public function updatePassword(User $user)
     {
-        $salt = md5(time());
-        $encoder = $this->encoderFactory->getEncoder($user);
-        $passwordEncoded = $encoder->encodePassword($password, $salt);
+        if ($user->getPlainPassword()) {
+            $salt = md5(time());
+            $encoder = $this->encoderFactory->getEncoder($user);
+            $passwordEncoded = $encoder->encodePassword($user->getPlainPassword(), $salt);
 
-        $user->setSalt($salt);
-        $user->setPassword($passwordEncoded);
+            $user->setSalt($salt);
+            $user->setPassword($passwordEncoded);
+        }
     }
 }

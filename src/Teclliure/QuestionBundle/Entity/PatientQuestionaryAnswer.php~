@@ -17,7 +17,7 @@ class PatientQuestionaryAnswer
      * @ORM\ManyToOne(targetEntity="Teclliure\QuestionBundle\Entity\PatientQuestionary")
      *
      */
-    private $patient_questionary;
+    private $patientQuestionary;
 
     /**
      *

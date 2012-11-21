@@ -225,3 +225,20 @@ hr {
     margin-bottom: 15px;
     padding: 7px 9px;
 }
+
+
+input, label {
+    display: inline-block;
+    margin: 10px 0;
+}
+
+label {
+    width: 200px;
+    vertical-align: top;
+
+}
+
+
+/*input[type="checkbox"]{
+    float: left;
+}​*/

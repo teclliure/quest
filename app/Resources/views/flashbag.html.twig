@@ -1,0 +1,20 @@
+{% for notice_level in ['success','error','info', 'warning'] %}
+    {% set session_var = 'sonata_flash_' ~ notice_level %}
+    {% for flash in app.session.flashbag.get(session_var) %}
+        <div class="alert {{ 'alert-' ~ notice_level }}" style="margin: 0 40px 10px 50px">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            {{ flash|trans([], 'SonataAdminBundle') }}
+        </div>
+    {% endfor %}
+{% endfor %}
+
+{% for type, msgs in app.session.flashbag.all() %}
+    {% for msg in msgs %}
+        <div class="alert alert-{{ type }} flash-{{ type }}"  style="margin: 0 40px 10px 50px">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            {{ msg|trans }}
+        </div>
+    {% endfor %}
+{% endfor %}
+
+

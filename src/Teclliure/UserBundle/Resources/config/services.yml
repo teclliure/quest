@@ -10,6 +10,7 @@ services:
             - null
             - Teclliure\UserBundle\Entity\User
             - TeclliureUserBundle:Admin
+            - @security.encoder_factory
 
 #    teclliure_user.example:
 #        class: %teclliure_user.example.class%

@@ -32,7 +32,7 @@ security:
               target: /
           remember_me:
             key: quest32dSa23
-            lifetime: 3600
+            lifetime: 36000
 
 
     access_control:

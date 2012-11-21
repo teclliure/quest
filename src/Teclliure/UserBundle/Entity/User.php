@@ -45,6 +45,13 @@ class User implements AdvancedUserInterface
      */
     private $password;
 
+    /**     *
+     * @Assert\Length(min = 5)
+     *
+     * @var string $password
+     */
+    private $plainPassword;
+
     /**
      * @ORM\Column(type="string", length=255)
      * @var string $salt
@@ -100,6 +107,11 @@ class User implements AdvancedUserInterface
         if (!$this->expire_date) {
             $this->setExpireDate(new \DateTime());
         }
+    }
+
+    public function __toString()
+    {
+        return $this->getUsername();
     }
 
     public function isAccountNonExpired()
@@ -200,6 +212,29 @@ class User implements AdvancedUserInterface
     public function getPassword()
     {
         return $this->password;
+    }
+
+    /**
+     * Set plain password
+     *
+     * @param string $password
+     * @return User
+     */
+    public function setPlainPassword($password)
+    {
+        $this->plainPassword = $password;
+
+        return $this;
+    }
+
+    /**
+     * Get plain password
+     *
+     * @return string
+     */
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
     }
 
     /**

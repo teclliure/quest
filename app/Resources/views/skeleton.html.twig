@@ -42,7 +42,7 @@
             <div class="hero-unit">
                 <h1 id="logo-text"><a href="{{ path('home') }}">Quest Demo</a></h1>
                 {% if app.user %}
-                    <div style="float: right">Hi {{ app.user.username }}. <a href="{{ path('logout') }}"><span class="btn btn-danger">Logout</span></a></div>
+                    <div style="float: right">Hi {{ app.user.username }} <a href="{{ path('logout') }}"><span class="btn btn-danger">Logout</span></a></div>
                 {% endif %}
                 <p id="slogan">Symfony2 Quest Application</p>
             </div>
@@ -68,8 +68,8 @@
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Questionaries<b class="caret"></b></a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="#">List</a></li>
-                                        <li><a href="#">Add questionary</a></li>
+                                        <li><a href="{{ path('questionary') }}">List</a></li>
+                                        <li><a href="{{ path('questionary_new') }}">Add questionary</a></li>
                                     </ul>
                                 </li>
                                 <li class="dropdown">
@@ -96,6 +96,13 @@
                                         <li class="nav-header">Subcategory</li>
                                         <li><a href="#">Subcategories list</a></li>
                                         <li><a href="#">Add subcategory</a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Users<b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="{{ path('admin_teclliure_user_user_list')  }}">List</a></li>
+                                        <li><a href="{{ path('admin_teclliure_user_user_create') }}">Add user</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -136,6 +143,8 @@
     <div  class="row">
         <div id="content-container" class="span12 boxed">
             <div class="row">
+                {% include '::flashbag.html.twig' %}
+
                 {% block content %}
                 {% endblock %}
             </div>

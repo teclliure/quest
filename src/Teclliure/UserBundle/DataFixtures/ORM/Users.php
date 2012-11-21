@@ -8,6 +8,7 @@ use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Teclliure\UserBundle\Entity\User;
+use Teclliure\UserBundle\Model\UserManager;
 
 class Users extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface
 {
@@ -23,25 +24,42 @@ class Users extends AbstractFixture implements OrderedFixtureInterface, Containe
         return 0;
     }
 
+
+
     public function load(ObjectManager $manager)
     {
+        $today = new \DateTime();
+        $nextWeek = new \DateTime();
+        $nextWeek->add(new \DateInterval('P7D'));
+        $nextTwoWeek = new \DateTime();
+        $nextTwoWeek->add(new \DateInterval('P14D'));
+        $lastWeek = new \DateTime();
+        $lastWeek->sub(new \DateInterval('P7D'));
+
         $dataArray = array(
-            array('email' => 'marc@teclliure.net', 'password' => '1234','is_admin'=>1),
-            array('email' => 'marc@sindominio.net', 'password' => '4321','is_admin'=>0),
+            array('email' => 'marc@teclliure.net', 'password' => '1234','is_admin'=>1, 'expire_date'=> $nextWeek),
+            array('email' => 'marc@sindominio.net', 'password' => '4321','is_admin'=>0, 'expire_date'=> $nextTwoWeek),
+            array('email' => 'marc@disabled.net', 'password' => '4321','disabled'=>1, 'is_admin'=>0, 'expire_date'=> $today),
+            array('email' => 'marc@expired.net', 'password' => '4321', 'is_admin'=>0, 'expire_date'=> $lastWeek),
         );
+        $encoderFactory = $this->container->get('security.encoder_factory');
+        $userManager = new UserManager($encoderFactory);
+
         foreach ($dataArray as $key => $data) {
-            $entity = new User();
+            $entity = $userManager->createUser();
 
-            $salt = md5(time());
-            $encoder = $this->container->get('security.encoder_factory')
-            ->getEncoder($entity);
-            $password = $encoder->encodePassword($data['password'], $salt);
-
+            $userManager->setUserPassword($entity, $data['password']);
             $entity->setEmail($data['email']);
-            $entity->setPassword($password);
             $entity->setIsAdmin($data['is_admin']);
-            $entity->setSalt($salt);
+            if (isset($data['disabled']) && $data['disabled'])
+            {
+                $entity->setActive(false);
+            }
 
+            if (isset($data['expire_date']) && $data['expire_date'])
+            {
+                $entity->setExpireDate($data['expire_date']);
+            }
             $manager->persist($entity);
 
             $this->addReference('user'.$key, $entity);

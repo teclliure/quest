@@ -3,7 +3,7 @@
 namespace Teclliure\UserBundle\Entity;
 
 use Gedmo\Mapping\Annotation as Gedmo;
-use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
@@ -17,7 +17,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
  *
  * Teclliure\UserBundle\Entity\User
  */
-class User implements UserInterface
+class User implements AdvancedUserInterface
 {
     /**
      * @ORM\Id
@@ -96,6 +96,35 @@ class User implements UserInterface
      */
     private $updated;
 
+    public function __construct() {
+        if (!$this->expire_date) {
+            $this->setExpireDate(new \DateTime());
+        }
+    }
+
+    public function isAccountNonExpired()
+    {
+        if ($this->getExpireDate()->getTimestamp() < time())
+        {
+            return false;
+        }
+        return true;
+    }
+
+    public function isAccountNonLocked()
+    {
+        return true;
+    }
+
+    public function isCredentialsNonExpired()
+    {
+        return true;
+    }
+
+    public function isEnabled()
+    {
+        return $this->getActive();
+    }
 
     function eraseCredentials()
     {
@@ -158,14 +187,7 @@ class User implements UserInterface
      */
     public function setPassword($password)
     {
-        $salt = md5(time());
-        $encoder = $this->container->get('security.encoder_factory')
-            ->getEncoder($this);
-        $passwordEncoded = $encoder->encodePassword($password, $salt);
-
-        $this->setSalt($salt);
-
-        $this->password = $passwordEncoded;
+        $this->password = $password;
 
         return $this;
     }

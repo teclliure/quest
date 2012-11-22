@@ -3,24 +3,36 @@
 {% block title %}{{ "Questionary Edit" | trans }}{% endblock %}
 
 {% block inner_content %}
+<div style="float: right">
+    <div class="sonata-actions">
+        <a class="btn sonata-action-element" href="{{ path('questionary_new') }}">{{ 'Add new' | trans }}</a>
+        <a class="btn sonata-action-element" href="{{ path('questionary') }}">
+            {{ 'Back to the list' | trans }}
+        </a>
+    </div>
+</div>
+<br />
 <form action="{{ path('questionary_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+    <legend>
+        {{ 'Questionaries' | trans }}
+    </legend>
     {{ form_widget(edit_form) }}
-    <p>
-        <button type="submit">Edit</button>
-    </p>
+
+    <div class="well form-actions">
+        <button class="btn btn-primary" type="submit">{{ 'Save'| trans }}</button>
+        {{ 'or' | trans }}
+        <a class="btn btn-danger" href="{{ path('questionary_delete', { 'id': entity.id }) }}">{{ 'Delete' | trans }}</a>
+    </div>
 </form>
 
-<ul class="record_actions">
-    <li>
-        <a href="{{ path('questionary') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <form action="{{ path('questionary_delete', { 'id': entity.id }) }}" method="post">
-            {{ form_widget(delete_form) }}
-            <button type="submit">Delete</button>
-        </form>
-    </li>
-</ul>
+
+
+ <div class="btn-toolbar">
+    <div class="btn-group">
+
+    </div>
+    <div class="btn-group">
+
+    </div>
+</div>
 {% endblock %}

@@ -3,16 +3,22 @@
 {% block title %}{{ "Questionary Creation" | trans }}{% endblock %}
 
 {% block inner_content %}
-<form action="{{ path('questionary_create') }}" method="post" {{ form_enctype(form) }}>
-    {{ form_widget(form) }}
-    <p>
-        <button class="btn btn-primary" type="submit">Create</button>
-    </p>
-</form>
-
-<div class="btn-group">
-    <a class="btn btn-mini" href="{{ path('questionary') }}">
-        Back to the list
-    </a>
+<div style="float: right">
+    <div class="sonata-actions">
+        <a class="btn sonata-action-element" href="{{ path('questionary_new') }}">{{ 'Add new' | trans }}</a>
+        <a class="btn sonata-action-element" href="{{ path('questionary') }}">
+            {{ 'Back to the list' | trans }}
+        </a>
+    </div>
 </div>
+<br />
+<form action="{{ path('questionary_create') }}" method="post" {{ form_enctype(form) }}>
+    <legend>
+        {{ 'Questionaries' | trans }}
+    </legend>
+    {{ form_widget(form) }}
+    <div class="well form-actions">
+        <button class="btn btn-primary" type="submit">{{ 'Create'| trans }}</button>
+    </div>
+</form>
 {% endblock %}

@@ -27,4 +27,3 @@ questionary_update:
 questionary_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "TeclliureQuestionBundle:Questionary:delete" }
-    requirements: { _method: post }

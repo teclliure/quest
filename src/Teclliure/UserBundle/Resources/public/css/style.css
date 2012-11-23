@@ -226,19 +226,48 @@ hr {
     padding: 7px 9px;
 }
 
-
-input, label {
-    display: inline-block;
-    margin: 10px 0;
+.simple_paginator {
+    list-style: none;
+    margin: 2px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-label {
-    width: 200px;
-    vertical-align: top;
-
-}
-
-
-/*input[type="checkbox"]{
+.simple_paginator li {
     float: left;
-}​*/
+    margin: 0 5px;
+}
+
+.simple_paginator li a {
+    border: 1px solid #cccccc;
+    line-height: 25px;
+    padding: 1px 8px 1px 8px;
+    margin: 2px;
+}
+
+.pager {
+    clear: both;
+    margin: 5 auto;
+    text-align: center;
+}
+
+.questionsList  {
+    list-style: none;
+    margin: 2px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.questionsList  li {
+    margin: 6px 0;
+}
+
+.questionsList h4 {
+    color: #333;
+}
+
+.questionsList p.questionHelp {
+    color: #999;
+}
+
+.ui-state-highlight { height: 1.5em; line-height: 1.2em; }

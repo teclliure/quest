@@ -14,4 +14,13 @@ class QuestionaryRepository extends SortableRepository
         return $query;
     }
 
+    public function findQuestions($questionary) {
+        $em = $this->getEntityManager();
+
+        $dql = 'SELECT q FROM TeclliureQuestionBundle:Question q where q.questionary = :questionary';
+        $query = $em->createQuery($dql);
+        $query->setParameter('questionary', $questionary->getId());
+        return $query->getResult();
+    }
+
 }

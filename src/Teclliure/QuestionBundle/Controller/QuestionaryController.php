@@ -6,7 +6,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Teclliure\QuestionBundle\Entity\Questionary;
+use Teclliure\QuestionBundle\Entity\Question;
 use Teclliure\QuestionBundle\Form\QuestionaryType;
+use Teclliure\QuestionBundle\Form\QuestionType;
 
 /**
  * Questionary controller.
@@ -38,18 +40,86 @@ class QuestionaryController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('TeclliureQuestionBundle:Questionary')->find($id);
+        $questionRepository = $em->getRepository('TeclliureQuestionBundle:Questionary');
+
+        $entity = $questionRepository->find($id);
+
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Questionary entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
+        $questions = $questionRepository->findQuestions($entity);
+        $question = new Question();
+        // $question->se
+        $questionForm = $this->createForm(new QuestionType(), $question);
+
 
         return $this->render('TeclliureQuestionBundle:Questionary:show.html.twig', array(
             'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),        ));
+            'questions'   => $questions,
+            'questionForm' => $questionForm->createView()
+        ));
     }
+
+    /**
+     * Saves a question
+     *
+     */
+    public function saveQuestionAction($id, $questionId = null)
+    {
+        $request = $this->getRequest();
+        $em = $this->getDoctrine()->getManager();
+
+        $questionRepository = $em->getRepository('TeclliureQuestionBundle:Questionary');
+
+        $entity = $questionRepository->find($id);
+
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Questionary entity.');
+        }
+
+        if ($request->isXmlHttpRequest()) {
+            if ($questionId) {
+                $question = $em->getRepository('TeclliureQuestionBundle:Questionary')->find($questionId);
+            }
+            else {
+                $question = new Question();
+            }
+
+            $question->setQuestionary($entity);
+            $questionForm = $this->createForm(new QuestionType(), $question);
+            $questionForm->bind($request);
+
+            if ($questionForm->isValid()) {
+                $em->persist($question);
+                $em->flush();
+
+                $questionForm = $this->createForm(new QuestionType(), new Question());
+
+                $this->get('session')->setFlash('info',
+                    'Question saved correctly'
+                );
+            }
+
+            $questions = $questionRepository->findQuestions($entity);
+
+            return $this->render('TeclliureQuestionBundle:Questionary:question.html.twig', array(
+                'entity'      => $entity,
+                'questions'   => $questions,
+                'questionForm' => $questionForm->createView()
+            ));
+        }
+        else {
+            return $this->render(':msg:error.html.twig', array(
+                'msg' => 'Error: Not ajax call'
+
+            ));
+        }
+    }
+
+
 
     /**
      * Displays a form to create a new Questionary entity.
@@ -105,12 +175,10 @@ class QuestionaryController extends Controller
         }
 
         $editForm = $this->createForm(new QuestionaryType(), $entity);
-        $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('TeclliureQuestionBundle:Questionary:edit.html.twig', array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            'edit_form'   => $editForm->createView()
         ));
     }
 
@@ -128,7 +196,6 @@ class QuestionaryController extends Controller
             throw $this->createNotFoundException('Unable to find Questionary entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createForm(new QuestionaryType(), $entity);
         $editForm->bind($request);
 
@@ -141,8 +208,7 @@ class QuestionaryController extends Controller
 
         return $this->render('TeclliureQuestionBundle:Questionary:edit.html.twig', array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            'edit_form'   => $editForm->createView()
         ));
     }
 
@@ -152,29 +218,16 @@ class QuestionaryController extends Controller
      */
     public function deleteAction(Request $request, $id)
     {
-        $form = $this->createDeleteForm($id);
-        $form->bind($request);
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('TeclliureQuestionBundle:Questionary')->find($id);
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('TeclliureQuestionBundle:Questionary')->find($id);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Questionary entity.');
-            }
-
-            $em->remove($entity);
-            $em->flush();
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Questionary entity.');
         }
 
-        return $this->redirect($this->generateUrl('questionary'));
-    }
+        $em->remove($entity);
+        $em->flush();
 
-    private function createDeleteForm($id)
-    {
-        return $this->createFormBuilder(array('id' => $id))
-            ->add('id', 'hidden')
-            ->getForm()
-        ;
+        return $this->redirect($this->generateUrl('questionary'));
     }
 }

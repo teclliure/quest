@@ -43,6 +43,9 @@
     </tbody>
 </table>
 
+<div class="pager well form-actions">
+{{ simple_paginator_render('questionary') }}
+</div>
 
 <a class="btn btn-primary" href="{{ path('questionary_new') }}">
     {{ 'Create a new entry' | trans }}

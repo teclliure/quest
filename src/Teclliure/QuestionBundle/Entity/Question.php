@@ -38,15 +38,17 @@ class Question
 
     /**
     * @Gedmo\SortablePosition
+    *
     * @ORM\Column(name="position", type="integer")
     */
     private $position;
 
     /**
     * @Gedmo\SortableGroup
+     *
     * @ORM\Column(name="category", type="string", length=128)
     */
-    private $category;
+    private $category = 'default';
 
     /**
      *

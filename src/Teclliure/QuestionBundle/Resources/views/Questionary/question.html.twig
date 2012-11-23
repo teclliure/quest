@@ -1,0 +1,27 @@
+<div id="new_question_form">
+    <form id="saveQuestionForm" action="{{ path('question_save', { 'id': entity.id }) }}" method="post">
+        <div>
+            {{ form_label(questionForm.question, 'Question') }}
+            {{ form_errors(questionForm.question) }}
+            {{ form_widget(questionForm.question) }}
+        </div>
+
+        <div>
+            {{ form_row(questionForm.help) }}
+        </div>
+
+        {{ form_rest(questionForm) }}
+
+        <input type="submit" value="{{ 'Question add' | trans }}" />
+    </form>
+</div>
+
+<legend>
+    {{ 'Questions list' | trans }} ({{  questions|length  }})
+</legend>
+
+<ul id="questionsList" class="questionsList connectedSortable">
+{% for question in questions %}
+    <li class="alert questionLi" id="questionPos{{ question.position }}"><h4>{{ question.question }}</h4> <p class="questionHelp">{{ question.help }}</p></li>
+{% endfor %}
+</ul>

@@ -1,8 +1,8 @@
 <div id="questionId{{ question.id }}answersList" class="questionAnswersList">
     <legend class="answerLegend">
-        {{ 'Answers' | trans }} ({{ question.answers | length }})
+        <button type="button" class="btn btn-link answersListShow" id="questionId{{ question.id }}answersListShow"><i class="icon-chevron-down"></i>{{ 'Answers' | trans }} ({{ question.answers | length }})</button>
     </legend>
-    <ul>
+    <ul id="questionId{{ question.id }}answersListUl">
         {% for answer in question.answers %}
             <li>
                 <div class="answer_buttons">

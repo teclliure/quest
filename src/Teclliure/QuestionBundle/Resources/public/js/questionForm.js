@@ -40,6 +40,13 @@ $(function() {
         });
     });
 
+    $("body").on("click", ".answersListShow", function(event) {
+        questionId = $(this).attr('id').replace('questionId','').replace('answersListShow','')
+        $(this).children('i').toggleClass('icon-chevron-right');
+        $(this).children('i').toggleClass('icon-chevron-down');
+        $('#questionId' + questionId + 'answersListUl').slideToggle();
+    });
+
     $("body").on("submit", ".saveAnswerForm", function(event) {
         /* stop form from submitting normally */
         event.preventDefault();

@@ -66,7 +66,7 @@ class Question
     protected $questionGroup;
 
     /**
-     * @ORM\OneToMany(targetEntity="Answer", mappedBy="question")
+     * @ORM\OneToMany(targetEntity="Teclliure\QuestionBundle\Entity\Answer", mappedBy="question")
      */
     private $answers;
 
@@ -260,14 +260,15 @@ class Question
     {
         $this->answers = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+   
+
     /**
      * Add answers
      *
-     * @param \Teclliure\QuestionBundle\Entity\Answers $answers
+     * @param \Teclliure\QuestionBundle\Entity\Answer $answers
      * @return Question
      */
-    public function addAnswer(\Teclliure\QuestionBundle\Entity\Answers $answers)
+    public function addAnswer(\Teclliure\QuestionBundle\Entity\Answer $answers)
     {
         $this->answers[] = $answers;
     
@@ -277,9 +278,9 @@ class Question
     /**
      * Remove answers
      *
-     * @param \Teclliure\QuestionBundle\Entity\Answers $answers
+     * @param \Teclliure\QuestionBundle\Entity\Answer $answers
      */
-    public function removeAnswer(\Teclliure\QuestionBundle\Entity\Answers $answers)
+    public function removeAnswer(\Teclliure\QuestionBundle\Entity\Answer $answers)
     {
         $this->answers->removeElement($answers);
     }

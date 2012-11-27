@@ -120,7 +120,6 @@ class QuestionaryController extends Controller
         else {
             return $this->render(':msg:error.html.twig', array(
                 'msg' => 'Error: Not ajax call'
-
             ));
         }
     }
@@ -272,7 +271,7 @@ class QuestionaryController extends Controller
     }
 
     /**
-     * Saves a question
+     * Deletes a question
      *
      */
     public function deleteQuestionAction($questionId)
@@ -301,7 +300,6 @@ class QuestionaryController extends Controller
             return $this->render('TeclliureQuestionBundle:Questionary:questionList.html.twig', array(
                 'questions'   => $questions,
             ));
-            return new Response();
         }
         else {
             return $this->render(':msg:error.html.twig', array(
@@ -384,8 +382,6 @@ class QuestionaryController extends Controller
             }
 
             return $this->render('TeclliureQuestionBundle:Questionary:answerElement.html.twig', $viewParams);
-
-
         }
         else {
             return $this->render(':msg:error.html.twig', array(
@@ -395,4 +391,37 @@ class QuestionaryController extends Controller
         }
     }
 
+    /**
+     * Deletes a question
+     *
+     */
+    public function deleteAnswerAction($answerId)
+    {
+        $request = $this->getRequest();
+
+        if ($request->isXmlHttpRequest()) {
+            $em = $this->getDoctrine()->getManager();
+
+            $answerRepository = $em->getRepository('TeclliureQuestionBundle:Answer');
+
+            $entity = $answerRepository->find($answerId);
+
+            if (!$entity) {
+                throw $this->createNotFoundException('Unable to find Answer entity.');
+            }
+            $question = $entity->getQuestion();
+
+            $em->remove($entity);
+            $em->flush();
+
+            return $this->render('TeclliureQuestionBundle:Questionary:answerList.html.twig', array(
+                'question'   => $question
+            ));
+        }
+        else {
+            return $this->render(':msg:error.html.twig', array(
+                'msg' => 'Error: Not ajax call'
+            ));
+        }
+    }
 }

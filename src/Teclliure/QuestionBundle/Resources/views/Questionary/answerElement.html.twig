@@ -1,30 +1,11 @@
-<legend class="answerLegend">
-    {{ 'Answers' | trans }} ({{ question.answers | length }})
-    <a href="{{ path('answer_form_show', { 'questionId': question.id }) }}"  id="questionId{{ question.id }}showForm" class="btn btn-mini answerShowForm" style="float: right;">
-        <i class="icon-chevron-right"></i> {{ 'Add answer' | trans }}
-    </a>
-</legend>
-
+<a href="{{ path('answer_form_show', { 'questionId': question.id }) }}"  id="questionId{{ question.id }}showForm" class="btn btn-mini answerShowForm" style="float: right;">
+    <i class="icon-chevron-right"></i> {{ 'Add answer' | trans }}
+</a>
 <div id="questionId{{ question.id }}AnswerForm" {% if answerForm is not defined %}style="display: none"{% endif %}>
     {% if answerForm is defined %}
         {% include 'TeclliureQuestionBundle:Questionary:answerForm.html.twig' %}
     {% endif %}
 </div>
 
-<div id="questionId{{ question.id }}answersList" class="questionAnswersList">
-    <ul>
-        {% for answer in question.answers %}
-            <li>
-            <div class="answer_buttons">
-                &nbsp;
-                <a class="btn btn-mini btn-danger deleteAnswer" href="{{ path('answer_delete', { 'answerId': answer.id }) }}">
-                    <i class="icon-trash"></i>
-                    {{ 'Delete' | trans }}
-                </a>
-            </div>
-            <p class="answer">{{ answer.answer }} ({{ 'Raw value' | trans }}: <strong>{{ answer.rawValue }}</strong>)</p>
-            <p class="answerHelp">{{ answer.help }}</p>
-            </li>
-        {% endfor %}
-    </ul>
-</div>
+
+{% include 'TeclliureQuestionBundle:Questionary:answerList.html.twig' %}

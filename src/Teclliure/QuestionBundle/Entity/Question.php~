@@ -66,7 +66,7 @@ class Question
     protected $questionGroup;
 
     /**
-     * @ORM\OneToMany(targetEntity="Answers", mappedBy="question")
+     * @ORM\OneToMany(targetEntity="Teclliure\QuestionBundle\Entity\Answer", mappedBy="question")
      */
     private $answers;
 
@@ -253,4 +253,12 @@ class Question
     {
         return $this->questionGroup;
     }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->answers = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+   
 }

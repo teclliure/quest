@@ -1,3 +1,4 @@
+<div id="alerts">
 {% for notice_level in ['success','error','info', 'warning'] %}
     {% set session_var = 'sonata_flash_' ~ notice_level %}
     {% for flash in app.session.flashbag.get(session_var) %}
@@ -16,5 +17,4 @@
         </div>
     {% endfor %}
 {% endfor %}
-
-
+</div>

@@ -21,6 +21,25 @@ $(function() {
         $('#new_question_form').slideToggle();
     });
 
+    // Delete question
+    $("body").on("click", ".deleteQuestion", function(event) {
+        event.preventDefault();
+        actionUrl = $(this).attr('href');
+
+        // alert('Hola'.$(this).attr('href'));
+        bootbox.confirm(" {{ 'Are you sure do you want to delete question ?' | trans }} ", function(result) {
+            if (result) {
+                $.ajax({
+                    url: actionUrl,
+                    success: function(data) {
+                        $('#questionsList').html(data);
+                        makeQuestionsSortable();
+                    }
+                });
+            }
+        });
+    });
+
     $("body").on("submit", ".saveAnswerForm", function(event) {
         /* stop form from submitting normally */
         event.preventDefault();
@@ -35,21 +54,6 @@ $(function() {
                 $('#questionId' + questionId + 'answers').html(data);
             }
         );
-    });
-
-    // Delete question
-    $("body").on("click", ".deleteQuestion", function(event) {
-        event.preventDefault();
-
-        // alert('Hola'.$(this).attr('href'));
-
-        $.ajax({
-            url: $(this).attr('href'),
-            success: function(data) {
-                $('#questionsList').html(data);
-                makeQuestionsSortable();
-            }
-        });
     });
 
     // Show answer form
@@ -71,6 +75,26 @@ $(function() {
             });
         }
         $('#questionId' + questionId + 'AnswerForm').slideToggle();
+    });
+
+    // Delete answer
+    $("body").on("click", ".deleteAnswer", function(event) {
+        event.preventDefault();
+        actionUrl = $(this).attr('href');
+        listId = $(this).parents('div .questionAnswersList').attr('id');
+
+        // alert('Hola'.$(this).attr('href'));
+        bootbox.confirm("{{ 'Are you sure do you want to delete answer ?' | trans }}", function(result) {
+            if (result) {
+                $.ajax({
+                    url: actionUrl,
+                    success: function(data) {
+                        $('#'+listId).html(data);
+                        makeQuestionsSortable();
+                    }
+                });
+            }
+        });
     });
 
     makeQuestionsSortable();

@@ -3,7 +3,7 @@
     margin-bottom: 2em;
 }
 
-a, a:visited {
+a {
     /*background:inherit;*/
     color:#79A325;
     text-decoration:none;

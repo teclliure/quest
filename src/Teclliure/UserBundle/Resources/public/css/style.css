@@ -251,14 +251,14 @@ hr {
     text-align: center;
 }
 
-.questionsList  {
+.questionsList, .questionAnswersList ul  {
     list-style: none;
     margin: 2px;
     margin-left: auto;
     margin-right: auto;
 }
 
-.questionsList  li {
+.questionsList  li, .questionAnswersList ul li {
     margin: 6px 0;
 }
 
@@ -266,8 +266,27 @@ hr {
     color: #333;
 }
 
-.questionsList p.questionHelp {
+.questionsList p.questionHelp, .questionAnswersList p.answerHelp {
     color: #999;
 }
 
+.questionAnswersList p.answer {
+    color: #333;
+    margin: 0;
+}
+
 .ui-state-highlight { height: 1.5em; line-height: 1.2em; }
+
+.question_buttons,  .answer_buttons {
+    float: right;
+}
+
+.questionAnswersList {
+    width: 90%;
+    margin: 20px;
+}
+
+.answerLegend {
+    font-size: 0.9em;
+    line-height: 30px;
+}

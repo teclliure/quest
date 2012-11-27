@@ -215,6 +215,29 @@ class User implements AdvancedUserInterface
     }
 
     /**
+     * Set plain password
+     *
+     * @param string $password
+     * @return User
+     */
+    public function setPlainPassword($password)
+    {
+        $this->plainPassword = $password;
+
+        return $this;
+    }
+
+    /**
+     * Get plain password
+     *
+     * @return string
+     */
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
+    /**
      * Set salt
      *
      * @param string $salt

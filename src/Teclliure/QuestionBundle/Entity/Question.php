@@ -9,6 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Table(name="question")
  * @ORM\Entity(repositoryClass="Gedmo\Sortable\Entity\Repository\SortableRepository")
+ * @ORM\HasLifecycleCallbacks
  */
 class Question
 {
@@ -63,6 +64,24 @@ class Question
      *
      */
     protected $questionGroup;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Answer", mappedBy="question")
+     */
+    private $answers;
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function doOnPrePersist()
+    {
+        $category = 'questionary'.$this->getQuestionary()->getId();
+        if ($this->getQuestionGroup()) {
+            $category .= $category.'questionaryGroup'.$this->getQuestionGroup()->getId();
+        }
+        $this->setCategory($category);
+    }
 
     /**
      * Get id
@@ -233,5 +252,45 @@ class Question
     public function getQuestionGroup()
     {
         return $this->questionGroup;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->answers = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add answers
+     *
+     * @param \Teclliure\QuestionBundle\Entity\Answers $answers
+     * @return Question
+     */
+    public function addAnswer(\Teclliure\QuestionBundle\Entity\Answers $answers)
+    {
+        $this->answers[] = $answers;
+    
+        return $this;
+    }
+
+    /**
+     * Remove answers
+     *
+     * @param \Teclliure\QuestionBundle\Entity\Answers $answers
+     */
+    public function removeAnswer(\Teclliure\QuestionBundle\Entity\Answers $answers)
+    {
+        $this->answers->removeElement($answers);
+    }
+
+    /**
+     * Get answers
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAnswers()
+    {
+        return $this->answers;
     }
 }

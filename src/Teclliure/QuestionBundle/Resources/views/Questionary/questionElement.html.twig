@@ -1,0 +1,13 @@
+<div class="question_buttons">
+    &nbsp;
+    <a class="btn btn-mini btn-danger deleteQuestion" href="{{ path('question_delete', { 'questionId': question.id }) }}">
+        <i class="icon-trash"></i>
+        {{ 'Delete' | trans }}
+    </a>
+</div>
+<h4>{{ question.question }}</h4>
+<p class="questionHelp">{{ question.help }}</p>
+
+<div id="questionId{{ question.id }}answers">
+    {% include 'TeclliureQuestionBundle:Questionary:answerElement.html.twig' %}
+</div>

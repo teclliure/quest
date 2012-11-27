@@ -1,0 +1,11 @@
+<legend>
+    {{ 'Questions list' | trans }} ({{  questions|length  }})
+</legend>
+
+<ul id="questionsListSortable" class="questionsList connectedSortable">
+{% for question in questions %}
+    <li class="alert questionLi" id="questionId{{ question.id }}">
+        {% include 'TeclliureQuestionBundle:Questionary:questionElement.html.twig' %}
+    </li>
+{% endfor %}
+</ul>

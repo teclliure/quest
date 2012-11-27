@@ -1,0 +1,19 @@
+<form class="saveAnswerForm" id="questionId{{ question.id }}saveAnswerForm" action="{{ path('answer_save', { 'questionId': question.id }) }}" method="post">
+    <div>
+        {{ form_label(answerForm.answer, 'Question') }}
+        {{ form_errors(answerForm.answer) }}
+        {{ form_widget(answerForm.answer) }}
+    </div>
+
+    <div>
+        {{ form_row(answerForm.rawValue) }}
+    </div>
+
+    <div>
+        {{ form_row(answerForm.help) }}
+    </div>
+
+    <div><input class="btn btn-primary btn-mini" type="submit" value="{{ 'Answer add' | trans }}" /></div>
+
+    {{ form_rest(answerForm) }}
+</form>

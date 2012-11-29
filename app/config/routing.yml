@@ -8,12 +8,10 @@ teclliure_dashboard:
 
 teclliure_category:
     resource: "@TeclliureCategoryBundle/Controller/"
-    type:     annotation
     prefix:   /category
 
 teclliure_patient:
     resource: "@TeclliurePatientBundle/Controller/"
-    type:     annotation
     prefix:   /patient
 
 teclliure_user:

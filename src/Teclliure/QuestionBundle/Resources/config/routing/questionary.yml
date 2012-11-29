@@ -69,3 +69,10 @@ answer_delete:
         _controller: "TeclliureQuestionBundle:Questionary:deleteAnswer"
         requirements:
             _method:  GET
+
+answer_sort:
+    pattern:  /sortAnswer/{answerId}/{sortOrder}
+    defaults:
+        _controller: "TeclliureQuestionBundle:Questionary:sortAnswer"
+        requirements:
+            _method:  GET

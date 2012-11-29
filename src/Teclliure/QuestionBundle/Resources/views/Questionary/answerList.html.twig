@@ -2,9 +2,9 @@
     <legend class="answerLegend">
         <button type="button" class="btn btn-link answersListShow" id="questionId{{ question.id }}answersListShow"><i class="icon-chevron-down"></i>{{ 'Answers' | trans }} ({{ question.answers | length }})</button>
     </legend>
-    <ul id="questionId{{ question.id }}answersListUl">
+    <ul id="questionId{{ question.id }}answersListUl" class="answersListUl connectedSortable2">
         {% for answer in question.answers %}
-            <li>
+            <li id="answerId{{ answer.id }}">
                 <div class="answer_buttons">
                     &nbsp;
                     <a class="btn btn-mini btn-danger deleteAnswer" href="{{ path('answer_delete', { 'answerId': answer.id }) }}">

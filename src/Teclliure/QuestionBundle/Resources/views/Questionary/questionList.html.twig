@@ -1,7 +1,3 @@
-{% if app.request.isXmlHttpRequest %}
-    {% include '::flashbag_ajax.html.twig' %}
-{% endif %}
-
 <legend>
     {{ 'Questions list' | trans }} ({{  questions|length  }})
 </legend>

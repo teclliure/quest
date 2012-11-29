@@ -1,6 +1,3 @@
-{% if app.request.isXmlHttpRequest %}
-    {% include '::flashbag_ajax.html.twig' %}
-{% endif %}
 <button type="button"  id="showQuestionForm" class="btn btn-small pull-right">
     <i class="{% if questionFormError is not defined or questionFormError == false %}icon-chevron-right{% else %}icon-chevron-down{% endif %}"></i> {{ 'Add question' | trans }}
 </button>

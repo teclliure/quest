@@ -59,6 +59,7 @@ $(function() {
             $(this).serialize(),
             function(data) {
                 $('#questionId' + questionId + 'answers').html(data);
+                makeAnswersSortable();
             }
         );
     });
@@ -97,7 +98,7 @@ $(function() {
                     url: actionUrl,
                     success: function(data) {
                         $('#'+listId).html(data);
-                        makeQuestionsSortable();
+                        makeAnswersSortable();
                     }
                 });
             }
@@ -120,4 +121,20 @@ function makeQuestionsSortable() {
     }
     });
     $( "#questionsListSortable" ).disableSelection();
+    makeAnswersSortable();
+}
+
+function makeAnswersSortable() {
+    // Sortable question behaviour
+    $( ".answersListUl" ).sortable({
+        // connectWith: ".itemsList",
+        placeholder: "ui-state-highlight",
+        update: function(event, ui) {
+            $.ajax({
+                url: basePath + '/admin/questionary/sortAnswer/' + ui.item.attr('id') + '/' + ui.item.index()
+            })
+
+        }
+    });
+    $( ".answersListUl" ).disableSelection();
 }

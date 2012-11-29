@@ -67,6 +67,7 @@ class Question
 
     /**
      * @ORM\OneToMany(targetEntity="Teclliure\QuestionBundle\Entity\Answer", mappedBy="question")
+     * @ORM\OrderBy({"position" = "ASC"})
      */
     private $answers;
 

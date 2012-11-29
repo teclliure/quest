@@ -5,7 +5,6 @@ namespace Teclliure\QuestionBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
-
 use Teclliure\QuestionBundle\Entity\Questionary;
 use Teclliure\QuestionBundle\Entity\Question;
 use Teclliure\QuestionBundle\Entity\Answer;
@@ -110,10 +109,11 @@ class QuestionaryController extends Controller
 
             $questions = $questionary->findQuestions($entity);
 
-            return $this->render('TeclliureQuestionBundle:Questionary:question.html.twig', array(
-                'entity'      => $entity,
-                'questions'   => $questions,
-                'questionForm' => $questionForm->createView(),
+            return $this->render(':ajax:base_ajax.html.twig', array(
+                'template'          => 'TeclliureQuestionBundle:Questionary:question.html.twig',
+                'entity'            => $entity,
+                'questions'         => $questions,
+                'questionForm'      => $questionForm->createView(),
                 'questionFormError' => $questionFormError
             ));
         }
@@ -237,7 +237,7 @@ class QuestionaryController extends Controller
     }
 
     /**
-     * Saves a question
+     * Sort question
      *
      */
     public function sortQuestionAction($questionId, $sortOrder)
@@ -293,11 +293,26 @@ class QuestionaryController extends Controller
             $questionary = $entity->getQuestionary();
 
             $em->remove($entity);
-            $em->flush();
+
+            try {
+                $em->flush();
+
+                $this->get('session')->setFlash('info',
+                    'Question deleted correctly'
+                );
+            }
+            catch (\Exception $e) {
+                $this->get('session')->setFlash('error',
+                    'Question could not be deleted. You should delete related content (answers, ...) before.'
+                );
+            }
 
             $questions = $questionaryRepository->findQuestions($questionary);
 
-            return $this->render('TeclliureQuestionBundle:Questionary:questionList.html.twig', array(
+
+
+            return $this->render(':ajax:base_ajax.html.twig', array(
+                'template'          => 'TeclliureQuestionBundle:Questionary:questionList.html.twig',
                 'questions'   => $questions,
             ));
         }
@@ -381,7 +396,10 @@ class QuestionaryController extends Controller
                 );
             }
 
-            return $this->render('TeclliureQuestionBundle:Questionary:answerElement.html.twig', $viewParams);
+            return $this->render(':ajax:base_ajax.html.twig', array_merge(array(
+                'template'          => 'TeclliureQuestionBundle:Questionary:answerElement.html.twig'),
+                $viewParams)
+            );
         }
         else {
             return $this->render(':msg:error.html.twig', array(
@@ -414,9 +432,43 @@ class QuestionaryController extends Controller
             $em->remove($entity);
             $em->flush();
 
-            return $this->render('TeclliureQuestionBundle:Questionary:answerList.html.twig', array(
-                'question'   => $question
+            return $this->render(':ajax:base_ajax.html.twig', array(
+                'template'      => 'TeclliureQuestionBundle:Questionary:answerList.html.twig',
+                'question'      => $question
             ));
+        }
+        else {
+            return $this->render(':msg:error.html.twig', array(
+                'msg' => 'Error: Not ajax call'
+            ));
+        }
+    }
+
+    /**
+     * Sort answer
+     */
+    public function sortAnswerAction($answerId, $sortOrder)
+    {
+        $request = $this->getRequest();
+
+        if ($request->isXmlHttpRequest()) {
+            $em = $this->getDoctrine()->getManager();
+
+            $answerId = trim(str_replace('answerId','',$answerId));
+
+            $answerRepository = $em->getRepository('TeclliureQuestionBundle:Answer');
+
+            $entity = $answerRepository->find($answerId);
+
+            if (!$entity) {
+                throw $this->createNotFoundException('Unable to find Answer entity.');
+            }
+
+            $entity->setPosition($sortOrder);
+            $em->persist($entity);
+            $em->flush();
+
+            return new Response();
         }
         else {
             return $this->render(':msg:error.html.twig', array(

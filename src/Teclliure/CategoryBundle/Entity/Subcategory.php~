@@ -22,7 +22,7 @@ class Subcategory
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255, unique=true)
+     * @ORM\Column(type="string", length=255)
      *
      * @var string $email
      */
@@ -33,7 +33,7 @@ class Subcategory
      *
      * @var string $desc
      */
-    private $desc;
+    private $description;
 
     /**
      *
@@ -75,28 +75,6 @@ class Subcategory
         return $this->name;
     }
 
-    /**
-     * Set desc
-     *
-     * @param string $desc
-     * @return Subcategory
-     */
-    public function setDesc($desc)
-    {
-        $this->desc = $desc;
-    
-        return $this;
-    }
-
-    /**
-     * Get desc
-     *
-     * @return string 
-     */
-    public function getDesc()
-    {
-        return $this->desc;
-    }
 
     /**
      * Set category
@@ -119,5 +97,28 @@ class Subcategory
     public function getCategory()
     {
         return $this->category;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return Subcategory
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 }

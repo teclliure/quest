@@ -25,16 +25,20 @@ class Category
     /**
      * @ORM\Column(type="string", length=255, unique=true)
      *
-     * @var string $email
+     * @Assert\NotBlank()
+     * @Assert\Length(min = 5, max = 255)
+     *
      */
     private $name;
 
     /**
      * @ORM\Column(type="text", nullable = true)
      *
+     * @Assert\Length(min = 5, max = 255)
+     *
      * @var string $desc
      */
-    private $desc;
+    private $description;
 
     /**
      * @ORM\Column(type="boolean")
@@ -77,6 +81,10 @@ class Category
      */
     private $updated;
 
+    public function __toString() {
+        return $this->getName();
+    }
+
     /**
      * Get id
      *
@@ -110,28 +118,6 @@ class Category
         return $this->name;
     }
 
-    /**
-     * Set desc
-     *
-     * @param string $desc
-     * @return Category
-     */
-    public function setDesc($desc)
-    {
-        $this->desc = $desc;
-    
-        return $this;
-    }
-
-    /**
-     * Get desc
-     *
-     * @return string 
-     */
-    public function getDesc()
-    {
-        return $this->desc;
-    }
 
     /**
      * Set active
@@ -246,5 +232,28 @@ class Category
     public function getUpdated()
     {
         return $this->updated;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return Category
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 }

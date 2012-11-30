@@ -67,6 +67,7 @@ class Question
 
     /**
      * @ORM\OneToMany(targetEntity="Teclliure\QuestionBundle\Entity\Answer", mappedBy="question")
+     * @ORM\OrderBy({"position" = "ASC"})
      */
     private $answers;
 
@@ -261,4 +262,37 @@ class Question
         $this->answers = new \Doctrine\Common\Collections\ArrayCollection();
     }
    
+
+    /**
+     * Add answers
+     *
+     * @param \Teclliure\QuestionBundle\Entity\Answer $answers
+     * @return Question
+     */
+    public function addAnswer(\Teclliure\QuestionBundle\Entity\Answer $answers)
+    {
+        $this->answers[] = $answers;
+    
+        return $this;
+    }
+
+    /**
+     * Remove answers
+     *
+     * @param \Teclliure\QuestionBundle\Entity\Answer $answers
+     */
+    public function removeAnswer(\Teclliure\QuestionBundle\Entity\Answer $answers)
+    {
+        $this->answers->removeElement($answers);
+    }
+
+    /**
+     * Get answers
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAnswers()
+    {
+        return $this->answers;
+    }
 }

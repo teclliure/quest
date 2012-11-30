@@ -290,3 +290,7 @@ hr {
     font-size: 0.9em;
     line-height: 30px;
 }
+
+.cms-block {
+    margin-left: 30px;
+}

@@ -45,7 +45,7 @@ class User implements AdvancedUserInterface
      */
     private $password;
 
-    /**     *
+    /**
      * @Assert\Length(min = 5)
      *
      * @var string $password

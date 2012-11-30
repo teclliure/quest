@@ -1,0 +1,12 @@
+parameters:
+#    teclliure_user.example.class: Teclliure\UserBundle\Example
+
+services:
+    sonata.teclliure.admin.patient:
+        class: Teclliure\PatientBundle\Admin\PatientAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm,group: 'Patients', label: Patients }
+        arguments:
+            - null
+            - Teclliure\PatientBundle\Entity\Patient
+            - TeclliureUserBundle:Admin

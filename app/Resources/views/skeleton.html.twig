@@ -10,6 +10,7 @@
     '@TeclliureUserBundle/Resources/public/bootstrap/css/bootstrap.min.css'
     '@TeclliureUserBundle/Resources/public/bootstrap/css/bootstrap-responsive.min.css'
     '@TeclliureUserBundle/Resources/public/css/style.css'
+    'bundles/sonatajquery/themes/flick/jquery-ui-1.8.16.custom.css'
     output='css/style_common.css'
     %}
     <link rel="stylesheet" href="{{ asset_url }}" media="screen" type="text/css"/>
@@ -67,43 +68,43 @@
                             <a class="brand" href="#">Admin</a>
                             <ul class="nav">
                                 <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Questionaries<b class="caret"></b></a>
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ 'Questionaries' | trans }}<b class="caret"></b></a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="{{ path('questionary') }}">List</a></li>
-                                        <li><a href="{{ path('questionary_new') }}">Add questionary</a></li>
+                                        <li><a href="{{ path('questionary') }}">{{ 'List' | trans }}</a></li>
+                                        <li><a href="{{ path('questionary_new') }}">{{ 'Add questionary' | trans }}</a></li>
                                     </ul>
                                 </li>
                                 <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Patients<b class="caret"></b></a>
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ 'Patients' | trans }}<b class="caret"></b></a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="#">List</a></li>
-                                        <li><a href="#">Add patient</a></li>
+                                        <li><a href="{{ path('admin_teclliure_patient_patient_list') }}">{{ 'List' | trans }}</a></li>
+                                        <li><a href="{{ path('admin_teclliure_patient_patient_create') }}">{{ 'Add patient' | trans }}</a></li>
                                     </ul>
                                 </li>
                                 <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Docs<b class="caret"></b></a>
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ 'Docs' | trans }}<b class="caret"></b></a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="#">List</a></li>
-                                        <li><a href="#">Add doc</a></li>
+                                        <li><a href="#">{{ 'List' | trans }}</a></li>
+                                        <li><a href="#">{{ 'Add doc' | trans }}</a></li>
                                     </ul>
                                 </li>
                                 <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Categories<b class="caret"></b></a>
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ 'Categories and subcategories' | trans }}<b class="caret"></b></a>
                                     <ul class="dropdown-menu">
-                                        <li class="nav-header">Categories</li>
-                                        <li><a href="#">Categories list</a></li>
-                                        <li><a href="#">Add category</a></li>
+                                        <li class="nav-header">{{ 'Categories' | trans }}</li>
+                                        <li><a href="{{ path('admin_teclliure_category_category_list') }}">{{ 'Categories list' | trans }}</a></li>
+                                        <li><a href="{{ path('admin_teclliure_category_category_create') }}">{{ 'Add category' | trans }}</a></li>
                                         <li class="divider"></li>
-                                        <li class="nav-header">Subcategory</li>
-                                        <li><a href="#">Subcategories list</a></li>
-                                        <li><a href="#">Add subcategory</a></li>
+                                        <li class="nav-header">{{ 'Subcategories' | trans }}</li>
+                                        <li><a href="{{ path('admin_teclliure_category_subcategory_list') }}">{{ 'Subcategories list' | trans }}</a></li>
+                                        <li><a href="{{ path('admin_teclliure_category_subcategory_create') }}">{{ 'Add subcategory' | trans }}</a></li>
                                     </ul>
                                 </li>
                                 <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Users<b class="caret"></b></a>
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ 'Users' | trans }}<b class="caret"></b></a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="{{ path('admin_teclliure_user_user_list')  }}">List</a></li>
-                                        <li><a href="{{ path('admin_teclliure_user_user_create') }}">Add user</a></li>
+                                        <li><a href="{{ path('admin_teclliure_user_user_list')  }}">{{ 'List' | trans }}</a></li>
+                                        <li><a href="{{ path('admin_teclliure_user_user_create') }}">{{ 'Add user' | trans }}</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -141,7 +142,7 @@
 
 
 
-    <div  class="row">
+    <div  class="row" >
         <div id="content-container" class="span12 boxed">
             <div class="row">
                 {% include '::flashbag.html.twig' %}
@@ -152,9 +153,9 @@
         </div>
     </div>
 
-    <hr/>
+    <hr style="margin-left: 30px;"/>
 
-    <div id="footer" class="row">
+    <div id="footer" class="row" style="margin-left: 30px;">
         {% block footer %}
             <div id="menu-service">
                 {# {{ knp_menu_render('service') }} #}
@@ -170,6 +171,8 @@
     '@TeclliureUserBundle/Resources/public/js/jquery-1.8.2.min.js'
     '@TeclliureUserBundle/Resources/public/bootstrap/js/bootstrap.min.js'
     '@TeclliureUserBundle/Resources/public/bootstrap/js/bootbox.min.js'
+    'bundles/sonatajquery/jquery-ui-1.8.23.js'
+    'bundles/sonatajquery/jquery-ui-i18n.js'
     output='js/footer_js.js' %}
     <script src="{{ asset_url }}" type="text/javascript"></script>
     {% endjavascripts %}

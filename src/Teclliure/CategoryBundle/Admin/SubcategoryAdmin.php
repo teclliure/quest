@@ -8,7 +8,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
-class CategoryAdmin extends Admin {
+class SubcategoryAdmin extends Admin {
 
     public function getFormTheme()
     {
@@ -19,11 +19,8 @@ class CategoryAdmin extends Admin {
     {
         $mapper
         ->addIdentifier('name', null, array('label' => 'Name'))
-        ->add('active')
-        ->add('is_required', null, array('label' => 'Required ?'))
-        ->add('is_multiple', null, array('label' => 'Multiple select ?'))
-        ->add('created')
-        ->add('updated')
+        ->add('description')
+        ->add('category')
         ;
     }
 
@@ -31,9 +28,8 @@ class CategoryAdmin extends Admin {
     {
         $mapper
         ->add('name')
-        ->add('active')
-        ->add('is_required')
-        ->add('is_multiple')
+        ->add('description')
+        ->add('category')
         ;
     }
 
@@ -42,9 +38,7 @@ class CategoryAdmin extends Admin {
         $mapper
         ->add('name')
         ->add('description')
-        ->add('active','checkbox', array('required' => false))
-        ->add('is_required','checkbox', array('required' => false))
-        ->add('is_multiple','checkbox', array('required' => false))
+        ->add('category')
         ;
     }
 }

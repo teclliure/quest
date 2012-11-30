@@ -1,6 +1,6 @@
 <?php
 
-namespace Teclliure\CategoryBundle\Admin;
+namespace Teclliure\PatientBundle\Admin;
 
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -8,7 +8,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
-class CategoryAdmin extends Admin {
+class PatientAdmin extends Admin {
 
     public function getFormTheme()
     {
@@ -19,9 +19,10 @@ class CategoryAdmin extends Admin {
     {
         $mapper
         ->addIdentifier('name', null, array('label' => 'Name'))
-        ->add('active')
-        ->add('is_required', null, array('label' => 'Required ?'))
-        ->add('is_multiple', null, array('label' => 'Multiple select ?'))
+        ->add('identification')
+        ->add('email')
+        ->add('user')
+        ->add('active', null, array('label' => 'Active ?'))
         ->add('created')
         ->add('updated')
         ;
@@ -31,9 +32,11 @@ class CategoryAdmin extends Admin {
     {
         $mapper
         ->add('name')
+        ->add('identification')
+        ->add('email')
+        ->add('phone')
+        ->add('user')
         ->add('active')
-        ->add('is_required')
-        ->add('is_multiple')
         ;
     }
 
@@ -41,10 +44,14 @@ class CategoryAdmin extends Admin {
     {
         $mapper
         ->add('name')
-        ->add('description')
+        ->add('identification')
+        ->add('email')
+        ->add('phone')
+        ->add('address')
+        ->add('user')
+        ->add('birthDate','date')
+        ->add('notes')
         ->add('active','checkbox', array('required' => false))
-        ->add('is_required','checkbox', array('required' => false))
-        ->add('is_multiple','checkbox', array('required' => false))
         ;
     }
 }

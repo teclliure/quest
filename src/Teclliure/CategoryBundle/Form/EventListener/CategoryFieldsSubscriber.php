@@ -6,14 +6,18 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Doctrine\ORM\EntityManager;
 
 class CategoryFieldsSubscriber implements EventSubscriberInterface
 {
     private $factory;
 
-    public function __construct(FormFactoryInterface $factory)
+    private $em;
+
+    public function __construct(FormFactoryInterface $factory, EntityManager $em)
     {
         $this->factory = $factory;
+        $this->em = $em;
     }
 
     public static function getSubscribedEvents()
@@ -43,14 +47,14 @@ class CategoryFieldsSubscriber implements EventSubscriberInterface
         // setData is called with an actual Entity object in it (whether new
         // or fetched with Doctrine). This if statement lets you skip right
         // over the null condition.
-        if (null === $data) {
+        /*if (null === $data) {
             return;
         }
 
         // check if the product object is "new"
         if (!$data->getId()) {
             $form->add($this->factory->createNamed('name', 'text'));
-        }
+        }*/
     }
 }
 

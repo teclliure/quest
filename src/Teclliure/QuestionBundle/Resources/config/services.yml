@@ -1,7 +1,14 @@
 parameters:
 #    teclliure_question.example.class: Teclliure\QuestionBundle\Example
 
+services:
+    teclliure_questionary_type:
+        class:        Teclliure\QuestionBundle\Form\QuestionaryType
+        arguments:
+            em: "@doctrine.orm.entity_manager"
 
+        tags:
+            - { name: form.type, alias: teclliure_questionbundle_questionarytype }
 #    teclliure_question.example:
 #        class: %teclliure_question.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]

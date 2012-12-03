@@ -43,14 +43,14 @@ class QuestionaryController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $questionRepository = $em->getRepository('TeclliureQuestionBundle:Questionary');
+        $questionaryRepository = $em->getRepository('TeclliureQuestionBundle:Questionary');
 
-        $entity = $questionRepository->find($id);
+        $entity = $questionaryRepository->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Questionary entity.');
         }
-        $questions = $questionRepository->findQuestions($entity);
+        $questions = $questionaryRepository->findQuestions($entity);
 
         $questionForm = $this->createForm(new QuestionType(), new Question());
 
@@ -88,14 +88,14 @@ class QuestionaryController extends Controller
             }
 
             $question->setQuestionary($entity);
-            $questionForm = $this->createForm(new QuestionType(), $question);
+            $questionForm = $this->createForm('teclliure_questionbundle_questionarytype', $question);
             $questionForm->bind($request);
 
             if ($questionForm->isValid()) {
                 $em->persist($question);
                 $em->flush();
 
-                $questionForm = $this->createForm(new QuestionType(), new Question());
+                $questionForm = $this->createForm('teclliure_questionbundle_questionarytype', new Question());
 
                 $this->get('session')->setFlash('info',
                     'Question saved correctly'
@@ -133,7 +133,7 @@ class QuestionaryController extends Controller
     public function newAction()
     {
         $entity = new Questionary();
-        $form   = $this->createForm(new QuestionaryType(), $entity);
+        $form   = $this->createForm('teclliure_questionbundle_questionarytype', $entity);
 
         return $this->render('TeclliureQuestionBundle:Questionary:new.html.twig', array(
             'entity' => $entity,

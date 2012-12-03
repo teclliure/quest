@@ -5,11 +5,18 @@ namespace Teclliure\QuestionBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Doctrine\ORM\EntityManager;
 
 use Teclliure\CategoryBundle\Form\EventListener\CategoryFieldsSubscriber;
 
 class QuestionaryType extends AbstractType
 {
+    protected $em;
+
+    public function __construct(EntityManager $em)
+    {
+        $this->em = $em;
+    }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -19,7 +26,7 @@ class QuestionaryType extends AbstractType
             ->add('active')
         ;
 
-        $subscriber = new CategoryFieldsSubscriber($builder->getFormFactory());
+        $subscriber = new CategoryFieldsSubscriber($builder->getFormFactory(), $this->em);
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

@@ -6,8 +6,11 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
+use Teclliure\CategoryBundle\Form\EventListener\CategoryFieldsSubscriber;
+
 class QuestionaryType extends AbstractType
 {
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -15,6 +18,8 @@ class QuestionaryType extends AbstractType
             ->add('description')
             ->add('active')
         ;
+
+        $subscriber = new CategoryFieldsSubscriber($builder->getFormFactory());
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

@@ -81,6 +81,13 @@ class Category
      */
     private $updated;
 
+
+    /**
+     * @ORM\OneToMany(targetEntity="Teclliure\CategoryBundle\Entity\Category", mappedBy="category")
+     * @ORM\OrderBy({"name" = "ASC"})
+     */
+    private $subcategories;
+
     public function __toString() {
         return $this->getName();
     }

@@ -37,10 +37,23 @@ class Subcategory
 
     /**
      *
-     * @ORM\ManyToOne(targetEntity="Teclliure\CategoryBundle\Entity\Category")
+     * @ORM\ManyToOne(targetEntity="Teclliure\CategoryBundle\Entity\Category", inversedBy="subcategories")
      *
      */
     private $category;
+
+    /**
+     *
+     * @ORM\ManyToOne(targetEntity="Teclliure\QuestionBundle\Entity\QuestionarySubcategory", inversedBy="subcategory")
+     * @ORM\JoinColumn(name="id", referencedColumnName="subcategory_id")
+     *
+     */
+    private $questionarySubcategory;
+
+    public function __toString()
+    {
+        return $this->getName();
+    }
 
     /**
      * Get id
@@ -120,5 +133,28 @@ class Subcategory
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Set questionaryCategory
+     *
+     * @param \Teclliure\QuestionBundle\Entity\QuestionarySubcategory $questionaryCategory
+     * @return Subcategory
+     */
+    public function setQuestionaryCategory(\Teclliure\QuestionBundle\Entity\QuestionarySubcategory $questionaryCategory = null)
+    {
+        $this->questionaryCategory = $questionaryCategory;
+    
+        return $this;
+    }
+
+    /**
+     * Get questionaryCategory
+     *
+     * @return \Teclliure\QuestionBundle\Entity\QuestionarySubcategory 
+     */
+    public function getQuestionaryCategory()
+    {
+        return $this->questionaryCategory;
     }
 }

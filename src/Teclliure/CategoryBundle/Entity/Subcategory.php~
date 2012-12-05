@@ -37,10 +37,23 @@ class Subcategory
 
     /**
      *
-     * @ORM\ManyToOne(targetEntity="Teclliure\CategoryBundle\Entity\Category")
+     * @ORM\ManyToOne(targetEntity="Teclliure\CategoryBundle\Entity\Category", inversedBy="subcategories")
      *
      */
     private $category;
+
+    /**
+     *
+     * @ORM\ManyToOne(targetEntity="Teclliure\QuestionBundle\Entity\QuestionarySubcategory", inversedBy="subcategory")
+     * @ORM\JoinColumn(name="id", referencedColumnName="subcategory_id")
+     *
+     */
+    private $questionaryCategory;
+
+    public function __toString()
+    {
+        return $this->getName();
+    }
 
     /**
      * Get id

@@ -6,7 +6,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Doctrine\ORM\EntityManager;
-
 use Teclliure\CategoryBundle\Form\EventListener\CategoryFieldsSubscriber;
 
 class QuestionaryType extends AbstractType
@@ -20,13 +19,15 @@ class QuestionaryType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $subscriber = new CategoryFieldsSubscriber($builder->getFormFactory(), $this->em);
+
         $builder
             ->add('name')
             ->add('description')
-            ->add('active')
+            ->add('active','checkbox', array('required' => false))
         ;
 
-        $subscriber = new CategoryFieldsSubscriber($builder->getFormFactory(), $this->em);
+        $builder->addEventSubscriber($subscriber);
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

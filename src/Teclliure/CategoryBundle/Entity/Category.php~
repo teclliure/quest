@@ -83,7 +83,7 @@ class Category
 
 
     /**
-     * @ORM\OneToMany(targetEntity="Teclliure\CategoryBundle\Entity\Category", mappedBy="category")
+     * @ORM\OneToMany(targetEntity="Teclliure\CategoryBundle\Entity\Subcategory", mappedBy="category")
      * @ORM\OrderBy({"name" = "ASC"})
      */
     private $subcategories;
@@ -262,5 +262,45 @@ class Category
     public function getDescription()
     {
         return $this->description;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->subcategories = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add subcategories
+     *
+     * @param \Teclliure\CategoryBundle\Entity\Subcategory $subcategories
+     * @return Category
+     */
+    public function addSubcategorie(\Teclliure\CategoryBundle\Entity\Subcategory $subcategories)
+    {
+        $this->subcategories[] = $subcategories;
+    
+        return $this;
+    }
+
+    /**
+     * Remove subcategories
+     *
+     * @param \Teclliure\CategoryBundle\Entity\Subcategory $subcategories
+     */
+    public function removeSubcategorie(\Teclliure\CategoryBundle\Entity\Subcategory $subcategories)
+    {
+        $this->subcategories->removeElement($subcategories);
+    }
+
+    /**
+     * Get subcategories
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSubcategories()
+    {
+        return $this->subcategories;
     }
 }

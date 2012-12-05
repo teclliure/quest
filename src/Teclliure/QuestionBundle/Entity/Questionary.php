@@ -9,6 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Table(name="questionary")
  * @ORM\Entity(repositoryClass="Teclliure\QuestionBundle\Entity\QuestionaryRepository")
+ * @ORM\HasLifecycleCallbacks
  */
 class Questionary
 {
@@ -22,7 +23,7 @@ class Questionary
     /** @ORM\Column(type="string", length=255) */
     private $name;
 
-    /** @ORM\Column(type="text") */
+    /** @ORM\Column(type="text", nullable=true) */
     private $description;
 
     /**
@@ -172,5 +173,23 @@ class Questionary
     public function getActive()
     {
         return $this->active;
+    }
+
+
+    public function doSaveSubcategories($entityManager)
+    {
+        $questionaryRepository = $entityManager->getRepository('TeclliureQuestionBundle:Questionary');
+
+        if (isset($this->subcategories)) {
+            $questionaryRepository->deleteSubcategories($this);
+            $questionaryRepository->addSubcategories($this, $this->subcategories);
+        }
+    }
+
+
+    public function doDeleteSubcategories($entityManager)
+    {
+        $questionaryRepository = $entityManager->getRepository('TeclliureQuestionBundle:Questionary');
+        $questionaryRepository->deleteSubcategories($this);
     }
 }

@@ -3,6 +3,8 @@
 namespace Teclliure\QuestionBundle\Entity;
 
 use Gedmo\Sortable\Entity\Repository\SortableRepository;
+use \Teclliure\CategoryBundle\Entity\Subcategory;
+use Doctrine\Common\Collections\ArrayCollection;
 
 class QuestionaryRepository extends SortableRepository
 {
@@ -25,4 +27,59 @@ class QuestionaryRepository extends SortableRepository
         return $query->getResult();
     }
 
+    public function deleteSubcategories($questionary) {
+        $em = $this->getEntityManager();
+
+        $dql = 'DELETE FROM TeclliureQuestionBundle:QuestionarySubcategory q WHERE q.questionary = :questionary';
+
+        $query = $em->createQuery($dql);
+        $query->setParameter('questionary', $questionary->getId());
+
+        return $query->execute();
+    }
+
+    public function addSubcategories($questionary, $subcategories) {
+        $em = $this->getEntityManager();
+
+        $subcategoryRepository = $em->getRepository('TeclliureCategoryBundle:Subcategory');
+
+        foreach ($subcategories as $subcat) {
+
+            if (is_array($subcat)) {
+                foreach ($subcat as $subcat2) {
+                    $subcat = $subcategoryRepository->find($subcat2);
+
+                    $questionarySubcat = new QuestionarySubcategory();
+                    $questionarySubcat->setQuestionary($questionary);
+                    $questionarySubcat->setSubcategory ($subcat);
+
+                    $em->persist($questionarySubcat);
+                }
+            }
+            else {
+                $subcat = $subcategoryRepository->find($subcat);
+
+                $questionarySubcat = new QuestionarySubcategory();
+                $questionarySubcat->setQuestionary($questionary);
+                $questionarySubcat->setSubcategory ($subcat);
+
+                $em->persist($questionarySubcat);
+            }
+        }
+    }
+
+    public function getSubcategories($questionary, $category) {
+        $em = $this->getEntityManager();
+
+        $dql = 'select s FROM TeclliureCategoryBundle:Subcategory s JOIN s.questionarySubcategory qs WHERE qs.questionary = :questionary AND s.category = :category';
+
+        $query = $em->createQuery($dql);
+
+        $query->setParameter('questionary', $questionary->getId());
+        $query->setParameter('category', $category->getId());
+
+        $result = new ArrayCollection($query->getResult());
+
+        return $result;
+    }
 }

@@ -12,7 +12,7 @@ class CategoryRepository extends EntityRepository
 
         $query = $em->createQuery('
             SELECT c
-            FROM Category
+            FROM TeclliureCategoryBundle:Category c
             WHERE c.active = 1
             ORDER BY c.name asc
         ');

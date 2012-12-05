@@ -91,7 +91,7 @@ class Patient
      *
      * @Assert\Type(type="bool")
      */
-    private $active;
+    private $active = true;
 
     /**
      * @var datetime $created

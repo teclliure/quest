@@ -83,7 +83,7 @@ class Category
 
 
     /**
-     * @ORM\OneToMany(targetEntity="Teclliure\CategoryBundle\Entity\Category", mappedBy="category")
+     * @ORM\OneToMany(targetEntity="Teclliure\CategoryBundle\Entity\Subcategory", mappedBy="category")
      * @ORM\OrderBy({"name" = "ASC"})
      */
     private $subcategories;
@@ -274,10 +274,10 @@ class Category
     /**
      * Add subcategories
      *
-     * @param \Teclliure\CategoryBundle\Entity\Category $subcategories
+     * @param \Teclliure\CategoryBundle\Entity\Subcategory $subcategories
      * @return Category
      */
-    public function addSubcategorie(\Teclliure\CategoryBundle\Entity\Category $subcategories)
+    public function addSubcategorie(\Teclliure\CategoryBundle\Entity\Subcategory $subcategories)
     {
         $this->subcategories[] = $subcategories;
     
@@ -287,9 +287,9 @@ class Category
     /**
      * Remove subcategories
      *
-     * @param \Teclliure\CategoryBundle\Entity\Category $subcategories
+     * @param \Teclliure\CategoryBundle\Entity\Subcategory $subcategories
      */
-    public function removeSubcategorie(\Teclliure\CategoryBundle\Entity\Category $subcategories)
+    public function removeSubcategorie(\Teclliure\CategoryBundle\Entity\Subcategory $subcategories)
     {
         $this->subcategories->removeElement($subcategories);
     }

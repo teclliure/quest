@@ -16,6 +16,9 @@
     <legend>
         {{ 'Questionaries' | trans }}
     </legend>
+    {{ form_row(form.name) }}
+    {{ form_row(form.description) }}
+    {{ form_row(form.active) }}
     {{ form_widget(form) }}
     <div class="well form-actions">
         <button class="btn btn-primary" type="submit">{{ 'Create'| trans }}</button>

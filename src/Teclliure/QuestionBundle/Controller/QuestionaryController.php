@@ -148,12 +148,13 @@ class QuestionaryController extends Controller
     public function createAction(Request $request)
     {
         $entity  = new Questionary();
-        $form = $this->createForm(new QuestionaryType(), $entity);
+        $form = $this->createForm('teclliure_questionbundle_questionarytype', $entity);
         $form->bind($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
+            $entity->doSaveSubcategories($em);
             $em->flush();
 
             return $this->redirect($this->generateUrl('questionary_show', array('id' => $entity->getId())));
@@ -179,7 +180,7 @@ class QuestionaryController extends Controller
             throw $this->createNotFoundException('Unable to find Questionary entity.');
         }
 
-        $editForm = $this->createForm(new QuestionaryType(), $entity);
+        $editForm = $this->createForm('teclliure_questionbundle_questionarytype', $entity);
 
         return $this->render('TeclliureQuestionBundle:Questionary:edit.html.twig', array(
             'entity'      => $entity,
@@ -201,11 +202,12 @@ class QuestionaryController extends Controller
             throw $this->createNotFoundException('Unable to find Questionary entity.');
         }
 
-        $editForm = $this->createForm(new QuestionaryType(), $entity);
+        $editForm = $this->createForm('teclliure_questionbundle_questionarytype', $entity);
         $editForm->bind($request);
 
         if ($editForm->isValid()) {
             $em->persist($entity);
+            $entity->doSaveSubcategories($em);
             $em->flush();
 
             return $this->redirect($this->generateUrl('questionary_edit', array('id' => $id)));
@@ -231,6 +233,7 @@ class QuestionaryController extends Controller
         }
 
         $em->remove($entity);
+        $entity->doDeleteSubcategories($em);
         $em->flush();
 
         return $this->redirect($this->generateUrl('questionary'));

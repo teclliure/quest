@@ -21,14 +21,13 @@ set :shared_files,      ["app/config/parameters.yml",]
 set :shared_children,  [app_path + "/logs", web_path + "/uploads", app_path + "/cache"]
 
 set :use_sudo,   false
+set :use_composer,   true
 
 # Be more verbose by uncommenting the following line
 # logger.level = Logger::MAX_LEVEL
 
 default_run_options[:pty] = true
 set :ssh_options, {:forward_agent => true}
-
-before 'symfony:deploy:update_code', 'symfony:bootstrap'
 
 =begin
 set :use_composer, true

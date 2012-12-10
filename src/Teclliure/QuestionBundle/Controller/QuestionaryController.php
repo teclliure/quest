@@ -88,14 +88,14 @@ class QuestionaryController extends Controller
             }
 
             $question->setQuestionary($entity);
-            $questionForm = $this->createForm('teclliure_questionbundle_questionarytype', $question);
+            $questionForm = $this->createForm(new QuestionType(), $question);
             $questionForm->bind($request);
 
             if ($questionForm->isValid()) {
                 $em->persist($question);
                 $em->flush();
 
-                $questionForm = $this->createForm('teclliure_questionbundle_questionarytype', new Question());
+                $questionForm = $this->createForm(new QuestionType(), new Question());
 
                 $this->get('session')->setFlash('info',
                     'Question saved correctly'

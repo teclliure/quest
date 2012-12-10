@@ -28,6 +28,8 @@ set :use_sudo,   false
 default_run_options[:pty] = true
 set :ssh_options, {:forward_agent => true}
 
+before 'symfony:deploy:update_code', 'symfony:bootstrap'
+
 =begin
 set :use_composer, true
 

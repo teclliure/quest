@@ -2,8 +2,8 @@
 
 namespace Teclliure\QuestionBundle\Controller;
 
+use Teclliure\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Teclliure\QuestionBundle\Entity\Questionary;
 use Teclliure\QuestionBundle\Entity\Question;
@@ -12,6 +12,9 @@ use Teclliure\QuestionBundle\Form\QuestionaryType;
 use Teclliure\QuestionBundle\Form\QuestionType;
 use Teclliure\QuestionBundle\Form\AnswerType;
 
+use Knp\Menu\FactoryInterface as MenuFactoryInterface;
+use Knp\Menu\ItemInterface as MenuItemInterface;
+use Knp\Menu\MenuItem;
 
 /**
  * Questionary controller.
@@ -30,6 +33,8 @@ class QuestionaryController extends Controller
         $pager->setItemsPerPage('10');
 
         $entities = $pager->paginate($em->getRepository('TeclliureQuestionBundle:Questionary')->queryAll())->getResult();
+
+        $this->buildBreadcrumbs('list');
 
         return $this->render('TeclliureQuestionBundle:Questionary:index.html.twig', array(
             'entities' => $entities,
@@ -504,4 +509,6 @@ class QuestionaryController extends Controller
             ));
         }
     }
+
+
 }

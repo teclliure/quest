@@ -31,6 +31,10 @@ _sonata_admin:
     type: sonata_admin
     prefix: /admin
 
+sonata_admin_dashboard:
+    pattern:  /
+    defaults: { _controller: TeclliureDashboardBundle:Default:index }
+
 TeclliureQuestionBundle_questionary:
     resource: "@TeclliureQuestionBundle/Resources/config/routing/questionary.yml"
     prefix:   /admin/questionary

@@ -34,7 +34,6 @@ class QuestionaryRepository extends SortableRepository
 
         $query = $em->createQuery($dql);
         $query->setParameter('questionary', $questionary->getId());
-
         return $query->execute();
     }
 
@@ -44,7 +43,6 @@ class QuestionaryRepository extends SortableRepository
         $subcategoryRepository = $em->getRepository('TeclliureCategoryBundle:Subcategory');
 
         foreach ($subcategories as $subcat) {
-
             if (is_array($subcat)) {
                 foreach ($subcat as $subcat2) {
                     $subcat = $subcategoryRepository->find($subcat2);
@@ -57,13 +55,15 @@ class QuestionaryRepository extends SortableRepository
                 }
             }
             else {
-                $subcat = $subcategoryRepository->find($subcat);
+                if ($subcat) {
+                    $subcat = $subcategoryRepository->find($subcat);
 
-                $questionarySubcat = new QuestionarySubcategory();
-                $questionarySubcat->setQuestionary($questionary);
-                $questionarySubcat->setSubcategory ($subcat);
+                    $questionarySubcat = new QuestionarySubcategory();
+                    $questionarySubcat->setQuestionary($questionary);
+                    $questionarySubcat->setSubcategory ($subcat);
 
-                $em->persist($questionarySubcat);
+                    $em->persist($questionarySubcat);
+                }
             }
         }
     }

@@ -27,6 +27,7 @@ class QuestionaryController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $pager = $this->get('ideup.simple_paginator');
+        $pager->setItemsPerPage('10');
 
         $entities = $pager->paginate($em->getRepository('TeclliureQuestionBundle:Questionary')->queryAll())->getResult();
 
@@ -153,9 +154,22 @@ class QuestionaryController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
-            $entity->doSaveSubcategories($em);
-            $em->flush();
+
+            $em->getConnection()->beginTransaction(); // suspend auto-commit
+            try
+            {
+                $em->persist($entity);
+                $em->flush();
+
+                $entity->doSaveSubcategories($em);
+                $em->flush();
+                $em->getConnection()->commit();
+            }
+            catch (Exception $e) {
+                $em->getConnection()->rollback();
+                $em->close();
+                throw $e;
+            }
 
             return $this->redirect($this->generateUrl('questionary_show', array('id' => $entity->getId())));
         }
@@ -206,10 +220,21 @@ class QuestionaryController extends Controller
         $editForm->bind($request);
 
         if ($editForm->isValid()) {
-            $em->persist($entity);
-            $entity->doSaveSubcategories($em);
-            $em->flush();
+            $em->getConnection()->beginTransaction(); // suspend auto-commit
+            try
+            {
+                $em->persist($entity);
+                $em->flush();
 
+                $entity->doSaveSubcategories($em);
+                $em->flush();
+                $em->getConnection()->commit();
+            }
+            catch (Exception $e) {
+                $em->getConnection()->rollback();
+                $em->close();
+                throw $e;
+            }
             return $this->redirect($this->generateUrl('questionary_edit', array('id' => $id)));
         }
 

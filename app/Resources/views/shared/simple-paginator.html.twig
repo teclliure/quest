@@ -1,0 +1,45 @@
+{% if maxPage != 1 %}
+<div class="well pagination pagination-centered">
+<ul class="{{ container_class }}">
+    <!-- FIRST -->
+    {% if currentPage > 1 %}
+        {% set rParams =  {'page': firstPage, 'paginatorId': id} | merge(routeParams) %}
+        <li class="{{ firstEnabledClass }}">
+            <a href="{{ path(route, rParams) }}">{{ firstPageText }}</a>
+        </li>
+    {% endif %}
+
+    <!-- PREVIOUS -->
+    {% if currentPage > 1 %}   
+        {% set rParams =  {'page': previousPage, 'paginatorId': id} | merge(routeParams) %}
+        <li class="{{ previousEnabledClass }}">
+            <a href="{{ path(route, rParams) }}">{{ previousPageText }}</a>
+        </li>
+    {% endif %}
+
+    <!-- NUMBERS -->
+    {% for page in minPage..maxPage %}
+        {% set rParams =  {'page': page, 'paginatorId': id} | merge(routeParams) %}
+        <li>
+            <a href="{{ path(route, rParams) }}">{{ page }}</a>
+        </li>
+    {% endfor %}
+
+    <!-- NEXT -->
+    {% if currentPage < lastPage %}
+        {% set rParams =  {'page': nextPage, 'paginatorId': id} | merge(routeParams) %}
+        <li class="{{ nextEnabledClass }}">
+            <a href="{{ path(route, rParams) }}">{{ nextPageText }}</a>
+        </li>
+    {% endif %}
+
+    <!-- LAST -->
+    {% if currentPage < lastPage %}
+        {% set rParams =  {'page': lastPage, 'paginatorId': id} | merge(routeParams) %}
+        <li class="{{ lastEnabledClass }}">
+            <a href="{{ path(route, rParams) }}">{{ lastPageText }}</a>
+        </li>
+    {% endif %}
+</ul>
+</div>
+{% endif  %}

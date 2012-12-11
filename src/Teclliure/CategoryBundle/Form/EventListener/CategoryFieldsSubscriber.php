@@ -55,6 +55,7 @@ class CategoryFieldsSubscriber implements EventSubscriberInterface
         foreach ($categories as $category) {
             if (count($category->getSubcategories()))
             {
+                // Create entity field options
                 $options = array(
                     'mapped' => false,
                     'label' => $category->getName(),
@@ -62,15 +63,16 @@ class CategoryFieldsSubscriber implements EventSubscriberInterface
                     'multiple' => $category->getIsMultiple(),
                     'required' => $category->getIsRequired(),
                     'query_builder' => function(EntityRepository $er) use ($category) {
+                        $rootAlias = 's'.$category->getId();
                         return
-                            $er->createQueryBuilder('s')
-                            ->where('s.category = :category_id')
+                            $er->createQueryBuilder($rootAlias)
+                            ->where($rootAlias.'.category = :category_id')
                             ->setParameter('category_id', $category->getId());
                     }
                 );
 
+                // Load current values from database
                 $currentValues = null;
-
                 if ($data->getId()) {
                     $currentValues = $questionaryRepository->getSubcategories($data, $category);
 
@@ -79,6 +81,7 @@ class CategoryFieldsSubscriber implements EventSubscriberInterface
                     }
                 }
 
+                // Add field to form
                 $form->add(
                       $this->factory->createNamed(
                           'cat'.$category->getId(),

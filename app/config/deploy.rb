@@ -27,7 +27,7 @@ set :shared_children,  [app_path + "/logs", web_path + "/uploads", app_path + "/
 set :use_sudo,   false
 
 set :use_composer,   true
-set :composer_bin,   "/usr/local/bin/composer"
+set :composer_bin,   "/usr/local/bin/composer.phar"
 
 # Be more verbose by uncommenting the following line
 # logger.level = Logger::MAX_LEVEL

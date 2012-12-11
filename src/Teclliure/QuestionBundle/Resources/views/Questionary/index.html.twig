@@ -43,9 +43,17 @@
     </tbody>
 </table>
 
-<div class="pager well form-actions">
-{{ simple_paginator_render('questionary') }}
-</div>
+
+{{ simple_paginator_render('questionary', null, {
+    'container_class': '',
+    'previousPageText': '‹',
+    'nextPageText': '›',
+    'currentClass': 'active',
+    'firstPageText': '«',
+    'lastPageText': '»'
+},
+':shared:simple-paginator.html.twig'
+) }}
 
 <a class="btn btn-primary" href="{{ path('questionary_new') }}">
     {{ 'Create a new entry' | trans }}

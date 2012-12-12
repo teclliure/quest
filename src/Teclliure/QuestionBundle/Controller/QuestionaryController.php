@@ -34,7 +34,7 @@ class QuestionaryController extends Controller
 
         $entities = $pager->paginate($em->getRepository('TeclliureQuestionBundle:Questionary')->queryAll())->getResult();
 
-        $this->buildBreadcrumbs('list');
+        // $this->buildBreadcrumbs('list');
 
         return $this->render('TeclliureQuestionBundle:Questionary:index.html.twig', array(
             'entities' => $entities,

@@ -1,0 +1,13 @@
+<div class="validation_buttons">
+    &nbsp;
+    <a class="btn btn-small btn-danger deleteValidation" href="{{ path('validation_delete', { 'validationId': valiation.id }) }}">
+        <i class="icon-trash"></i>
+        {{ 'Delete' | trans }}
+    </a>
+</div>
+<h4>{{ validation.name }}</h4>
+<p class="validationHelp">{{ validation.help }}</p>
+
+<div id="validationId{{ validation.id }}rules">
+    {% include 'TeclliureQuestionBundle:Validation:ruleElement.html.twig' %}
+</div>

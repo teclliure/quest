@@ -48,7 +48,7 @@ class Subcategory
      * @ORM\JoinColumn(name="id", referencedColumnName="subcategory_id")
      *
      */
-    private $questionaryCategory;
+    private $questionarySubcategory;
 
     public function __toString()
     {
@@ -133,5 +133,51 @@ class Subcategory
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Set questionaryCategory
+     *
+     * @param \Teclliure\QuestionBundle\Entity\QuestionarySubcategory $questionaryCategory
+     * @return Subcategory
+     */
+    public function setQuestionaryCategory(\Teclliure\QuestionBundle\Entity\QuestionarySubcategory $questionaryCategory = null)
+    {
+        $this->questionaryCategory = $questionaryCategory;
+    
+        return $this;
+    }
+
+    /**
+     * Get questionaryCategory
+     *
+     * @return \Teclliure\QuestionBundle\Entity\QuestionarySubcategory 
+     */
+    public function getQuestionaryCategory()
+    {
+        return $this->questionaryCategory;
+    }
+
+    /**
+     * Set questionarySubcategory
+     *
+     * @param \Teclliure\QuestionBundle\Entity\QuestionarySubcategory $questionarySubcategory
+     * @return Subcategory
+     */
+    public function setQuestionarySubcategory(\Teclliure\QuestionBundle\Entity\QuestionarySubcategory $questionarySubcategory = null)
+    {
+        $this->questionarySubcategory = $questionarySubcategory;
+    
+        return $this;
+    }
+
+    /**
+     * Get questionarySubcategory
+     *
+     * @return \Teclliure\QuestionBundle\Entity\QuestionarySubcategory 
+     */
+    public function getQuestionarySubcategory()
+    {
+        return $this->questionarySubcategory;
     }
 }

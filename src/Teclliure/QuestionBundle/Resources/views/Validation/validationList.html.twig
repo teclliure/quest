@@ -1,0 +1,11 @@
+<legend>
+    {{ 'Validations list' | trans }} ({{  validations|length  }})
+</legend>
+
+<ul id="validationsListSortable" class="validationsList connectedSortable">
+{% for validation in validations %}
+    <li class="alert validationLi" id="validationId{{ validation.id }}">
+        {% include 'TeclliureQuestionBundle:Validation:validationElement.html.twig' %}
+    </li>
+{% endfor %}
+</ul>

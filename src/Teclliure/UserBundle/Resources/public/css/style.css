@@ -294,3 +294,16 @@ hr {
 .cms-block {
     margin-left: 30px;
 }
+
+.checkbox_form input {
+    float: left;
+}
+
+.checkbox_form label {
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+
+.alert-error ul {
+    margin-bottom: 0;
+}

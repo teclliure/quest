@@ -27,6 +27,17 @@ class QuestionaryRepository extends SortableRepository
         return $query->getResult();
     }
 
+    public function findValidations($questionary) {
+        $em = $this->getEntityManager();
+
+        $dql = 'SELECT v FROM TeclliureQuestionBundle:Validation v WHERE v.questionary = :questionary ORDER BY v.category desc, v.position asc';
+
+        $query = $em->createQuery($dql);
+        $query->setParameter('questionary', $questionary->getId());
+
+        return $query->getResult();
+    }
+
     public function deleteSubcategories($questionary) {
         $em = $this->getEntityManager();
 

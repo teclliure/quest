@@ -30,11 +30,11 @@
 <ul class="nav nav-tabs" id="myTab">
   <li class="active"><a href="#show" data-toggle="tab">Show</a></li>
   <li><a href="#questions" data-toggle="tab">Questions</a></li>
-  <li><a href="#validation" data-toggle="tab">Validation rules</a></li>
+  <li><a href="#validations" data-toggle="tab">Validation rules</a></li>
 </ul>
 
 <div class="tab-content">
-  <div class="tab-pane active" id="show">
+    <div class="tab-pane active" id="show">
       <table class="record_properties table table-bordered table-striped">
           <tbody>
           <tr>
@@ -69,11 +69,15 @@
           {{ 'or' | trans }}
           <a class="btn btn-danger" href="{{ path('questionary_delete', { 'id': entity.id }) }}">{{ 'Delete' | trans }}</a>
       </div>
-  </div>
+    </div>
 
-  <div class="tab-pane" id="questions">
-      {% include 'TeclliureQuestionBundle:Questionary:question.html.twig' %}
-  </div>
+    <div class="tab-pane" id="questions">
+        {% include 'TeclliureQuestionBundle:Question:question.html.twig' %}
+    </div>
+
+    <div class="tab-pane" id="validations">
+        {% include 'TeclliureQuestionBundle:Validation:validation.html.twig' %}
+    </div>
 </div>
 
 

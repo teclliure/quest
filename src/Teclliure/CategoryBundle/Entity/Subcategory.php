@@ -157,4 +157,27 @@ class Subcategory
     {
         return $this->questionaryCategory;
     }
+
+    /**
+     * Set questionarySubcategory
+     *
+     * @param \Teclliure\QuestionBundle\Entity\QuestionarySubcategory $questionarySubcategory
+     * @return Subcategory
+     */
+    public function setQuestionarySubcategory(\Teclliure\QuestionBundle\Entity\QuestionarySubcategory $questionarySubcategory = null)
+    {
+        $this->questionarySubcategory = $questionarySubcategory;
+    
+        return $this;
+    }
+
+    /**
+     * Get questionarySubcategory
+     *
+     * @return \Teclliure\QuestionBundle\Entity\QuestionarySubcategory 
+     */
+    public function getQuestionarySubcategory()
+    {
+        return $this->questionarySubcategory;
+    }
 }

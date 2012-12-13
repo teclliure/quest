@@ -120,8 +120,19 @@
         {% block breadcrumb %}
             <div id="breadcrumb" class="span12">
                 <ul class="breadcrumb boxed">
-                    <li><a href="">Bread1</a></li>
-                    <li><a href="">Bread2</a></li>
+                     {% if breadcrumbs %}
+                        {% for label, uri in breadcrumbs %}
+                            {% if not loop.last  %}
+                                <li><a href="{{ uri }}">{{ label }}</a></li>
+                            {% else %}
+                                <li class="active">{{ label }}</li>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        <li><a href="#">Don't have breadcrumbs !!</a></li>
+                    {% endif %}
+
+
                 </ul>
             </div>
             {#

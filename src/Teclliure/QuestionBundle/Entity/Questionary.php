@@ -20,7 +20,10 @@ class Questionary
     */
     private $id;
 
-    /** @ORM\Column(type="string", length=255) */
+    /**
+     * @ORM\Column(type="string", length=255)
+     *@Assert\Length(min = 5, max = 255)
+     */
     private $name;
 
     /** @ORM\Column(type="text", nullable=true) */

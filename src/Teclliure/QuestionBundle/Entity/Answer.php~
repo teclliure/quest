@@ -61,7 +61,7 @@ class Answer
     private $category = 'default';
 
     /**
-     * @ORM\ManyToOne(targetEntity="Teclliure\QuestionBundle\Entity\Question")
+     * @ORM\ManyToOne(targetEntity="Teclliure\QuestionBundle\Entity\Question", inversedBy="answers")
      *
      */
     private $question;

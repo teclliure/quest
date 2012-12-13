@@ -1,10 +1,16 @@
 <?php
 
-namespace Teclliure\Controller;
+namespace Teclliure\DashboardBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller as Sf2Controller;
+use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\HttpFoundation\Response;
 
-use Knp\Menu\MenuFactory as MenuFactory;
+use Sonata\AdminBundle\Route\RouteGeneratorInterface;
+use Sonata\AdminBundle\Route\DefaultRouteGenerator;
+
+use Knp\Menu\MenuFactory;
+use Knp\Menu\FactoryInterface as MenuFactoryInterface;
 use Knp\Menu\ItemInterface as MenuItemInterface;
 use Knp\Menu\MenuItem;
 
@@ -43,13 +49,6 @@ class Controller extends Sf2Controller
     protected $translator;
 
     /**
-     * The router instance
-     *
-     * @var RouteGeneratorInterface
-     */
-    protected $routeGenerator;
-
-    /**
      * Generates the breadcrumbs array
      *
      * @param string                       $action
@@ -59,6 +58,7 @@ class Controller extends Sf2Controller
      */
     public function buildBreadcrumbs($action, MenuItemInterface $menu = null)
     {
+        $breadcrumbsRoutes = $this->getBreadcrumbsRoutes();
         if (!$this->menuFactory) {
             $this->menuFactory = new MenuFactory();
         }
@@ -68,14 +68,28 @@ class Controller extends Sf2Controller
         }
 
         $child = $menu->addChild(
-            $this->trans('dashboard', array(), 'SonataAdminBundle'),
-            array('uri' => $this->routeGenerator->generate('sonata_admin_dashboard'))
+            $this->trans('Dashboard'),
+            array('uri' => $this->generateUrl('sonata_admin_dashboard'))
         );
 
+        if ($action == 'list' || $action == 'edit' || $action == 'show' || $action == 'new') {
+            $child = $child->addChild(
+                $this->trans($breadcrumbsRoutes['list']['label']),
+                array('uri' => $this->generateUrl($breadcrumbsRoutes['list']['route']))
+            );
+        }
+
+        $id = $this->getRequest()->get('id');
+        if ($id) {
+            $url = $this->generateUrl($breadcrumbsRoutes[$action]['route'], array('id'=>$id));
+        }
+        else {
+            $url = $this->generateUrl($breadcrumbsRoutes[$action]['route']);
+        }
         $child = $child->addChild(
-            $this->trans('List'),
-            array('uri' => $this->generateUrl('list'))
+            $this->trans($breadcrumbsRoutes[$action]['label']), array('uri' => $url)
         );
+
 
         /*$childAdmin = $this->getCurrentChildAdmin();
 
@@ -115,9 +129,10 @@ class Controller extends Sf2Controller
         */
 
         // the generated $breadcrumbs contains an empty element
+        $breadcrumbs = $child->getBreadcrumbsArray();
         array_shift($breadcrumbs);
 
-        return $this->breadcrumbs = breadcrumbs;
+        return $this->breadcrumbs = $breadcrumbs;
     }
 
     /**
@@ -194,20 +209,21 @@ class Controller extends Sf2Controller
     {
         return $this->translator;
     }
-/**
-     * {@inheritdoc}
-     */
-    public function setRouteGenerator(RouteGeneratorInterface $routeGenerator)
-    {
-        $this->routeGenerator = $routeGenerator;
-    }
+
 
     /**
-     * @return \Sonata\AdminBundle\Route\RouteGeneratorInterface
+     * @param string   $view
+     * @param array    $parameters
+     * @param Response $response
+     *
+     * @return Response
      */
-    public function getRouteGenerator()
+    public function render($view, array $parameters = array(), Response $response = null)
     {
-        return $this->routeGenerator;
-    }
+        if (isset($this->breadcrumbs) && !isset($parameters['breadcrumbs'])) {
+            $parameters['breadcrumbs'] = $this->breadcrumbs;
+        }
 
+        return parent::render($view, $parameters, $response);
+    }
 }

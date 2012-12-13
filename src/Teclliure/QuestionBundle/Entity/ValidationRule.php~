@@ -1,0 +1,62 @@
+<?php
+namespace Teclliure\QuestionBundle\Entity;
+
+use Gedmo\Mapping\Annotation as Gedmo;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * @ORM\Table(name="validation_rule")
+ * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks
+ * 
+ */
+class ValidationRule
+{
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue
+     */
+    private $id;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     *
+     * @Assert\Length(min = 2, max = 255)
+     * @Assert\NotBlank()
+     *
+     */
+    private $name;
+
+    /**
+     * @ORM\Column(type="text", nullable=TRUE)
+     *
+     * @Assert\Length(min = 5, max = 20000)
+     *
+     */
+    private $help;
+
+     /**
+     * @ORM\Column(type="integer")
+     *
+     * @Assert\Type(type="integer")
+     * @Assert\Range(min = 0)
+     */
+    protected $rangeMin;
+
+    /**
+     * @ORM\Column(type="integer")
+     *
+     * @Assert\Type(type="integer")
+     * @Assert\Range(min = 0)
+     */
+    protected $rangeMax;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Teclliure\QuestionBundle\Entity\Validation", inversedBy="validationRules")
+     *
+     */
+    private $validation;
+
+}

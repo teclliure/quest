@@ -1,0 +1,20 @@
+<div id="validationId{{ validation.id }}rulesList" class="validationRulesList">
+    <legend class="ruleLegend">
+        <button type="button" class="btn btn-link rulesListShow" id="validationId{{ validation.id }}answersListShow"><i class="icon-chevron-down"></i>{{ 'Rules' | trans }} ({{ validation.validationRules | length }})</button>
+    </legend>
+    <ul id="validationId{{ validation.id }}rulesListUl" class="rulesListUl">
+        {% for rule in validation.validationRules %}
+            <li id="ruleId{{ rule.id }}">
+                <div class="rule_buttons">
+                    &nbsp;
+                    <a class="btn btn-mini btn-danger deleteRule" href="{{ path('rule_delete', { 'ruleId': rule.id }) }}">
+                        <i class="icon-trash"></i>
+                        {{ 'Delete' | trans }}
+                    </a>
+                </div>
+                <p class="answer">{{ rule.name }} ({{ 'Range' | trans }}: <strong>{{ rule.rangeStart }} {{ rule.rangeEnd }}</strong>)</p>
+                <p class="answerHelp">{{ rule.help }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+</div>

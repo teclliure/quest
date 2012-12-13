@@ -3,9 +3,9 @@
 </a>
 <div id="questionId{{ question.id }}AnswerForm" {% if answerForm is not defined %}style="display: none"{% endif %}>
     {% if answerForm is defined %}
-        {% include 'TeclliureQuestionBundle:Questionary:answerForm.html.twig' %}
+        {% include 'TeclliureQuestionBundle:Question:answerForm.html.twig' %}
     {% endif %}
 </div>
 
 
-{% include 'TeclliureQuestionBundle:Questionary:answerList.html.twig' %}
+{% include 'TeclliureQuestionBundle:Question:answerList.html.twig' %}

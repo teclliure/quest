@@ -31,48 +31,98 @@ questionary_delete:
 question_save:
     pattern:  /saveQuestion/{id}
     defaults:
-        _controller: "TeclliureQuestionBundle:Questionary:saveQuestion"
+        _controller: "TeclliureQuestionBundle:Question:saveQuestion"
         requirements:
             _method:  POST
 
 question_sort:
     pattern:  /sortQuestion/{questionId}/{sortOrder}
     defaults:
-        _controller: "TeclliureQuestionBundle:Questionary:sortQuestion"
+        _controller: "TeclliureQuestionBundle:Question:sortQuestion"
         requirements:
             _method:  GET
 
 question_delete:
     pattern:  /deleteQuestion/{questionId}
     defaults:
-        _controller: "TeclliureQuestionBundle:Questionary:deleteQuestion"
+        _controller: "TeclliureQuestionBundle:Question:deleteQuestion"
         requirements:
             _method:  GET
 
 answer_form_show:
     pattern:  /formAnswer/{questionId}
     defaults:
-        _controller: "TeclliureQuestionBundle:Questionary:formAnswer"
+        _controller: "TeclliureQuestionBundle:Question:formAnswer"
         requirements:
             _method:  GET
 
 answer_save:
     pattern:  /saveAnswer/{questionId}
     defaults:
-        _controller: "TeclliureQuestionBundle:Questionary:saveAnswer"
+        _controller: "TeclliureQuestionBundle:Question:saveAnswer"
         requirements:
             _method:  POST
 
 answer_delete:
     pattern:  /deleteAnswer/{answerId}
     defaults:
-        _controller: "TeclliureQuestionBundle:Questionary:deleteAnswer"
+        _controller: "TeclliureQuestionBundle:Question:deleteAnswer"
         requirements:
             _method:  GET
 
 answer_sort:
     pattern:  /sortAnswer/{answerId}/{sortOrder}
     defaults:
-        _controller: "TeclliureQuestionBundle:Questionary:sortAnswer"
+        _controller: "TeclliureQuestionBundle:Question:sortAnswer"
+        requirements:
+            _method:  GET
+
+            question_save:
+                pattern:  /saveQuestion/{id}
+                defaults:
+                    _controller: "TeclliureQuestionBundle:Question:saveQuestion"
+                    requirements:
+                        _method:  POST
+
+validation_save:
+    pattern:  /saveValidation/{id}
+    defaults:
+        _controller: "TeclliureQuestionBundle:Validation:saveValidation"
+        requirements:
+            _method:  POST
+
+
+validation_sort:
+    pattern:  /sortValidation/{validationId}/{sortOrder}
+    defaults:
+        _controller: "TeclliureQuestionBundle:Validation:sortValidation"
+        requirements:
+            _method:  GET
+
+validation_delete:
+    pattern:  /deleteValidation/{validationId}
+    defaults:
+        _controller: "TeclliureQuestionBundle:Validation:deleteValidation"
+        requirements:
+            _method:  GET
+
+rule_form_show:
+    pattern:  /formRule/{validationId}
+    defaults:
+        _controller: "TeclliureQuestionBundle:Validation:formRule"
+        requirements:
+            _method:  GET
+
+rule_save:
+    pattern:  /saveRule/{validationId}
+    defaults:
+        _controller: "TeclliureQuestionBundle:Validation:saveRule"
+        requirements:
+            _method:  POST
+
+rule_delete:
+    pattern:  /deleteRule/{ruleId}
+    defaults:
+        _controller: "TeclliureQuestionBundle:Validation:deleteRule"
         requirements:
             _method:  GET

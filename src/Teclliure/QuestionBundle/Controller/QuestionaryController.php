@@ -2,15 +2,16 @@
 
 namespace Teclliure\QuestionBundle\Controller;
 
-use Teclliure\Controller\Controller;
+use Teclliure\DashboardBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Teclliure\QuestionBundle\Entity\Questionary;
 use Teclliure\QuestionBundle\Entity\Question;
-use Teclliure\QuestionBundle\Entity\Answer;
+use Teclliure\QuestionBundle\Entity\Validation;
 use Teclliure\QuestionBundle\Form\QuestionaryType;
+use Teclliure\QuestionBundle\Form\ValidationType;
 use Teclliure\QuestionBundle\Form\QuestionType;
-use Teclliure\QuestionBundle\Form\AnswerType;
+
 
 use Knp\Menu\FactoryInterface as MenuFactoryInterface;
 use Knp\Menu\ItemInterface as MenuItemInterface;
@@ -34,7 +35,7 @@ class QuestionaryController extends Controller
 
         $entities = $pager->paginate($em->getRepository('TeclliureQuestionBundle:Questionary')->queryAll())->getResult();
 
-        // $this->buildBreadcrumbs('list');
+        $this->buildBreadcrumbs('list');
 
         return $this->render('TeclliureQuestionBundle:Questionary:index.html.twig', array(
             'entities' => $entities,
@@ -56,81 +57,24 @@ class QuestionaryController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Questionary entity.');
         }
+
         $questions = $questionaryRepository->findQuestions($entity);
+        $validations = $questionaryRepository->findValidations($entity);
 
         $questionForm = $this->createForm(new QuestionType(), new Question());
+        $validationForm = $this->createForm(new ValidationType(), new Validation());
+
+        $this->buildBreadcrumbs('show');
 
         return $this->render('TeclliureQuestionBundle:Questionary:show.html.twig', array(
             'entity'      => $entity,
             'questions'   => $questions,
-            'questionForm' => $questionForm->createView()
+            'questionForm' => $questionForm->createView(),
+            'validations'   => $validations,
+            'validationForm' => $validationForm->createView()
+
         ));
     }
-
-    /**
-     * Saves a question
-     *
-     */
-    public function saveQuestionAction($id)
-    {
-        $request = $this->getRequest();
-        $em = $this->getDoctrine()->getManager();
-
-        $questionary = $em->getRepository('TeclliureQuestionBundle:Questionary');
-
-        $entity = $questionary->find($id);
-
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Questionary entity.');
-        }
-
-        if ($request->isXmlHttpRequest()) {
-            if ($request->get('questionId')) {
-                $question = $em->getRepository('TeclliureQuestionBundle:Question')->find($request->get('questionId'));
-            }
-            else {
-                $question = new Question();
-            }
-
-            $question->setQuestionary($entity);
-            $questionForm = $this->createForm(new QuestionType(), $question);
-            $questionForm->bind($request);
-
-            if ($questionForm->isValid()) {
-                $em->persist($question);
-                $em->flush();
-
-                $questionForm = $this->createForm(new QuestionType(), new Question());
-
-                $this->get('session')->setFlash('info',
-                    'Question saved correctly'
-                );
-                $questionFormError = false;
-            }
-            else {
-                $questionFormError = true;
-            }
-
-
-            $questions = $questionary->findQuestions($entity);
-
-            return $this->render(':ajax:base_ajax.html.twig', array(
-                'template'          => 'TeclliureQuestionBundle:Questionary:question.html.twig',
-                'entity'            => $entity,
-                'questions'         => $questions,
-                'questionForm'      => $questionForm->createView(),
-                'questionFormError' => $questionFormError
-            ));
-        }
-        else {
-            return $this->render(':msg:error.html.twig', array(
-                'msg' => 'Error: Not ajax call'
-            ));
-        }
-    }
-
-
 
     /**
      * Displays a form to create a new Questionary entity.
@@ -140,6 +84,8 @@ class QuestionaryController extends Controller
     {
         $entity = new Questionary();
         $form   = $this->createForm('teclliure_questionbundle_questionarytype', $entity);
+
+        $this->buildBreadcrumbs('new');
 
         return $this->render('TeclliureQuestionBundle:Questionary:new.html.twig', array(
             'entity' => $entity,
@@ -169,6 +115,10 @@ class QuestionaryController extends Controller
                 $entity->doSaveSubcategories($em);
                 $em->flush();
                 $em->getConnection()->commit();
+
+                $this->get('session')->setFlash('info',
+                    'Questionary saved correctly'
+                );
             }
             catch (Exception $e) {
                 $em->getConnection()->rollback();
@@ -178,6 +128,12 @@ class QuestionaryController extends Controller
 
             return $this->redirect($this->generateUrl('questionary_show', array('id' => $entity->getId())));
         }
+
+        $this->buildBreadcrumbs('new');
+
+        $this->get('session')->setFlash('error',
+            'Error saving Questionary'
+        );
 
         return $this->render('TeclliureQuestionBundle:Questionary:new.html.twig', array(
             'entity' => $entity,
@@ -200,6 +156,8 @@ class QuestionaryController extends Controller
         }
 
         $editForm = $this->createForm('teclliure_questionbundle_questionarytype', $entity);
+
+        $this->buildBreadcrumbs('edit');
 
         return $this->render('TeclliureQuestionBundle:Questionary:edit.html.twig', array(
             'entity'      => $entity,
@@ -243,6 +201,12 @@ class QuestionaryController extends Controller
             return $this->redirect($this->generateUrl('questionary_edit', array('id' => $id)));
         }
 
+        $this->buildBreadcrumbs('edit');
+
+        $this->get('session')->setFlash('error',
+            'Error saving Questionary'
+        );
+
         return $this->render('TeclliureQuestionBundle:Questionary:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView()
@@ -266,248 +230,21 @@ class QuestionaryController extends Controller
         $entity->doDeleteSubcategories($em);
         $em->flush();
 
+        $this->get('session')->setFlash('info',
+            'Questionary correctly deleted'
+        );
+
         return $this->redirect($this->generateUrl('questionary'));
     }
 
-    /**
-     * Sort question
-     *
-     */
-    public function sortQuestionAction($questionId, $sortOrder)
-    {
-        $request = $this->getRequest();
 
-        if ($request->isXmlHttpRequest()) {
-            $em = $this->getDoctrine()->getManager();
-
-            $questionId = trim(str_replace('questionId','',$questionId));
-
-            $questionRepository = $em->getRepository('TeclliureQuestionBundle:Question');
-
-            $entity = $questionRepository->find($questionId);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Question entity.');
-            }
-
-            $entity->setPosition($sortOrder);
-            $em->persist($entity);
-            $em->flush();
-
-            return new Response();
-        }
-        else {
-            return $this->render(':msg:error.html.twig', array(
-                'msg' => 'Error: Not ajax call'
-            ));
-        }
-    }
-
-    /**
-     * Deletes a question
-     *
-     */
-    public function deleteQuestionAction($questionId)
-    {
-        $request = $this->getRequest();
-
-        if ($request->isXmlHttpRequest()) {
-            $em = $this->getDoctrine()->getManager();
-            $questionId = trim(str_replace('questionId','',$questionId));
-
-            $questionRepository = $em->getRepository('TeclliureQuestionBundle:Question');
-            $questionaryRepository = $em->getRepository('TeclliureQuestionBundle:Questionary');
-
-            $entity = $questionRepository->find($questionId);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Question entity.');
-            }
-            $questionary = $entity->getQuestionary();
-
-            $em->remove($entity);
-
-            try {
-                $em->flush();
-
-                $this->get('session')->setFlash('info',
-                    'Question deleted correctly'
-                );
-            }
-            catch (\Exception $e) {
-                $this->get('session')->setFlash('error',
-                    'Question could not be deleted. You should delete related content (answers, ...) before.'
-                );
-            }
-
-            $questions = $questionaryRepository->findQuestions($questionary);
-
-
-
-            return $this->render(':ajax:base_ajax.html.twig', array(
-                'template'          => 'TeclliureQuestionBundle:Questionary:questionList.html.twig',
-                'questions'   => $questions,
-            ));
-        }
-        else {
-            return $this->render(':msg:error.html.twig', array(
-                'msg' => 'Error: Not ajax call'
-            ));
-        }
-    }
-
-    /**
-     * Show answer form
-     *
-     */
-    public function formAnswerAction($questionId)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $questionRepository = $em->getRepository('TeclliureQuestionBundle:Question');
-
-        $entity = $questionRepository->find($questionId);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Question entity.');
-        }
-
-        $answerForm = $this->createForm(new AnswerType(), new Answer());
-
-        return $this->render('TeclliureQuestionBundle:Questionary:answerForm.html.twig', array(
-            'question'      => $entity,
-            'answerForm' => $answerForm->createView()
-        ));
-    }
-
-    /**
-     * Saves a question
-     *
-     */
-    public function saveAnswerAction($questionId)
-    {
-        $request = $this->getRequest();
-        $em = $this->getDoctrine()->getManager();
-
-        $questionRepository = $em->getRepository('TeclliureQuestionBundle:Question');
-
-        $entity = $questionRepository->find($questionId);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Question entity.');
-        }
-
-        if ($request->isXmlHttpRequest()) {
-            if ($request->get('answerId')) {
-                $answer = $em->getRepository('TeclliureQuestionBundle:Answer')->find($request->get('answerId'));
-            }
-            else {
-                $answer = new Answer();
-            }
-
-            $answer->setQuestion($entity);
-            $answerForm = $this->createForm(new AnswerType(), $answer);
-            $answerForm->bind($request);
-
-            if ($answerForm->isValid()) {
-                $em->persist($answer);
-                $em->flush();
-
-                $this->get('session')->setFlash('info',
-                    'Answer saved correctly'
-                );
-
-
-               $viewParams = array(
-                   'question'      => $entity
-               );
-            }
-            else {
-                $viewParams = array(
-                    'question'      => $entity,
-                    'answerForm' => $answerForm->createView()
-                );
-            }
-
-            return $this->render(':ajax:base_ajax.html.twig', array_merge(array(
-                'template'          => 'TeclliureQuestionBundle:Questionary:answerElement.html.twig'),
-                $viewParams)
-            );
-        }
-        else {
-            return $this->render(':msg:error.html.twig', array(
-                'msg' => 'Error: Not ajax call'
-
-            ));
-        }
-    }
-
-    /**
-     * Deletes a question
-     *
-     */
-    public function deleteAnswerAction($answerId)
-    {
-        $request = $this->getRequest();
-
-        if ($request->isXmlHttpRequest()) {
-            $em = $this->getDoctrine()->getManager();
-
-            $answerRepository = $em->getRepository('TeclliureQuestionBundle:Answer');
-
-            $entity = $answerRepository->find($answerId);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Answer entity.');
-            }
-            $question = $entity->getQuestion();
-
-            $em->remove($entity);
-            $em->flush();
-
-            return $this->render(':ajax:base_ajax.html.twig', array(
-                'template'      => 'TeclliureQuestionBundle:Questionary:answerList.html.twig',
-                'question'      => $question
-            ));
-        }
-        else {
-            return $this->render(':msg:error.html.twig', array(
-                'msg' => 'Error: Not ajax call'
-            ));
-        }
-    }
-
-    /**
-     * Sort answer
-     */
-    public function sortAnswerAction($answerId, $sortOrder)
-    {
-        $request = $this->getRequest();
-
-        if ($request->isXmlHttpRequest()) {
-            $em = $this->getDoctrine()->getManager();
-
-            $answerId = trim(str_replace('answerId','',$answerId));
-
-            $answerRepository = $em->getRepository('TeclliureQuestionBundle:Answer');
-
-            $entity = $answerRepository->find($answerId);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Answer entity.');
-            }
-
-            $entity->setPosition($sortOrder);
-            $em->persist($entity);
-            $em->flush();
-
-            return new Response();
-        }
-        else {
-            return $this->render(':msg:error.html.twig', array(
-                'msg' => 'Error: Not ajax call'
-            ));
-        }
+    public function getBreadcrumbsRoutes() {
+        return array(
+            'list' => array('route'=>'questionary', 'label'=>'List questionaries'),
+            'show' => array('route'=>'questionary_show', 'label'=>'Questionary Show'),
+            'new' => array('route'=>'questionary_new', 'label'=>'Questionary Create'),
+            'edit' => array('route'=>'questionary_edit', 'label'=>'Questionary Edit'),
+        );
     }
 
 

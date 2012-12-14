@@ -4,12 +4,18 @@ namespace Teclliure\QuestionBundle\Entity;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Teclliure\QuestionBundle\Constraint as QuestionAssert;
+use Symfony\Component\Validator\ExecutionContext;
 
 /**
  * @ORM\Table(name="validation_rule")
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks
- * 
+ * @Assert\Callback(methods={
+ *      "isMinMaxValid"
+ * })
+ * @QuestionAssert\RangeMinMaxOverlaps
+ *
  */
 class ValidationRule
 {
@@ -183,5 +189,16 @@ class ValidationRule
     public function getValidation()
     {
         return $this->validation;
+    }
+
+    public function isMinMaxValid(ExecutionContext $context)
+    {
+        // somehow you have an array of "fake names"
+        $fakeNames = array();
+
+        // check if the name is actually a fake name
+        if ($this->getRangeMin() > $this->getRangeMax()) {
+            $context->addViolationAtSubPath('rangeMin', 'Range min could not be lower than range max', array(), null);
+        }
     }
 }

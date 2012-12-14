@@ -1,21 +1,21 @@
-<form class="saveRuleForm" id="validationId{{ validation.id }}saveAnswerForm" action="{{ path('rule_save', { 'validationId': validation.id }) }}" method="post">
+<form class="saveRuleForm" id="validationId{{ validation.id }}saveRuleForm" action="{{ path('rule_save', { 'validationId': validation.id }) }}" method="post">
     <div>
         {{ form_row(ruleForm.name) }}
+    </div>
+
+    <div>
+        {{ form_row(ruleForm.rangeMin) }}
+    </div>
+
+    <div>
+        {{ form_row(ruleForm.rangeMax) }}
     </div>
 
     <div>
         {{ form_row(ruleForm.help) }}
     </div>
 
-    <div>
-        {{ form_row(answerForm.rangeMin) }}
-    </div>
-
-    <div>
-        {{ form_row(answerForm.rangeMax) }}
-    </div>
-
     <div><input class="btn btn-primary btn-mini" type="submit" value="{{ 'Rule add' | trans }}" /></div>
 
-    {{ form_rest(answerForm) }}
+    {{ form_rest(ruleForm) }}
 </form>

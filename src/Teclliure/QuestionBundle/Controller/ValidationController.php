@@ -24,7 +24,7 @@ class ValidationController extends Controller
      * Saves a validation
      *
      */
-    public function saveQuestionAction($id)
+    public function saveValidationAction($id)
     {
         $request = $this->getRequest();
         $em = $this->getDoctrine()->getManager();
@@ -69,7 +69,7 @@ class ValidationController extends Controller
             }
 
 
-            $validations = $questionary->findValidations($entity);
+            $validations = $validationary->findValidations($entity);
 
             return $this->render(':ajax:base_ajax.html.twig', array(
                 'template'             => 'TeclliureQuestionBundle:Validation:validation.html.twig',
@@ -90,21 +90,21 @@ class ValidationController extends Controller
      * Sort question
      *
      */
-    public function sortQuestionAction($questionId, $sortOrder)
+    public function sortValidationAction($validationId, $sortOrder)
     {
         $request = $this->getRequest();
 
         if ($request->isXmlHttpRequest()) {
             $em = $this->getDoctrine()->getManager();
 
-            $questionId = trim(str_replace('questionId','',$questionId));
+            $validationId = trim(str_replace('validationId','',$validationId));
 
-            $questionRepository = $em->getRepository('TeclliureQuestionBundle:Question');
+            $validationRepository = $em->getRepository('TeclliureQuestionBundle:Validation');
 
-            $entity = $questionRepository->find($questionId);
+            $entity = $validationRepository->find($validationId);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Question entity.');
+                throw $this->createNotFoundException('Unable to find Validation entity.');
             }
 
             $entity->setPosition($sortOrder);
@@ -121,24 +121,24 @@ class ValidationController extends Controller
     }
 
     /**
-     * Deletes a question
+     * Deletes a validation
      *
      */
-    public function deleteQuestionAction($questionId)
+    public function deleteValidationAction($validationId)
     {
         $request = $this->getRequest();
 
         if ($request->isXmlHttpRequest()) {
             $em = $this->getDoctrine()->getManager();
-            $questionId = trim(str_replace('questionId','',$questionId));
+            $validationId = trim(str_replace('validationId','',$validationId));
 
-            $questionRepository = $em->getRepository('TeclliureQuestionBundle:Question');
+            $validationRepository = $em->getRepository('TeclliureQuestionBundle:Validation');
             $questionaryRepository = $em->getRepository('TeclliureQuestionBundle:Questionary');
 
-            $entity = $questionRepository->find($questionId);
+            $entity = $validationRepository->find($validationId);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Question entity.');
+                throw $this->createNotFoundException('Unable to find Validation entity.');
             }
             $questionary = $entity->getQuestionary();
 
@@ -148,22 +148,20 @@ class ValidationController extends Controller
                 $em->flush();
 
                 $this->get('session')->setFlash('info',
-                    'Question deleted correctly'
+                    'Validation deleted correctly'
                 );
             }
             catch (\Exception $e) {
                 $this->get('session')->setFlash('error',
-                    'Question could not be deleted. You should delete related content (answers, ...) before.'
+                    'Validation could not be deleted. You should delete related content (rules, user contents,...) before.'
                 );
             }
 
-            $questions = $questionaryRepository->findQuestions($questionary);
-
-
+            $validations = $questionaryRepository->findValidations($questionary);
 
             return $this->render(':ajax:base_ajax.html.twig', array(
-                'template'          => 'TeclliureQuestionBundle:Question:questionList.html.twig',
-                'questions'   => $questions,
+                'template'          => 'TeclliureQuestionBundle:Validation:validationList.html.twig',
+                'validations'   => $validations,
             ));
         }
         else {
@@ -174,80 +172,80 @@ class ValidationController extends Controller
     }
 
     /**
-     * Show answer form
+     * Show rule form
      *
      */
-    public function formAnswerAction($questionId)
+    public function formRuleAction($validationId)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $questionRepository = $em->getRepository('TeclliureQuestionBundle:Question');
+        $validationRepository = $em->getRepository('TeclliureQuestionBundle:Validation');
 
-        $entity = $questionRepository->find($questionId);
+        $entity = $validationRepository->find($validationId);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Question entity.');
+            throw $this->createNotFoundException('Unable to find Validation entity.');
         }
 
-        $answerForm = $this->createForm(new AnswerType(), new Answer());
+        $ruleForm = $this->createForm(new ValidationRuleType(), new ValidationRule());
 
-        return $this->render('TeclliureQuestionBundle:Question:answerForm.html.twig', array(
-            'question'      => $entity,
-            'answerForm' => $answerForm->createView()
+        return $this->render('TeclliureQuestionBundle:Validation:ruleForm.html.twig', array(
+            'validation'      => $entity,
+            'ruleForm' => $ruleForm->createView()
         ));
     }
 
     /**
-     * Saves a question
+     * Saves a rule
      *
      */
-    public function saveAnswerAction($questionId)
+    public function saveRuleAction($validationId)
     {
         $request = $this->getRequest();
         $em = $this->getDoctrine()->getManager();
 
-        $questionRepository = $em->getRepository('TeclliureQuestionBundle:Question');
+        $validationRepository = $em->getRepository('TeclliureQuestionBundle:Validation');
 
-        $entity = $questionRepository->find($questionId);
+        $entity = $validationRepository->find($validationId);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Question entity.');
+            throw $this->createNotFoundException('Unable to find Validation entity.');
         }
 
         if ($request->isXmlHttpRequest()) {
-            if ($request->get('answerId')) {
-                $answer = $em->getRepository('TeclliureQuestionBundle:Answer')->find($request->get('answerId'));
+            if ($request->get('ruleId')) {
+                $rule = $em->getRepository('TeclliureQuestionBundle:ValidationRule')->find($request->get('ruleId'));
             }
             else {
-                $answer = new Answer();
+                $rule = new ValidationRule();
             }
 
-            $answer->setQuestion($entity);
-            $answerForm = $this->createForm(new AnswerType(), $answer);
-            $answerForm->bind($request);
+            $rule->setValidation($entity);
+            $ruleForm = $this->createForm(new ValidationRuleType(), $rule);
+            $ruleForm->bind($request);
 
-            if ($answerForm->isValid()) {
-                $em->persist($answer);
+            if ($ruleForm->isValid()) {
+                $em->persist($rule);
                 $em->flush();
 
                 $this->get('session')->setFlash('info',
-                    'Answer saved correctly'
+                    'Rule saved correctly'
                 );
 
 
                $viewParams = array(
-                   'question'      => $entity
+                   'validation'      => $entity
                );
             }
             else {
                 $viewParams = array(
-                    'question'      => $entity,
-                    'answerForm' => $answerForm->createView()
+                    'validation'      => $entity,
+                    'ruleForm' => $ruleForm->createView()
                 );
             }
 
             return $this->render(':ajax:base_ajax.html.twig', array_merge(array(
-                'template'          => 'TeclliureQuestionBundle:Question:answerElement.html.twig'),
+                'template'          => 'TeclliureQuestionBundle:Validation:ruleElement.html.twig'),
                 $viewParams)
             );
         }
@@ -260,65 +258,36 @@ class ValidationController extends Controller
     }
 
     /**
-     * Deletes a question
+     * Deletes a ValidationRule
      *
      */
-    public function deleteAnswerAction($answerId)
+    public function deleteRuleAction($ruleId)
     {
         $request = $this->getRequest();
 
         if ($request->isXmlHttpRequest()) {
             $em = $this->getDoctrine()->getManager();
 
-            $answerRepository = $em->getRepository('TeclliureQuestionBundle:Answer');
+            $ruleRepository = $em->getRepository('TeclliureQuestionBundle:ValidationRule');
 
-            $entity = $answerRepository->find($answerId);
+            $entity = $ruleRepository->find($ruleId);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Answer entity.');
+                throw $this->createNotFoundException('Unable to find ValidationRule entity.');
             }
-            $question = $entity->getQuestion();
+            $validation = $entity->getValidation();
 
             $em->remove($entity);
             $em->flush();
 
+            $this->get('session')->setFlash('error',
+                'Rule DELETED correctly'
+            );
+
             return $this->render(':ajax:base_ajax.html.twig', array(
-                'template'      => 'TeclliureQuestionBundle:Question:answerList.html.twig',
-                'question'      => $question
+                'template'      => 'TeclliureQuestionBundle:Validation:ruleList.html.twig',
+                'validation'      => $validation
             ));
-        }
-        else {
-            return $this->render(':msg:error.html.twig', array(
-                'msg' => 'Error: Not ajax call'
-            ));
-        }
-    }
-
-    /**
-     * Sort answer
-     */
-    public function sortAnswerAction($answerId, $sortOrder)
-    {
-        $request = $this->getRequest();
-
-        if ($request->isXmlHttpRequest()) {
-            $em = $this->getDoctrine()->getManager();
-
-            $answerId = trim(str_replace('answerId','',$answerId));
-
-            $answerRepository = $em->getRepository('TeclliureQuestionBundle:Answer');
-
-            $entity = $answerRepository->find($answerId);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Answer entity.');
-            }
-
-            $entity->setPosition($sortOrder);
-            $em->persist($entity);
-            $em->flush();
-
-            return new Response();
         }
         else {
             return $this->render(':msg:error.html.twig', array(

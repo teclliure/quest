@@ -9,6 +9,12 @@ services:
 
         tags:
             - { name: form.type, alias: teclliure_questionbundle_questionarytype }
+    teclliure.validator.range_min_max:
+        class: Teclliure\QuestionBundle\Constraint\RangeMinMaxOverlapsValidator
+        arguments: [@doctrine.orm.entity_manager]
+        tags:
+            - { name: validator.constraint_validator, alias: alias_range_min_max_constraint }
+
 #    teclliure_question.example:
 #        class: %teclliure_question.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]

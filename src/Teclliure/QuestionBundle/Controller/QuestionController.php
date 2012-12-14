@@ -277,6 +277,10 @@ class QuestionController extends Controller
             $em->remove($entity);
             $em->flush();
 
+            $this->get('session')->setFlash('error',
+                'Question DELETED correctly'
+            );
+
             return $this->render(':ajax:base_ajax.html.twig', array(
                 'template'      => 'TeclliureQuestionBundle:Question:answerList.html.twig',
                 'question'      => $question

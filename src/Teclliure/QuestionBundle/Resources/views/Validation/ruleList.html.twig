@@ -12,8 +12,8 @@
                         {{ 'Delete' | trans }}
                     </a>
                 </div>
-                <p class="answer">{{ rule.name }} ({{ 'Range' | trans }}: <strong>{{ rule.rangeStart }} {{ rule.rangeEnd }}</strong>)</p>
-                <p class="answerHelp">{{ rule.help }}</p>
+                <p class="rule">{{ rule.name }} ({{ 'Range' | trans }}: <strong>{{ rule.rangeMin }} {{ rule.rangeMax }}</strong>)</p>
+                <p class="ruleHelp">{{ rule.help }}</p>
             </li>
         {% endfor %}
     </ul>

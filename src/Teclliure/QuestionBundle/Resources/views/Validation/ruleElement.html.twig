@@ -1,7 +1,7 @@
-<a href="{{ path('rule_form_show', { 'questionId': question.id }) }}"  id="questionId{{ question.id }}showForm" class="btn btn-mini ruleShowForm" style="float: right;">
+<a href="{{ path('rule_form_show', { 'validationId': validation.id }) }}"  id="validationId{{ validation.id }}showForm" class="btn btn-mini ruleShowForm" style="float: right;">
     <i class="icon-chevron-right"></i> {{ 'Add rule' | trans }}
 </a>
-<div id="questionId{{ question.id }}RuleForm" {% if ruleForm is not defined %}style="display: none"{% endif %}>
+<div id="validationId{{ validation.id }}RuleForm" {% if ruleForm is not defined %}style="display: none"{% endif %}>
     {% if ruleForm is defined %}
         {% include 'TeclliureQuestionBundle:Validation:ruleForm.html.twig' %}
     {% endif %}

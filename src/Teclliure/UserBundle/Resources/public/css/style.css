@@ -251,42 +251,48 @@ hr {
     text-align: center;
 }
 
-.questionsList, .questionAnswersList ul  {
+.questionsList, .questionAnswersList ul,  .validationsList, .validationRulesList ul {
     list-style: none;
     margin: 2px;
     margin-left: auto;
     margin-right: auto;
 }
 
-.questionsList  li, .questionAnswersList ul li {
+.questionsList  li, .questionAnswersList ul li, .validationRulesList ul li {
     margin: 6px 0;
 }
 
-.questionsList h4 {
+.questionAnswersList ul li, .validationRulesList ul li {
+    border: 1px solid #E1E1E8;
+    padding: 5px 10px;
+    background-color: #F7F7F9;
+}
+
+.questionsList h4, .validationsList h4 {
     color: #333;
 }
 
-.questionsList p.questionHelp, .questionAnswersList p.answerHelp {
+.questionsList p.questionHelp, .questionAnswersList p.answerHelp, .validationsList p.validationHelp, .validationRulesList p.ruleHelp {
     color: #999;
 }
 
-.questionAnswersList p.answer {
+.questionAnswersList p.answer, .validationRulesList p.rule {
     color: #333;
     margin: 0;
 }
 
 .ui-state-highlight { height: 1.5em; line-height: 1.2em; }
 
-.question_buttons,  .answer_buttons {
+.question_buttons,  .answer_buttons, .validation_buttons, .rule_buttons {
     float: right;
 }
 
-.questionAnswersList {
+.questionAnswersList, .validationRulesList {
     width: 90%;
     margin: 20px;
 }
 
-.answerLegend {
+.answerLegend, .ruleLegend {
     font-size: 0.9em;
     line-height: 30px;
 }

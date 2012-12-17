@@ -38,6 +38,17 @@ class QuestionaryRepository extends SortableRepository
         return $query->getResult();
     }
 
+    public function findPatientQuestionaries($patient) {
+        $em = $this->getEntityManager();
+
+        $dql = 'SELECT pq FROM TeclliureQuestionBundle:PatientQuestionary pq WHERE pq.patient = :patient ORDER BY pq.updated desc';
+
+        $query = $em->createQuery($dql);
+        $query->setParameter('patient', $patient->getId());
+
+        return $query->getResult();
+    }
+
     public function deleteSubcategories($questionary) {
         $em = $this->getEntityManager();
 

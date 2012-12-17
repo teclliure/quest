@@ -1,0 +1,11 @@
+<form action="{% if entity is defined and entity.id %}{{ path('patient_update', { 'id': entity.id }) }}{% else %}{{ path('patient_update') }}{% endif %}" method="post" {{ form_enctype(editForm) }}>
+    {{ form_row(editForm.name) }}
+    {{ form_row(editForm.identification) }}
+    {{ form_row(editForm.email) }}
+    {{ form_row(editForm.address) }}
+    {{ form_widget(editForm) }}
+
+    <div class="well form-actions">
+        <button class="btn btn-primary" type="submit">{{ 'Save'| trans }}</button>
+    </div>
+</form>

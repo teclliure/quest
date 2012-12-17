@@ -1,0 +1,315 @@
+.container {
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+a {
+    /*background:inherit;*/
+    color:#79A325;
+    text-decoration:none;
+}
+
+a:hover {
+    color:#79A325;
+}
+
+.hero-unit {
+    padding: 0;
+    background: none;
+}
+
+hr {
+    border-color: #aaa;
+    clear: both;
+}
+
+.boxed {
+    border-radius:4px;
+}
+
+#skiplinks {
+    margin-left: .5em;
+}
+
+#top li {
+    display: inline;
+}
+
+#top .selected a {
+    color: #333;
+}
+
+#banner {
+    position: relative;
+}
+
+#banner .hero-unit {
+    background-color: #a3ca5f;
+    padding: .2em 1em;
+    margin-bottom: .5em;
+}
+
+#logo-text a {
+    color: #fff;
+    text-decoration: none;
+}
+
+#language_selector {
+    margin-right: 1em;
+    text-align: right;
+}
+
+#top a {
+    padding: .5em;
+}
+
+#language_selector li span {
+    display: none;
+}
+
+#breadcrumb .breadcrumb {
+    border: none;
+    background-color: #4b4b4b;
+    background-image: none;
+    box-shadow: none;
+    margin-bottom: .5em;
+    padding-left: 2em;
+    filter: none;
+}
+
+#breadcrumb .breadcrumb li {
+    text-shadow: none;
+}
+
+#breadcrumb .breadcrumb li a {
+    color: #a3ca5f;
+}
+
+#breadcrumb .breadcrumb li:after {
+    content: " /";
+    color: #ccc;
+}
+
+#breadcrumb .breadcrumb li:last-child:after {
+    content: none;
+}
+/*
+#navigation ul {
+    padding: .5em 0;
+}
+
+#navigation ul.menu_main {
+    margin: 0;
+}
+
+#navigation li {
+    list-style-type: none;
+    padding: .5em 0;
+}
+
+#navigation li:before {
+    content: "/ ";
+    color: #ccc;
+}
+
+#navigation li a {
+    padding: .5em 0;
+}
+
+#navigation .current_ancestor > a {
+    font-weight: bold;
+}
+
+#navigation .current > a {
+    color: #4b4b4b;
+}*/
+
+#content-container {
+    background-color: #fff;
+    padding: 2em 0;
+}
+
+#content, #content_extra {
+    position: relative;
+}
+
+#content-container h1 {
+    line-height: 1.5em;
+}
+
+#content-container h2 {
+    line-height: 1.3em;
+}
+
+.articleContainer {
+    position: relative;
+}
+
+.articleContainer ul.tags {
+    margin: 0;
+}
+
+.articleContainer ul.tags li {
+    margin-right: .5em;
+    display: inline;
+    background-color: #4B4B4B;
+    font-size: 1em;
+    padding: 2px 4px 4px 4px;
+    font-weight: normal;
+}
+
+.articleContainer > * {
+}
+
+#footer {
+    margin-top: 1em;
+}
+
+#footer p {
+    margin-right: 2em;
+    text-align: right;
+}
+
+#menu-service li {
+    display: inline;
+}
+
+#menu-service li:after {
+    content: " |";
+    color: #ccc;
+}
+
+#menu-service li:last-child:after {
+    content: none;
+}
+
+
+@media (max-width: 767px) {
+
+    #banner .hero-unit h1 {
+        font-size: 48px;
+    }
+
+    #banner img {
+        height: 60%;
+    }
+
+    #content-container {
+        padding: 0;
+    }
+
+    #content {
+        margin-top: 3em;
+    }
+
+    #navigation .well {
+        padding-top: 0;
+        padding-bottom: 0;
+        margin-bottom: 0;
+    }
+}
+
+.form-signin {
+    max-width: 300px;
+    padding: 19px 29px 29px;
+    margin: 0px auto 20px;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(229, 229, 229);
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.form-signin input[type="text"], .form-signin input[type="password"] {
+    font-size: 16px;
+    height: auto;
+    margin-bottom: 15px;
+    padding: 7px 9px;
+}
+
+.simple_paginator {
+    list-style: none;
+    margin: 2px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.simple_paginator li {
+    float: left;
+    margin: 0 5px;
+}
+
+.simple_paginator li a {
+    border: 1px solid #cccccc;
+    line-height: 25px;
+    padding: 1px 8px 1px 8px;
+    margin: 2px;
+}
+
+.pager {
+    clear: both;
+    margin: 5 auto;
+    text-align: center;
+}
+
+.questionsList, .questionAnswersList ul,  .validationsList, .validationRulesList ul {
+    list-style: none;
+    margin: 2px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.questionsList  li, .questionAnswersList ul li, .validationRulesList ul li {
+    margin: 6px 0;
+}
+
+.questionAnswersList ul li, .validationRulesList ul li {
+    border: 1px solid #E1E1E8;
+    padding: 5px 10px;
+    background-color: #F7F7F9;
+}
+
+.questionsList h4, .validationsList h4 {
+    color: #333;
+}
+
+.questionsList p.questionHelp, .questionAnswersList p.answerHelp, .validationsList p.validationHelp, .validationRulesList p.ruleHelp {
+    color: #999;
+}
+
+.questionAnswersList p.answer, .validationRulesList p.rule {
+    color: #333;
+    margin: 0;
+}
+
+.ui-state-highlight { height: 1.5em; line-height: 1.2em; }
+
+.question_buttons,  .answer_buttons, .validation_buttons, .rule_buttons {
+    float: right;
+}
+
+.questionAnswersList, .validationRulesList {
+    width: 90%;
+    margin: 20px;
+}
+
+.answerLegend, .ruleLegend {
+    font-size: 0.9em;
+    line-height: 30px;
+}
+
+.cms-block {
+    margin-left: 30px;
+}
+
+.checkbox_form input {
+    float: left;
+}
+
+.checkbox_form label {
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+
+.alert-error ul {
+    margin-bottom: 0;
+}

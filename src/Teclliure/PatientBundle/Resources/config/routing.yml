@@ -1,0 +1,19 @@
+patient_new:
+    pattern:  /person/new
+    defaults: { _controller: TeclliurePatientBundle:Default:new }
+
+patient_update:
+    pattern:  /person/update/{id}
+    defaults: { _controller: TeclliurePatientBundle:Default:update, id: null }
+
+patient_delete:
+    pattern:  /person/{id}/delete
+    defaults: { _controller: TeclliurePatientBundle:Default:delete }
+
+questionary_patient_new:
+    pattern:  /person/{id}/selectQuestionary
+    defaults: { _controller: TeclliurePatientBundle:Default:selectQuestionay }
+
+patient_show:
+    pattern:  /person/{id}
+    defaults: { _controller: TeclliurePatientBundle:Default:show }

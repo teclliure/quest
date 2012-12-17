@@ -7,12 +7,12 @@ teclliure_dashboard:
     prefix:   /dashboard
 
 teclliure_category:
-    resource: "@TeclliureCategoryBundle/Controller/"
+    resource: "@TeclliureCategoryBundle/Resources/config/routing.yml"
     prefix:   /category
 
 teclliure_patient:
-    resource: "@TeclliurePatientBundle/Controller/"
-    prefix:   /patient
+    resource: "@TeclliurePatientBundle/Resources/config/routing.yml"
+    prefix:   /
 
 teclliure_user:
     resource: "@TeclliureUserBundle/Resources/config/routing.yml"

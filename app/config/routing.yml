@@ -1,6 +1,6 @@
 home:
     pattern:  /
-    defaults: { _controller: TeclliureDashboardBundle:Default:index }
+    defaults: { _controller: TeclliurePatientBundle:Default:index }
 
 teclliure_dashboard:
     resource: "@TeclliureDashboardBundle/Resources/config/routing.yml"

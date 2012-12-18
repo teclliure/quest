@@ -1,0 +1,55 @@
+<div class="formRow">
+    <label>{{ 'Name' | trans }}</label>
+    <span class="fieldValue" id="patientName">{{ entity.name }}</span>
+</div>
+
+<div class="formRow">
+    <label>{{ 'Identification' | trans }}</label>
+    <span class="fieldValue">{{ entity.identification }}</span>
+</div>
+
+<div class="formRow">
+    <label>{{ 'Email' | trans }}</label>
+    <span class="fieldValue">{{ entity.email }}</span>
+</div>
+
+<div class="formRow">
+    <label>{{ 'Address' | trans }}</label>
+    <span class="fieldValue">{{ entity.address }}</span>
+</div>
+
+<div class="formRow">
+    <label>{{ 'Phone' | trans }}</label>
+    <span class="fieldValue">{{ entity.phone }}</span>
+</div>
+
+<div class="formRow">
+    <label>{{ 'Birth date' | trans }}</label>
+    <span class="fieldValue">{{ entity.birthDate | date('d-m-Y') }}</span>
+</div>
+
+<div class="formRow">
+    <label>{{ 'Created' | trans }}</label>
+    <span class="fieldValue">{{ entity.created|date('d-m-Y H:i:s') }}</span>
+</div>
+
+<div class="formRow">
+    <label>{{ 'Updated' | trans }}</label>
+    <span class="fieldValue">{{ entity.updated|date('d-m-Y H:i:s') }}</span>
+</div>
+
+<div class="formRow">
+    <label>{{ 'Active' | trans }}</label>
+            <span class="fieldValue">
+              {% if entity.active %}
+                  <img src="{{ asset('bundles/sonataadmin/famfamfam/accept.png') }}" alt="{%- trans from 'SonataAdminBundle' %}label_type_yes{% endtrans -%}" />
+              {% else %}
+                  <img src="{{ asset('bundles/sonataadmin/famfamfam/exclamation.png') }}" alt="{%- trans from 'SonataAdminBundle' %}label_type_no{% endtrans -%}" />
+              {% endif %}
+            </span>
+</div>
+
+<div class="formRow">
+    <label>{{ 'Notes' | trans }} <button id="notesContentSH">{{ 'Show' | trans }}/{{ 'Hide' | trans }}</button></label>
+    <span class="fieldValue"><p id="notesContent" style="display: none">{{ entity.notes }}</p></span>
+</div>

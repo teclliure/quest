@@ -8,13 +8,20 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 class PatientRepository extends SortableRepository
 {
-    public function queryAllFromUser($userId) {
+    public function queryAllFromUser($userId, $searchString = null) {
         $em = $this->getEntityManager();
 
-        $dql = 'SELECT p FROM TeclliurePatientBundle:Patient p where p.user = :user ORDER BY p.name';
+        $dql = 'SELECT p FROM TeclliurePatientBundle:Patient p where p.user = :user';
+        if ($searchString) {
+            $dql .= ' AND p.name LIKE :search';
+        }
+        $dql .= ' ORDER BY p.name';
         $query = $em->createQuery($dql);
-        $query->setParameter('user', $userId);
 
+        $query->setParameter('user', $userId);
+        if ($searchString) {
+            $query->setParameter('search', '%'.$searchString.'%');
+        }
         return $query;
     }
 }

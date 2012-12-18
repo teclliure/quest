@@ -1,4 +1,4 @@
-<form action="{% if entity is defined and entity.id %}{{ path('patient_update', { 'id': entity.id }) }}{% else %}{{ path('patient_update') }}{% endif %}" method="post" {{ form_enctype(editForm) }}>
+<form id="savePatientForm" {% if entity is defined and entity.id %}class="personId{{ entity.id }}"{% endif %} action="{% if entity is defined and entity.id %}{{ path('patient_update', { 'id': entity.id }) }}{% else %}{{ path('patient_update') }}{% endif %}" method="post" {{ form_enctype(editForm) }}>
     {{ form_row(editForm.name) }}
     {{ form_row(editForm.identification) }}
     {{ form_row(editForm.email) }}

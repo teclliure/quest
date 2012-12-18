@@ -17,3 +17,7 @@ questionary_patient_new:
 patient_show:
     pattern:  /person/{id}
     defaults: { _controller: TeclliurePatientBundle:Default:show }
+
+patient_content:
+    pattern:  /reloadPatientContent/{id}
+    defaults: { _controller: TeclliurePatientBundle:Default:reloadPatientContent }

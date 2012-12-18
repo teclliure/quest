@@ -2,7 +2,7 @@
 
 {% block javascripts %}
     {{ parent() }}
-    <script src="{{ asset('bundles/teclliurequestion/js/questionForm.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/teclliurepatient/js/patientForm.js') }}" type="text/javascript"></script>
     <script src="{{ asset('bundles/teclliureuser/js/jquery-ui-1.9.1.custom.min.js') }}" type="text/javascript"></script>
 {% endblock %}
 {% block stylesheets %}
@@ -25,72 +25,21 @@
 <br />
 <br />
 <legend>
-    {{ 'Person' | trans }} {{ entity.name }}
+    {{ 'Person' | trans }} <span id="legendName">{{ entity.name }}</span>
 </legend>
 
 <ul class="nav nav-tabs" id="myTab">
   <li class="active"><a href="#show" data-toggle="tab">{{ 'Show' | trans }}</a></li>
-  <li><a href="#edit" data-toggle="tab">{{ 'Edit' | trans }}</a></li>
+  <li><a href="#editPatientForm" data-toggle="tab">{{ 'Edit' | trans }}</a></li>
   <li><a href="#questionaries" data-toggle="tab">{{ 'Questionaries' | trans }}</a></li>
 </ul>
 
 <div class="tab-content">
-    <div class="tab-pane active" id="show">
-      <table class="record_properties table table-bordered table-striped">
-          <tbody>
-          <tr>
-              <th>{{ 'Identification' | trans }}</th>
-              <td>{{ entity.identification }}</td>
-          </tr>
-          <tr>
-              <th>{{ 'Email' | trans }}</th>
-              <td>{{ entity.email }}</td>
-          </tr>
-          <tr>
-              <th>{{ 'Address' | trans }}</th>
-              <td>{{ entity.address }}</td>
-          </tr>
-          <tr>
-              <th>{{ 'Phone' | trans }}</th>
-              <td>{{ entity.phone }}</td>
-          </tr>
-          <tr>
-              <th>{{ 'Birth date' | trans }}</th>
-              <td>{{ entity.birthDate | date('d-m-Y') }}</td>
-          </tr>
-          <tr>
-              <th>{{ 'Notes' | trans }}</th>
-              <td>{{ entity.notes }}</td>
-          </tr>
-          <tr>
-              <th>{{ 'Created' | trans }}</th>
-              <td>{{ entity.created|date('d-m-Y H:i:s') }}</td>
-          </tr>
-          <tr>
-              <th>{{ 'Updated' | trans }}</th>
-              <td>{{ entity.updated|date('d-m-Y H:i:s') }}</td>
-          </tr>
-          <tr>
-              <th>{{ 'Active' | trans }}</th>
-              <td>
-                  {% if entity.active %}
-                      <img src="{{ asset('bundles/sonataadmin/famfamfam/accept.png') }}" alt="{%- trans from 'SonataAdminBundle' %}label_type_yes{% endtrans -%}" />
-                  {% else %}
-                      <img src="{{ asset('bundles/sonataadmin/famfamfam/exclamation.png') }}" alt="{%- trans from 'SonataAdminBundle' %}label_type_no{% endtrans -%}" />
-                  {% endif %}
-              </td>
-          </tr>
-          </tbody>
-      </table>
-
-      <div class="well form-actions">
-          <a class="btn btn-primary" href="{{ path('questionary_edit', { 'id': entity.id }) }}">
-              {{ 'Edit' | trans }}
-          </a>
-      </div>
+    <div class="tab-pane active showContent" id="show">
+        {% include 'TeclliurePatientBundle:Patient:showContent.html.twig' %}
     </div>
 
-    <div class="tab-pane" id="edit">
+    <div class="tab-pane" id="editPatientForm">
         {% include 'TeclliurePatientBundle:Patient:editForm.html.twig' %}
     </div>
 

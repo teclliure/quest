@@ -14,18 +14,23 @@ class DefaultController extends Controller
     /**
      * Finds and displays current user Patients.
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $pager = $this->get('ideup.simple_paginator');
         $pager->setItemsPerPage('20');
 
-        $entities = $pager->paginate($em->getRepository('TeclliurePatientBundle:Patient')->queryAllFromUser($this->getUser()->getId()))->getResult();
+        $searchString = $request->get('searchString');
+
+        $entities = $pager->paginate(
+            $em->getRepository('TeclliurePatientBundle:Patient')->queryAllFromUser($this->getUser()->getId(), $searchString)
+        )->getResult();
 
         $this->buildBreadcrumbs('list');
 
-        return $this->render('TeclliureDashboardBundle:Patient:index.html.twig', array(
+        return $this->render('TeclliurePatientBundle:Patient:index.html.twig', array(
             'entities' => $entities,
+            'searchString' => $searchString
         ));
     }
 
@@ -73,7 +78,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * Edits an existing Questionary entity.
+     * Edits an existing Patient entity.
      *
      */
     public function updateAction(Request $request, $id)
@@ -84,7 +89,7 @@ class DefaultController extends Controller
             $entity = $em->getRepository('TeclliurePatientBundle:Patient')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Questionary entity.');
+                throw $this->createNotFoundException('Unable to find Patient entity.');
             }
         }
         else {
@@ -94,6 +99,7 @@ class DefaultController extends Controller
         $editForm = $this->createForm(new PatientType(), $entity);
         $editForm->bind($request);
 
+        $correctlySaved = false;
         if ($editForm->isValid()) {
             $em->getConnection()->beginTransaction(); // suspend auto-commit
             try
@@ -102,8 +108,6 @@ class DefaultController extends Controller
                 $em->flush();
 
                 $em->getConnection()->commit();
-
-
             }
             catch (Exception $e) {
                 $em->getConnection()->rollback();
@@ -113,26 +117,61 @@ class DefaultController extends Controller
             $this->get('session')->setFlash('notice',
                 'Patient saved correctly'
             );
-            return $this->redirect($this->generateUrl('patient_show', array('id' => $entity->getId())));
+            $correctlySaved = true;
+        }
+        else {
+            $this->get('session')->setFlash('error',
+                'Error saving Patient'
+            );
         }
 
-        $this->buildBreadcrumbs('edit');
-
-        $this->get('session')->setFlash('error',
-            'Error saving Patient'
-        );
-
         if ($id) {
-            return $this->render('TeclliureQuestionBundle:Questionary:editForm.html.twig', array(
-                'entity'      => $entity,
-                'editForm'   => $editForm->createView()
+            return $this->render(':ajax:base_ajax.html.twig', array(
+                'template'          => 'TeclliurePatientBundle:Patient:editForm.html.twig',
+                'entity'            => $entity,
+                'editForm'          => $editForm->createView()
             ));
         }
         else {
+            if ($correctlySaved) {
+                return $this->redirect($this->generateUrl('patient_show', array('id' => $entity->getId())));
+            }
+            $this->buildBreadcrumbs('new');
+
             return $this->render('TeclliurePatientBundle:Patient:new.html.twig', array(
-                'editForm'          => $patientForm->createView(),
+                'editForm'          => $editForm->createView(),
             ));
         }
+    }
+
+    public function deleteAction($id) {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('TeclliurePatientBundle:Patient')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Patient entity.');
+        }
+
+        $this->get('session')->setFlash('notice',
+            'Patient DELETED correctly'
+        );
+
+        return $this->redirect($this->generateUrl('home'));
+    }
+
+    public function reloadPatientContentAction($id) {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('TeclliurePatientBundle:Patient')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Patient entity.');
+        }
+
+        return $this->render('TeclliurePatientBundle:Patient:showContent.html.twig', array(
+            'entity'          => $entity,
+        ));
     }
 
     public function getBreadcrumbsRoutes() {

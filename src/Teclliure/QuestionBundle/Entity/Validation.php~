@@ -61,7 +61,7 @@ class Validation
 
     /**
      * @ORM\OneToMany(targetEntity="Teclliure\QuestionBundle\Entity\ValidationRule", mappedBy="validation")
-     * @ORM\OrderBy({"range_start" = "ASC"})
+     * @ORM\OrderBy({"rangeMin" = "ASC"})
      */
     private $validationRules;
 

@@ -113,6 +113,11 @@ class Patient
     private $updated;
 
     /**
+     * @ORM\OneToMany(targetEntity="Teclliure\QuestionBundle\Entity\PatientQuestionary", mappedBy="patient")
+     */
+    private $questionaries;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -373,5 +378,45 @@ class Patient
     public function getAddress()
     {
         return $this->address;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->questionaries = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add questionaries
+     *
+     * @param \Teclliure\QuestionBundle\Entity\PatientQuestionary $questionaries
+     * @return Patient
+     */
+    public function addQuestionarie(\Teclliure\QuestionBundle\Entity\PatientQuestionary $questionaries)
+    {
+        $this->questionaries[] = $questionaries;
+    
+        return $this;
+    }
+
+    /**
+     * Remove questionaries
+     *
+     * @param \Teclliure\QuestionBundle\Entity\PatientQuestionary $questionaries
+     */
+    public function removeQuestionarie(\Teclliure\QuestionBundle\Entity\PatientQuestionary $questionaries)
+    {
+        $this->questionaries->removeElement($questionaries);
+    }
+
+    /**
+     * Get questionaries
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getQuestionaries()
+    {
+        return $this->questionaries;
     }
 }

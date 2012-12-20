@@ -44,11 +44,11 @@ class Subcategory
 
     /**
      *
-     * @ORM\ManyToOne(targetEntity="Teclliure\QuestionBundle\Entity\QuestionarySubcategory", inversedBy="subcategory")
-     * @ORM\JoinColumn(name="id", referencedColumnName="subcategory_id")
+     * @ORM\OneToMany(targetEntity="Teclliure\QuestionBundle\Entity\QuestionarySubcategory", mappedBy="subcategory")
      *
      */
-    private $questionarySubcategory;
+    private $questionaries;
+
 
     public function __toString()
     {
@@ -94,6 +94,7 @@ class Subcategory
      *
      * @param Teclliure\CategoryBundle\Entity\Category $category
      * @return Subcategory
+     *
      */
     public function setCategory(\Teclliure\CategoryBundle\Entity\Category $category = null)
     {
@@ -134,50 +135,44 @@ class Subcategory
     {
         return $this->description;
     }
-
     /**
-     * Set questionaryCategory
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->questionaries = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add questionaries
      *
-     * @param \Teclliure\QuestionBundle\Entity\QuestionarySubcategory $questionaryCategory
+     * @param \Teclliure\QuestionBundle\Entity\QuestionarySubcategory $questionaries
      * @return Subcategory
      */
-    public function setQuestionaryCategory(\Teclliure\QuestionBundle\Entity\QuestionarySubcategory $questionaryCategory = null)
+    public function addQuestionarie(\Teclliure\QuestionBundle\Entity\QuestionarySubcategory $questionaries)
     {
-        $this->questionaryCategory = $questionaryCategory;
+        $this->questionaries[] = $questionaries;
     
         return $this;
     }
 
     /**
-     * Get questionaryCategory
+     * Remove questionaries
      *
-     * @return \Teclliure\QuestionBundle\Entity\QuestionarySubcategory 
+     * @param \Teclliure\QuestionBundle\Entity\QuestionarySubcategory $questionaries
      */
-    public function getQuestionaryCategory()
+    public function removeQuestionarie(\Teclliure\QuestionBundle\Entity\QuestionarySubcategory $questionaries)
     {
-        return $this->questionaryCategory;
+        $this->questionaries->removeElement($questionaries);
     }
 
     /**
-     * Set questionarySubcategory
+     * Get questionaries
      *
-     * @param \Teclliure\QuestionBundle\Entity\QuestionarySubcategory $questionarySubcategory
-     * @return Subcategory
+     * @return \Doctrine\Common\Collections\Collection 
      */
-    public function setQuestionarySubcategory(\Teclliure\QuestionBundle\Entity\QuestionarySubcategory $questionarySubcategory = null)
+    public function getQuestionaries()
     {
-        $this->questionarySubcategory = $questionarySubcategory;
-    
-        return $this;
-    }
-
-    /**
-     * Get questionarySubcategory
-     *
-     * @return \Teclliure\QuestionBundle\Entity\QuestionarySubcategory 
-     */
-    public function getQuestionarySubcategory()
-    {
-        return $this->questionarySubcategory;
+        return $this->questionaries;
     }
 }

@@ -10,10 +10,6 @@ patient_delete:
     pattern:  /person/{id}/delete
     defaults: { _controller: TeclliurePatientBundle:Default:delete }
 
-questionary_patient_new:
-    pattern:  /person/{id}/selectQuestionary
-    defaults: { _controller: TeclliurePatientBundle:Default:selectQuestionay }
-
 patient_show:
     pattern:  /person/{id}
     defaults: { _controller: TeclliurePatientBundle:Default:show }
@@ -21,3 +17,11 @@ patient_show:
 patient_content:
     pattern:  /reloadPatientContent/{id}
     defaults: { _controller: TeclliurePatientBundle:Default:reloadPatientContent }
+
+questionary_patient_new:
+    pattern:  /person/{id}/selectQuestionary
+    defaults: { _controller: TeclliurePatientBundle:Default:selectQuestionary }
+
+questionary_patient_create:
+    pattern:  /person/{id}/selectQuestionary/{questionaryId}
+    defaults: { _controller: TeclliurePatientBundle:Default:createQuestionary }

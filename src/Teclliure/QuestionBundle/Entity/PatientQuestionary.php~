@@ -21,14 +21,14 @@ class PatientQuestionary
 
     /**
      *
-     * @ORM\ManyToOne(targetEntity="Teclliure\QuestionBundle\Entity\Questionary")
+     * @ORM\ManyToOne(targetEntity="Teclliure\QuestionBundle\Entity\Questionary",inversedBy="patients")
      *
      */
     private $questionary;
 
     /**
      *
-     * @ORM\ManyToOne(targetEntity="Teclliure\PatientBundle\Entity\Patient")
+     * @ORM\ManyToOne(targetEntity="Teclliure\PatientBundle\Entity\Patient",inversedBy="questionaries")
      *
      */
     private $patient;

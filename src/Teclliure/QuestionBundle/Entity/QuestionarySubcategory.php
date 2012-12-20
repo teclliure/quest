@@ -14,7 +14,7 @@ class QuestionarySubcategory
 {
     /**
     * @ORM\Id
-    * @ORM\ManyToOne(targetEntity="Teclliure\QuestionBundle\Entity\Questionary")
+    * @ORM\ManyToOne(targetEntity="Teclliure\QuestionBundle\Entity\Questionary",inversedBy="subcategories")
     *
     */
     private $questionary;
@@ -22,7 +22,7 @@ class QuestionarySubcategory
     /**
      *
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="Teclliure\CategoryBundle\Entity\Subcategory")
+     * @ORM\ManyToOne(targetEntity="Teclliure\CategoryBundle\Entity\Subcategory",inversedBy="questionaries")
      *
      */
     private $subcategory;

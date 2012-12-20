@@ -103,11 +103,11 @@ class CategoryFieldsSubscriber implements EventSubscriberInterface
         $repository = $this->em->getRepository('TeclliureCategoryBundle:Category');
 
         $categories = $repository->findActive();
-        $data->subcategories = array();
+        $data->subcategoriesTmp = array();
         foreach ($categories as $category) {
             if (count($category->getSubcategories()))
             {
-                $data->subcategories[] = $form['cat'.$category->getId()]->getViewData();
+                $data->subcategoriesTmp[] = $form['cat'.$category->getId()]->getViewData();
             }
         }
     }

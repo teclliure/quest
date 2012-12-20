@@ -64,6 +64,32 @@ class DefaultController extends Controller
     }
 
     /**
+     * Show questionaries
+     */
+    public function selectQuestionaryAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $patientRepository = $em->getRepository('TeclliurePatientBundle:Patient');
+        $questionaryRepository = $em->getRepository('TeclliureQuestionBundle:Questionary');
+
+        $entity = $patientRepository->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Patient entity.');
+        }
+
+        $catQuestionaries = $questionaryRepository->getQuestionariesByCategory();
+
+        $this->buildBreadcrumbs('show');
+
+        return $this->render('TeclliurePatientBundle:Patient:selectQuestionary.html.twig', array(
+            'entity'            => $entity,
+            'catQuestionaries'  => $catQuestionaries
+        ));
+    }
+
+    /**
      * Creates new patient
      */
     public function newAction()

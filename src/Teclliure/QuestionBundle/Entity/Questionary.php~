@@ -14,19 +14,25 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Questionary
 {
     /**
+    *
     * @ORM\Id
     * @ORM\Column(type="integer")
     * @ORM\GeneratedValue
+    *
     */
     private $id;
 
     /**
+     *
      * @ORM\Column(type="string", length=255)
-     *@Assert\Length(min = 5, max = 255)
+     * @Assert\Length(min = 5, max = 255)
+     *
      */
     private $name;
 
-    /** @ORM\Column(type="text", nullable=true) */
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
     private $description;
 
     /**
@@ -43,6 +49,7 @@ class Questionary
      *
      * @ORM\Column(type="datetime")
      * @Gedmo\Timestampable(on="update")
+     *
      */
     private $updated;
 
@@ -50,8 +57,23 @@ class Questionary
      * @ORM\Column(type="boolean")
      *
      * @Assert\Type(type="bool")
+     *
      */
     private $active = false;
+
+    /**
+     *
+     * @ORM\OneToMany(targetEntity="Teclliure\QuestionBundle\Entity\PatientQuestionary", mappedBy="questionary")
+     *
+     */
+    private $patients;
+
+    /**
+     *
+     * @ORM\OneToMany(targetEntity="Teclliure\QuestionBundle\Entity\QuestionarySubcategory", mappedBy="questionary")
+     *
+     */
+    private $subcategories;
 
     /**
      * Get id
@@ -194,5 +216,45 @@ class Questionary
     {
         $questionaryRepository = $entityManager->getRepository('TeclliureQuestionBundle:Questionary');
         $questionaryRepository->deleteSubcategories($this);
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->patients = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add patients
+     *
+     * @param \Teclliure\QuestionBundle\Entity\PatientQuestionary $patients
+     * @return Questionary
+     */
+    public function addPatient(\Teclliure\QuestionBundle\Entity\PatientQuestionary $patients)
+    {
+        $this->patients[] = $patients;
+    
+        return $this;
+    }
+
+    /**
+     * Remove patients
+     *
+     * @param \Teclliure\QuestionBundle\Entity\PatientQuestionary $patients
+     */
+    public function removePatient(\Teclliure\QuestionBundle\Entity\PatientQuestionary $patients)
+    {
+        $this->patients->removeElement($patients);
+    }
+
+    /**
+     * Get patients
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPatients()
+    {
+        return $this->patients;
     }
 }

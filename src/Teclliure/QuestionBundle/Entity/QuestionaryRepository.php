@@ -93,7 +93,7 @@ class QuestionaryRepository extends SortableRepository
     public function getSubcategories($questionary, $category) {
         $em = $this->getEntityManager();
 
-        $dql = 'select s FROM TeclliureCategoryBundle:Subcategory s JOIN s.questionarySubcategory qs WHERE qs.questionary = :questionary AND s.category = :category';
+        $dql = 'select s FROM TeclliureCategoryBundle:Subcategory s JOIN s.questionaries qs WHERE qs.questionary = :questionary AND s.category = :category';
 
         $query = $em->createQuery($dql);
 
@@ -103,5 +103,43 @@ class QuestionaryRepository extends SortableRepository
         $result = new ArrayCollection($query->getResult());
 
         return $result;
+    }
+
+    public function getQuestionariesByCategory() {
+        $em = $this->getEntityManager();
+
+        $dql = 'select q,qs,s,c FROM TeclliureQuestionBundle:Questionary q JOIN q.subcategories qs JOIN qs.subcategory s JOIN s.category c ORDER BY c.name DESC';
+
+        $query = $em->createQuery($dql);
+
+        $resultArray = array();
+        $result = $query->execute();
+        foreach ($result as $questionary) {
+            $subcats = $questionary->getSubcategories();
+            if (count($subcats)) {
+                foreach ($subcats as $subcat) {
+                    $subcat = $subcat->getSubcategory();
+                    if ($subcat) {
+                        if (!isset($resultArray ['categories'][$subcat->getCategory()->getId()]['cat'])) {
+                            $resultArray ['categories'][$subcat->getCategory()->getId()]['cat'] = $subcat->getCategory();
+                        }
+                        if (!isset($resultArray ['categories'][$subcat->getCategory()->getId()]['subcats'][$subcat->getId()]['subcat'])) {
+                            $resultArray ['categories'][$subcat->getCategory()->getId()]['subcats'][$subcat->getId()]['subcat'] = $subcat;
+                        }
+                        $resultArray ['categories'][$subcat->getCategory()->getId()]['subcats'][$subcat->getId()]['questionaries'][] = $questionary;
+                    }
+                    else {
+                        $resultArray ['questionaries'][] = $questionary;
+                    }
+                }
+            }
+            else {
+                print 'questionary without category';
+                $resultArray ['questionaries'][] = $questionary;
+            }
+        }
+        // print_r ($resultArray);
+
+        return $resultArray;
     }
 }

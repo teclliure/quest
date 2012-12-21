@@ -14,10 +14,18 @@ class PatientQuestionaryAnswer
     /**
      *
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="Teclliure\QuestionBundle\Entity\PatientQuestionary")
+     * @ORM\ManyToOne(targetEntity="Teclliure\QuestionBundle\Entity\PatientQuestionary",inversedBy="patientQuestionaryAnswers")
      *
      */
     private $patientQuestionary;
+
+    /**
+     *
+     * @ORM\Id
+     * @ORM\ManyToOne(targetEntity="Teclliure\QuestionBundle\Entity\Question")
+     *
+     */
+    private $question;
 
     /**
      *
@@ -46,14 +54,14 @@ class PatientQuestionaryAnswer
     public function setPatientQuestionary(\Teclliure\QuestionBundle\Entity\PatientQuestionary $patientQuestionary = null)
     {
         $this->patient_questionary = $patientQuestionary;
-    
+
         return $this;
     }
 
     /**
      * Get patient_questionary
      *
-     * @return \Teclliure\QuestionBundle\Entity\PatientQuestionary 
+     * @return \Teclliure\QuestionBundle\Entity\PatientQuestionary
      */
     public function getPatientQuestionary()
     {

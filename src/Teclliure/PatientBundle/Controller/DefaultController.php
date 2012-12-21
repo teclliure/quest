@@ -64,7 +64,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * Show questionaries
+     * Select questionary
      */
     public function selectQuestionaryAction($id)
     {
@@ -81,11 +81,40 @@ class DefaultController extends Controller
 
         $catQuestionaries = $questionaryRepository->getQuestionariesByCategory();
 
-        $this->buildBreadcrumbs('show');
+        $this->buildBreadcrumbs('select');
 
         return $this->render('TeclliurePatientBundle:Patient:selectQuestionary.html.twig', array(
             'entity'            => $entity,
             'catQuestionaries'  => $catQuestionaries
+        ));
+    }
+
+    /**
+     * Create questionary
+     */
+    public function selectQuestionaryAction($id, $questionaryId)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $patientRepository = $em->getRepository('TeclliurePatientBundle:Patient');
+        $questionaryRepository = $em->getRepository('TeclliureQuestionBundle:Questionary');
+
+        $patient = $patientRepository->find($id);
+        $questionary = $patientRepository->find($questionaryId);
+
+        if (!$patient) {
+            throw $this->createNotFoundException('Unable to find Patient entity.');
+        }
+
+        if (!$questionary) {
+            throw $this->createNotFoundException('Unable to find Questionary entity.');
+        }
+
+        $this->buildBreadcrumbs('create');
+
+        return $this->render('TeclliurePatientBundle:Patient:createQuestionary.html.twig', array(
+            'patient'            => $patient,
+            'questionary'       => $questionary
         ));
     }
 
@@ -205,6 +234,8 @@ class DefaultController extends Controller
             'list' => array('route'=>'home', 'label'=>'List patients'),
             'show' => array('route'=>'patient_show', 'label'=>'Patient Show'),
             'new' => array('route'=>'patient_new', 'label'=>'Patient Create'),
+            'select' => array('route'=>'patient_new', 'label'=>'Select Questionary'),
+            'create' => array('route'=>'patient_new', 'label'=>'Create Questionary'),
             'edit' => array('route'=>'patient_edit', 'label'=>'Patient Edit'),
         );
     }

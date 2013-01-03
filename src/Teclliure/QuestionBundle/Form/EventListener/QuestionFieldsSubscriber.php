@@ -49,7 +49,7 @@ class QuestionFieldsSubscriber implements EventSubscriberInterface
         $questionaryRepository = $this->em->getRepository('TeclliureQuestionBundle:Questionary');
         $questions = $questionaryRepository->findQuestions($data->getQuestionary());
 
-        foreach ($questions as $question) {
+        foreach ($questions as $key=>$question) {
             // $builder->add('patientQuestionaryAnswers', new QuestionWithAnswersType($question));
             $questionType = new QuestionWithAnswersType();
             $questionType->setQuestion($question);
@@ -58,9 +58,11 @@ class QuestionFieldsSubscriber implements EventSubscriberInterface
                 $questionType,
                 $currentVal,
                 array(
-                    'mapped' => false,
-                    'label'  => $question->getQuestion().' '.$question->getHelp(),
-                    'required' => true,
+                    'mapped'    => false,
+                    'attr'      => array('class' => 'patientQuestionContent'),
+                    'label_attr' => array('class' => 'patientQuestionLabel'),
+                    'label'     => '<span class="tooltiplink" title="'.$question->getQuestion().'" data-content="'.$question->getHelp().'">'.($key+1).'.- '.$question->getQuestion().'</span>',
+                    'required'  => true,
                 )
             ));
         }

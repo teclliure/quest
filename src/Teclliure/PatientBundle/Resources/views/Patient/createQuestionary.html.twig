@@ -16,6 +16,7 @@
 
 {% block form_label %}
     {% spaceless %}
+    {% if label is not sameas(false) %}
         {% set label_attr = label_attr|merge({'id': id}) %}
         {% if required %}
             {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
@@ -24,8 +25,9 @@
             {% set label = name|humanize %}
         {% endif %}
         {% autoescape false %}
-        <div{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>{{ label|trans({}, translation_domain) }}
+        <div{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>{{ label|trans({}, translation_domain) }}</div>
         {% endautoescape %}
+    {% endif %}
     {% endspaceless %}
 {% endblock form_label %}
 
@@ -40,13 +42,14 @@
 <br />
 <br />
 <legend>
-    {{ 'Person' | trans }} <span id="legendName">{{ patient.name }}</span>
+    {{ 'Person' | trans }} <span class="legendName">{{ patient.name }}</span> - {{ 'Questionary' | trans }} <span class="legendName">{{ questionary.name }}</span>
 </legend>
 
+<div id="questionaryPatient">
 <form action="{{ path('questionary_patient_save', {'id': patient.id, 'questionaryId': questionary.id} ) }}" method="post" {{ form_enctype(patientQuestionaryForm) }}>
     {{ form_widget(patientQuestionaryForm) }}
 
     <input type="submit" value="{{ 'Save' | trans }}" />
 </form>
-
+</div>
 {% endblock %}

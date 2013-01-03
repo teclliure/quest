@@ -30,7 +30,8 @@ class QuestionWithAnswersType extends AbstractType
             'required'  => true,
             'expanded'  => true,
             'multiple'  => false,
-            'label'     => '<span class="tooltiplink" title="'.$this->question->getQuestion().'" data-content="'.$this->question->getHelp().'">'.$this->question->getQuestion().'</span>',
+            'label'     => false,
+            'attr'      => array('class'=>'patientResponseLabel'),
             'data'     => $this->selectedValue,
         ));
     }

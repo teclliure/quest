@@ -30,6 +30,7 @@ class QuestionWithAnswersType extends AbstractType
             'required'  => true,
             'expanded'  => true,
             'multiple'  => false,
+            'label'     => '<span class="tooltiplink" title="'.$this->question->getQuestion().'" data-content="'.$this->question->getHelp().'">'.$this->question->getQuestion().'</span>',
             'data'     => $this->selectedValue,
         ));
     }
@@ -37,7 +38,7 @@ class QuestionWithAnswersType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Teclliure\QuestionBundle\Entity\PatientQuestionaryAnswer'
+            'data_class' => null
         ));
     }
 

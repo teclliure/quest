@@ -12,6 +12,23 @@
 
 {% block title %}{{ "Create questionary" | trans }}{% endblock %}
 
+{% form_theme patientQuestionaryForm _self %}
+
+{% block form_label %}
+    {% spaceless %}
+        {% set label_attr = label_attr|merge({'id': id}) %}
+        {% if required %}
+            {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
+        {% endif %}
+        {% if label is empty %}
+            {% set label = name|humanize %}
+        {% endif %}
+        {% autoescape false %}
+        <div{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>{{ label|trans({}, translation_domain) }}
+        {% endautoescape %}
+    {% endspaceless %}
+{% endblock form_label %}
+
 {% block inner_content %}
 <div style="float: right">
     <div class="sonata-actions">

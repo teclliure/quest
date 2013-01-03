@@ -45,16 +45,24 @@ class QuestionFieldsSubscriber implements EventSubscriberInterface
             return;
         }
 
+        $currentVal = null;
         $questionaryRepository = $this->em->getRepository('TeclliureQuestionBundle:Questionary');
         $questions = $questionaryRepository->findQuestions($data->getQuestionary());
-
-        $transformer = new PatientQuestionaryAnswerToNumberTransformer($this->em);
 
         foreach ($questions as $question) {
             // $builder->add('patientQuestionaryAnswers', new QuestionWithAnswersType($question));
             $questionType = new QuestionWithAnswersType();
             $questionType->setQuestion($question);
-            $form->add($this->factory->createNamed('patientQuestionaryAnswers', $questionType)->addModelTransformer($transformer));
+            $form->add($this->factory->createNamed(
+                'patientQuestionaryAnswers'.$question->getId(),
+                $questionType,
+                $currentVal,
+                array(
+                    'mapped' => false,
+                    'label'  => $question->getQuestion().' '.$question->getHelp(),
+                    'required' => true,
+                )
+            ));
         }
     }
 }

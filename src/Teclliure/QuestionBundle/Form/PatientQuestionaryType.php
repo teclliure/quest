@@ -6,7 +6,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Doctrine\ORM\EntityManager;
-use Teclliure\QuestionBundle\Form\EventListener\QuestionsFieldsSubscriber;
+use Teclliure\QuestionBundle\Form\EventListener\QuestionFieldsSubscriber;
+use Symfony\Component\Form\FormEvents;
 
 class PatientQuestionaryType extends AbstractType
 {
@@ -19,16 +20,11 @@ class PatientQuestionaryType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('notes')
-        ;
+        $builder->add('notes');
 
-        $questionaryRepository = $this->em->getRepository('TeclliureQuestionBundle:Questionary');
-        $questions = $questionaryRepository->findQuestions($entity);
+        $subscriber = new QuestionFieldsSubscriber($builder->getFormFactory(), $this->em);
+        $builder->addEventSubscriber($subscriber);
 
-        foreach ($questions as $question) {
-            $builder->add('patientQuestionaryAnswers', new QuestionWithAnswersType($question));
-        }
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

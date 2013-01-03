@@ -34,6 +34,13 @@ class PatientQuestionary
     private $patient;
 
     /**
+     *
+     * @ORM\OneToMany(targetEntity="Teclliure\QuestionBundle\Entity\PatientQuestionaryAnswer",mappedBy="patientQuestionary")
+     *
+     */
+    private $patientQuestionaryAnswers;
+
+    /**
      * @var datetime $created
      *
      * @Gedmo\Timestampable(on="create")

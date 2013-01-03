@@ -76,6 +76,12 @@ class Questionary
     private $subcategories;
 
     /**
+     * @ORM\OneToMany(targetEntity="Teclliure\QuestionBundle\Entity\Question", mappedBy="questionary")
+     * @ORM\OrderBy({"position" = "ASC"})
+     */
+    private $questions;
+
+    /**
      * Get string
      *
      * @return integer
@@ -299,5 +305,38 @@ class Questionary
     public function getSubcategories()
     {
         return $this->subcategories;
+    }
+
+    /**
+     * Add questions
+     *
+     * @param \Teclliure\QuestionBundle\Entity\Question $questions
+     * @return Questionary
+     */
+    public function addQuestion(\Teclliure\QuestionBundle\Entity\Question $questions)
+    {
+        $this->questions[] = $questions;
+    
+        return $this;
+    }
+
+    /**
+     * Remove questions
+     *
+     * @param \Teclliure\QuestionBundle\Entity\Question $questions
+     */
+    public function removeQuestion(\Teclliure\QuestionBundle\Entity\Question $questions)
+    {
+        $this->questions->removeElement($questions);
+    }
+
+    /**
+     * Get questions
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getQuestions()
+    {
+        return $this->questions;
     }
 }

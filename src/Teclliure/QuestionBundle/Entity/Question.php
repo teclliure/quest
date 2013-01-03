@@ -53,7 +53,7 @@ class Question
 
     /**
      *
-     * @ORM\ManyToOne(targetEntity="Teclliure\QuestionBundle\Entity\Questionary")
+     * @ORM\ManyToOne(targetEntity="Teclliure\QuestionBundle\Entity\Questionary", inversedBy="questions")
      *
      */
     protected $questionary;

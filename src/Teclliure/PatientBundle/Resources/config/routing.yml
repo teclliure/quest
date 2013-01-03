@@ -25,3 +25,7 @@ questionary_patient_new:
 questionary_patient_create:
     pattern:  /person/{id}/selectQuestionary/{questionaryId}
     defaults: { _controller: TeclliurePatientBundle:Default:createQuestionary }
+
+questionary_patient_save:
+    pattern:  /person/{id}/selectQuestionary/{questionaryId}
+    defaults: { _controller: TeclliurePatientBundle:Default:saveQuestionary }

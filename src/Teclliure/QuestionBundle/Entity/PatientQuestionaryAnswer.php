@@ -90,4 +90,27 @@ class PatientQuestionaryAnswer
     {
         return $this->answer;
     }
+
+    /**
+     * Set question
+     *
+     * @param \Teclliure\QuestionBundle\Entity\Question $question
+     * @return PatientQuestionaryAnswer
+     */
+    public function setQuestion(\Teclliure\QuestionBundle\Entity\Question $question)
+    {
+        $this->question = $question;
+    
+        return $this;
+    }
+
+    /**
+     * Get question
+     *
+     * @return \Teclliure\QuestionBundle\Entity\Question 
+     */
+    public function getQuestion()
+    {
+        return $this->question;
+    }
 }

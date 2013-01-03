@@ -30,7 +30,7 @@ class QuestionWithAnswersType extends AbstractType
             'required'  => true,
             'expanded'  => true,
             'multiple'  => false,
-            'value'     => $this->selectedValue
+            'data'     => $this->selectedValue,
         ));
     }
 

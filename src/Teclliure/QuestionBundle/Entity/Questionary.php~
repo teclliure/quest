@@ -76,6 +76,22 @@ class Questionary
     private $subcategories;
 
     /**
+     * @ORM\OneToMany(targetEntity="Teclliure\QuestionBundle\Entity\Question", mappedBy="questionary")
+     * @ORM\OrderBy({"position" = "ASC"})
+     */
+    private $questions;
+
+    /**
+     * Get string
+     *
+     * @return integer
+     */
+    public function __toString()
+    {
+        return $this->getName();
+    }
+
+    /**
      * Get id
      *
      * @return integer 
@@ -207,7 +223,7 @@ class Questionary
 
         if (isset($this->subcategories)) {
             $questionaryRepository->deleteSubcategories($this);
-            $questionaryRepository->addSubcategories($this, $this->subcategories);
+            $questionaryRepository->addSubcategories($this, $this->subcategoriesTmp);
         }
     }
 
@@ -256,5 +272,38 @@ class Questionary
     public function getPatients()
     {
         return $this->patients;
+    }
+
+    /**
+     * Add subcategories
+     *
+     * @param \Teclliure\QuestionBundle\Entity\QuestionarySubcategory $subcategories
+     * @return Questionary
+     */
+    public function addSubcategorie(\Teclliure\QuestionBundle\Entity\QuestionarySubcategory $subcategories)
+    {
+        $this->subcategories[] = $subcategories;
+    
+        return $this;
+    }
+
+    /**
+     * Remove subcategories
+     *
+     * @param \Teclliure\QuestionBundle\Entity\QuestionarySubcategory $subcategories
+     */
+    public function removeSubcategorie(\Teclliure\QuestionBundle\Entity\QuestionarySubcategory $subcategories)
+    {
+        $this->subcategories->removeElement($subcategories);
+    }
+
+    /**
+     * Get subcategories
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSubcategories()
+    {
+        return $this->subcategories;
     }
 }

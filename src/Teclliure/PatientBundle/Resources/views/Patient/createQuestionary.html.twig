@@ -26,5 +26,10 @@
     {{ 'Person' | trans }} <span id="legendName">{{ patient.name }}</span>
 </legend>
 
+<form action="{{ path('questionary_patient_save', {'id': patient.id, 'questionaryId': questionary.id} ) }}" method="post" {{ form_enctype(patientQuestionaryForm) }}>
+    {{ form_widget(patientQuestionaryForm) }}
+
+    <input type="submit" value="{{ 'Save' | trans }}" />
+</form>
 
 {% endblock %}

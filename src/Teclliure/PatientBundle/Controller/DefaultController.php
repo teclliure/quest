@@ -7,7 +7,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Teclliure\PatientBundle\Entity\Patient;
+use Teclliure\QuestionBundle\Entity\PatientQuestionary;
 use Teclliure\PatientBundle\Form\PatientType;
+use Teclliure\QuestionBundle\Form\PatientQuestionaryType;
 
 class DefaultController extends Controller
 {
@@ -98,6 +100,7 @@ class DefaultController extends Controller
 
         $patientRepository = $em->getRepository('TeclliurePatientBundle:Patient');
         $questionaryRepository = $em->getRepository('TeclliureQuestionBundle:Questionary');
+        $patientQuestionaryRepository = $em->getRepository('TeclliureQuestionBundle:PatientQuestionary');
 
         $patient = $patientRepository->find($id);
         $questionary = $questionaryRepository->find($questionaryId);
@@ -110,11 +113,26 @@ class DefaultController extends Controller
             throw $this->createNotFoundException('Unable to find Questionary entity.');
         }
 
+        $patientQuestionaryId = $this->getRequest()->get('patientQuestionaryId');
+        if ($patientQuestionaryId) {
+            $patientQuestionary = $patientQuestionaryRepository->find($patientQuestionaryId);
+            if (!$patientQuestionary) {
+                throw $this->createNotFoundException('Unable to find PatientQuestionary entity.');
+            }
+        }
+        else {
+            $patientQuestionary = new PatientQuestionary();
+            $patientQuestionary->setPatient($patient);
+            $patientQuestionary->setQuestionary($questionary);
+        }
+        $patientQuestionaryForm = $this->createForm('teclliure_questionbundle_patientquestionarytype', $patientQuestionary);
+
         $this->buildBreadcrumbs('create');
 
         return $this->render('TeclliurePatientBundle:Patient:createQuestionary.html.twig', array(
             'patient'           => $patient,
-            'questionary'       => $questionary
+            'questionary'       => $questionary,
+            'patientQuestionaryForm'=> $patientQuestionaryForm->createView()
         ));
     }
 

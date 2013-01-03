@@ -6,9 +6,16 @@ services:
         class:        Teclliure\QuestionBundle\Form\QuestionaryType
         arguments:
             em: "@doctrine.orm.entity_manager"
-
         tags:
             - { name: form.type, alias: teclliure_questionbundle_questionarytype }
+
+    teclliure_patient_questionary_type:
+        class:        Teclliure\QuestionBundle\Form\PatientQuestionaryType
+        arguments:
+            em: "@doctrine.orm.entity_manager"
+        tags:
+            - { name: form.type, alias: teclliure_questionbundle_patientquestionarytype }
+
     teclliure.validator.range_min_max:
         class: Teclliure\QuestionBundle\Constraint\RangeMinMaxOverlapsValidator
         arguments: [@doctrine.orm.entity_manager]

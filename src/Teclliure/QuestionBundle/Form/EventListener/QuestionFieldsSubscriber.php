@@ -46,11 +46,17 @@ class QuestionFieldsSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $currentVal = null;
-        $questionaryRepository = $this->em->getRepository('TeclliureQuestionBundle:Questionary');
-        $questions = $questionaryRepository->findQuestions($data->getQuestionary());
+
+        $patientQuestionaryRepository = $this->em->getRepository('TeclliureQuestionBundle:PatientQuestionary');
+        $questions = $patientQuestionaryRepository->findQuestionsWithAnswers($data);
 
         foreach ($questions as $key=>$question) {
+            $currentVal = null;
+            $patientQuestionAnswer = $question->getPatientQuestionAnswer();
+            if ($patientQuestionAnswer) {
+                $currentVal = array($patientQuestionAnswer->getAnswer()->getId());
+            }
+
             // $builder->add('patientQuestionaryAnswers', new QuestionWithAnswersType($question));
             $questionType = new QuestionWithAnswersType();
             $questionType->setQuestion($question);
@@ -77,12 +83,13 @@ class QuestionFieldsSubscriber implements EventSubscriberInterface
         // $form->add($this->factory->createNamed('catW', 'text'));
 
         // Add category selectors
-        $questionaryRepository = $this->em->getRepository('TeclliureQuestionBundle:Questionary');
-        $questions = $questionaryRepository->findQuestions($data->getQuestionary());
+        $patientQuestionaryRepository = $this->em->getRepository('TeclliureQuestionBundle:PatientQuestionary');
+        $questions = $patientQuestionaryRepository->findQuestionsWithAnswers($data);
 
         $data->answersTmp = array();
         foreach ($questions as $question) {
-            $data->answersTmp[] = $form['patientQuestionaryAnswers'.$question->getId()]->getViewData();
+            $value = $form['patientQuestionaryAnswers'.$question->getId()]->getViewData();
+            $data->answersTmp[$question->getId()] = $value['answer'];
         }
     }
 }

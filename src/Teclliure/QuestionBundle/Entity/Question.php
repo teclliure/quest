@@ -72,6 +72,16 @@ class Question
     private $answers;
 
     /**
+     * @ORM\OneToMany(targetEntity="Teclliure\QuestionBundle\Entity\PatientQuestionaryAnswer", mappedBy="question")
+     */
+    private $patientsQuestionAnswers;
+
+    /*
+     * Not persisted variable used to show patient questionaries
+     */
+    private $patientQuestionAnswer = null;
+
+    /**
      * @ORM\PrePersist
      * @ORM\PreUpdate
      */
@@ -294,5 +304,28 @@ class Question
     public function getAnswers()
     {
         return $this->answers;
+    }
+
+    /**
+     * Set patientQuestionAnswer
+     *
+     * @param Teclliure\QuestionBundle\Entity\PatientQuestionaryAnswer $patientQuestionAnswer
+     * @return PatientQuestionAnswer
+     */
+    public function setPatientQuestionAnswer(\Teclliure\QuestionBundle\Entity\PatientQuestionaryAnswer $patientQuestionAnswer = null)
+    {
+        $this->patientQuestionAnswer = $patientQuestionAnswer;
+
+        return $this;
+    }
+
+    /**
+     * Get patientQuestionAnswer
+     *
+     * @return Teclliure\QuestionBundle\Entity\PatientQuestionAnswer
+     */
+    public function getPatientQuestionAnswer()
+    {
+        return $this->patientQuestionAnswer;
     }
 }

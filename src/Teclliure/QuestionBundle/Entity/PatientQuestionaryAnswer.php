@@ -14,7 +14,7 @@ class PatientQuestionaryAnswer
     /**
      *
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="Teclliure\QuestionBundle\Entity\PatientQuestionary",inversedBy="patientQuestionaryAnswers")
+     * @ORM\ManyToOne(targetEntity="Teclliure\QuestionBundle\Entity\PatientQuestionary", inversedBy="patientQuestionaryAnswers")
      *
      */
     private $patientQuestionary;
@@ -22,7 +22,7 @@ class PatientQuestionaryAnswer
     /**
      *
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="Teclliure\QuestionBundle\Entity\Question")
+     * @ORM\ManyToOne(targetEntity="Teclliure\QuestionBundle\Entity\Question",inversedBy="patientsQuestionAnswers")
      *
      */
     private $question;
@@ -35,38 +35,6 @@ class PatientQuestionaryAnswer
      */
     private $answer;
 
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set patient_questionary
-     *
-     * @param \Teclliure\QuestionBundle\Entity\PatientQuestionary $patientQuestionary
-     * @return PatientQuestionaryAnswer
-     */
-    public function setPatientQuestionary(\Teclliure\QuestionBundle\Entity\PatientQuestionary $patientQuestionary = null)
-    {
-        $this->patient_questionary = $patientQuestionary;
-
-        return $this;
-    }
-
-    /**
-     * Get patient_questionary
-     *
-     * @return \Teclliure\QuestionBundle\Entity\PatientQuestionary
-     */
-    public function getPatientQuestionary()
-    {
-        return $this->patient_questionary;
-    }
 
     /**
      * Set answer
@@ -112,5 +80,28 @@ class PatientQuestionaryAnswer
     public function getQuestion()
     {
         return $this->question;
+    }
+
+    /**
+     * Set patientQuestionary
+     *
+     * @param \Teclliure\QuestionBundle\Entity\PatientQuestionary $patientQuestionary
+     * @return PatientQuestionaryAnswer
+     */
+    public function setPatientQuestionary(\Teclliure\QuestionBundle\Entity\PatientQuestionary $patientQuestionary)
+    {
+        $this->patientQuestionary = $patientQuestionary;
+    
+        return $this;
+    }
+
+    /**
+     * Get patientQuestionary
+     *
+     * @return \Teclliure\QuestionBundle\Entity\PatientQuestionary 
+     */
+    public function getPatientQuestionary()
+    {
+        return $this->patientQuestionary;
     }
 }

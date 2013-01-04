@@ -8,15 +8,26 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 class PatientQuestionaryRepository extends EntityRepository
 {
-    public function findAnswersQuestions($patientQuestionary) {
+    public function findQuestionsWithAnswers($patientQuestionary) {
         $em = $this->getEntityManager();
 
+        $patientQuestionaryAnswers = $patientQuestionary->getPatientQuestionaryAnswers();
         $dql = 'SELECT q FROM TeclliureQuestionBundle:Question q WHERE q.questionary = :questionary ORDER BY q.category desc, q.position asc';
 
         $query = $em->createQuery($dql);
-        $query->setParameter('questionary', $questionary->getId());
+        $query->setParameter('questionary', $patientQuestionary->getQuestionary()->getId());
 
-        return $query->getResult();
+        $questions = $query->getResult();
+        foreach ($questions as $question) {
+            foreach ($patientQuestionaryAnswers as $key=>$patientQuestionaryAnswer) {
+                if ($patientQuestionaryAnswer->getQuestion()->getId() == $question->getId()) {
+                    $question->setPatientQuestionAnswer($patientQuestionaryAnswer);
+                    unset ($patientQuestionaryAnswers[$key]);
+                }
+            }
+        }
+
+        return $questions;
     }
 
     public function deleteAnswers($patientQuestionary) {
@@ -33,16 +44,21 @@ class PatientQuestionaryRepository extends EntityRepository
         $em = $this->getEntityManager();
 
         $answersRepository = $em->getRepository('TeclliureQuestionBundle:Answer');
+        $questionsRepository = $em->getRepository('TeclliureQuestionBundle:Question');
 
-        foreach ($answers as $answer) {
-            $answer = $answersRepository->find($answer);
+        foreach ($answers as $questionId => $answer) {
+            if ($answer && $questionId) {
+                $answer = $answersRepository->find($answer);
+                $question = $questionsRepository->find($questionId);
 
-            if ($answer) {
-                $patientQuestionaryAnswer = new PatientQuestionaryAnswer();
-                $patientQuestionaryAnswer->setPatientQuestionary($patientQuestionary);
-                $patientQuestionaryAnswer->setAnswer($answer);
+                if ($answer && $question) {
+                    $patientQuestionaryAnswer = new PatientQuestionaryAnswer($patientQuestionary);
+                    $patientQuestionaryAnswer->setPatientQuestionary($patientQuestionary);
+                    $patientQuestionaryAnswer->setQuestion($question);
+                    $patientQuestionaryAnswer->setAnswer($answer);
 
-                $em->persist($patientQuestionaryAnswer);
+                    $em->persist($patientQuestionaryAnswer);
+                }
             }
         }
     }

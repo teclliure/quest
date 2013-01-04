@@ -221,7 +221,7 @@ class Questionary
     {
         $questionaryRepository = $entityManager->getRepository('TeclliureQuestionBundle:Questionary');
 
-        if (isset($this->subcategories)) {
+        if (isset($this->subcategoriesTmp)) {
             $questionaryRepository->deleteSubcategories($this);
             $questionaryRepository->addSubcategories($this, $this->subcategoriesTmp);
         }
@@ -233,6 +233,7 @@ class Questionary
         $questionaryRepository = $entityManager->getRepository('TeclliureQuestionBundle:Questionary');
         $questionaryRepository->deleteSubcategories($this);
     }
+
     /**
      * Constructor
      */
@@ -305,5 +306,38 @@ class Questionary
     public function getSubcategories()
     {
         return $this->subcategories;
+    }
+
+    /**
+     * Add questions
+     *
+     * @param \Teclliure\QuestionBundle\Entity\Question $questions
+     * @return Questionary
+     */
+    public function addQuestion(\Teclliure\QuestionBundle\Entity\Question $questions)
+    {
+        $this->questions[] = $questions;
+    
+        return $this;
+    }
+
+    /**
+     * Remove questions
+     *
+     * @param \Teclliure\QuestionBundle\Entity\Question $questions
+     */
+    public function removeQuestion(\Teclliure\QuestionBundle\Entity\Question $questions)
+    {
+        $this->questions->removeElement($questions);
+    }
+
+    /**
+     * Get questions
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getQuestions()
+    {
+        return $this->questions;
     }
 }

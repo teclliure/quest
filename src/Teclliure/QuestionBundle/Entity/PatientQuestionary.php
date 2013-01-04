@@ -208,4 +208,44 @@ class PatientQuestionary
         $questionaryRepository = $entityManager->getRepository('TeclliureQuestionBundle:PatientQuestionary');
         $questionaryRepository->deleteAnswers($this);
     }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->patientQuestionaryAnswers = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add patientQuestionaryAnswers
+     *
+     * @param \Teclliure\QuestionBundle\Entity\PatientQuestionaryAnswer $patientQuestionaryAnswers
+     * @return PatientQuestionary
+     */
+    public function addPatientQuestionaryAnswer(\Teclliure\QuestionBundle\Entity\PatientQuestionaryAnswer $patientQuestionaryAnswers)
+    {
+        $this->patientQuestionaryAnswers[] = $patientQuestionaryAnswers;
+    
+        return $this;
+    }
+
+    /**
+     * Remove patientQuestionaryAnswers
+     *
+     * @param \Teclliure\QuestionBundle\Entity\PatientQuestionaryAnswer $patientQuestionaryAnswers
+     */
+    public function removePatientQuestionaryAnswer(\Teclliure\QuestionBundle\Entity\PatientQuestionaryAnswer $patientQuestionaryAnswers)
+    {
+        $this->patientQuestionaryAnswers->removeElement($patientQuestionaryAnswers);
+    }
+
+    /**
+     * Get patientQuestionaryAnswers
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPatientQuestionaryAnswers()
+    {
+        return $this->patientQuestionaryAnswers;
+    }
 }

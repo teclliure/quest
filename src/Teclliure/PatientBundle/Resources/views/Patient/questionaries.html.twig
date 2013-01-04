@@ -10,7 +10,7 @@
     <tbody>
     {% for entity in questionaries %}
         <tr>
-            <td><a href="{{ path('questionary_patient_create', { 'id': entity.patient.id, 'questionaryId': entity.questionary.id}) }}">{{ entity.questionary.name }}</a></td>
+            <td><a href="{{ path('questionary_patient_create', { 'id': entity.patient.id, 'questionaryId': entity.questionary.id, 'patientQuestionaryId': entity.id}) }}">{{ entity.questionary.name }}</a></td>
             <td>{{ entity.created|date('Y-m-d H:i:s') }}</td>
             <td>{{ entity.updated|date('Y-m-d H:i:s') }}</td>
             <td style="text-align: center">

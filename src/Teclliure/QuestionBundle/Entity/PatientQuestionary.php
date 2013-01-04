@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(name="patient_questionary")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Teclliure\QuestionBundle\Entity\PatientQuestionaryRepository")
  */
 class PatientQuestionary
 {
@@ -191,44 +191,21 @@ class PatientQuestionary
     {
         return $this->patient;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
+
+    public function doSaveAnswers($entityManager)
     {
-        $this->patientQuestionaryAnswers = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-    
-    /**
-     * Add patientQuestionaryAnswers
-     *
-     * @param \Teclliure\QuestionBundle\Entity\PatientQuestionaryAnswer $patientQuestionaryAnswers
-     * @return PatientQuestionary
-     */
-    public function addPatientQuestionaryAnswer(\Teclliure\QuestionBundle\Entity\PatientQuestionaryAnswer $patientQuestionaryAnswers)
-    {
-        $this->patientQuestionaryAnswers[] = $patientQuestionaryAnswers;
-    
-        return $this;
+        $patientQuestionaryRepository = $entityManager->getRepository('TeclliureQuestionBundle:PatientQuestionary');
+
+        if (isset($this->answersTmp)) {
+            $patientQuestionaryRepository->deleteAnswers($this);
+            $patientQuestionaryRepository->addAnswers($this, $this->answersTmp);
+        }
     }
 
-    /**
-     * Remove patientQuestionaryAnswers
-     *
-     * @param \Teclliure\QuestionBundle\Entity\PatientQuestionaryAnswer $patientQuestionaryAnswers
-     */
-    public function removePatientQuestionaryAnswer(\Teclliure\QuestionBundle\Entity\PatientQuestionaryAnswer $patientQuestionaryAnswers)
-    {
-        $this->patientQuestionaryAnswers->removeElement($patientQuestionaryAnswers);
-    }
 
-    /**
-     * Get patientQuestionaryAnswers
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getPatientQuestionaryAnswers()
+    public function doDeleteAnswers($entityManager)
     {
-        return $this->patientQuestionaryAnswers;
+        $questionaryRepository = $entityManager->getRepository('TeclliureQuestionBundle:PatientQuestionary');
+        $questionaryRepository->deleteAnswers($this);
     }
 }

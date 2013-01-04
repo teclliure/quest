@@ -1,0 +1,25 @@
+<table class="records_list table table-bordered table-striped" style="margin-top: 20px;">
+    <thead>
+    <tr>
+        <th style="width: 35%">{{ 'Questionary' | trans }}</th>
+        <th>{{ 'Created' | trans }}</th>
+        <th>{{ 'Updated' | trans }}</th>
+        <th>{{ 'Actions' | trans }}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for entity in questionaries %}
+        <tr>
+            <td><a href="{{ path('questionary_patient_create', { 'id': entity.patient.id, 'questionaryId': entity.questionary.id}) }}">{{ entity.questionary.name }}</a></td>
+            <td>{{ entity.created|date('Y-m-d H:i:s') }}</td>
+            <td>{{ entity.updated|date('Y-m-d H:i:s') }}</td>
+            <td style="text-align: center">
+                <a class="btn btn-mini" href="{{ path('questionary_patient_delete', { 'id': entity.id}) }}">
+                    <i class="icon-trash"></i>
+                    {{ 'Delete'|trans }}
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

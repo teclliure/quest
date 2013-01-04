@@ -192,6 +192,10 @@ class QuestionaryController extends Controller
                 $entity->doSaveSubcategories($em);
                 $em->flush();
                 $em->getConnection()->commit();
+
+                $this->get('session')->setFlash('notice',
+                    'Questionary saved'
+                );
             }
             catch (Exception $e) {
                 $em->getConnection()->rollback();

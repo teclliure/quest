@@ -94,7 +94,7 @@ class DefaultController extends Controller
     /**
      * Create questionary
      */
-    public function createQuestionaryAction($id, $questionaryId)
+    public function createQuestionaryAction(Request $request, $id, $questionaryId)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -127,7 +127,41 @@ class DefaultController extends Controller
         }
         $patientQuestionaryForm = $this->createForm('teclliure_questionbundle_patientquestionarytype', $patientQuestionary);
 
-        $this->buildBreadcrumbs('create');
+        if ($request->isMethod('POST')) {
+            $patientQuestionaryForm->bind($request);
+            if ($patientQuestionaryForm->isValid()) {
+                $em->getConnection()->beginTransaction(); // suspend auto-commit
+                try
+                {
+                    $em->persist($patientQuestionary);
+                    $em->flush();
+
+                    $patientQuestionary->doSaveAnswers($em);
+                    $em->flush();
+                    $em->getConnection()->commit();
+
+                    $this->get('session')->setFlash('notice',
+                        'Patient questionary saved correctly'
+                    );
+                }
+                catch (Exception $e) {
+                    $em->getConnection()->rollback();
+                    $em->close();
+                    throw $e;
+                }
+
+            }
+            else {
+                $this->get('session')->setFlash('error',
+                    'Error saving Patient questionary'
+                );
+            }
+            $this->buildBreadcrumbs('questionaryEdit',array('questionaryId'=>$questionary->getId()));
+        }
+        else {
+            $this->buildBreadcrumbs('create',array('questionaryId'=>$questionary->getId()));
+        }
+
 
         return $this->render('TeclliurePatientBundle:Patient:createQuestionary.html.twig', array(
             'patient'           => $patient,
@@ -252,9 +286,10 @@ class DefaultController extends Controller
             'list' => array('route'=>'home', 'label'=>'List patients'),
             'show' => array('route'=>'patient_show', 'label'=>'Patient Show'),
             'new' => array('route'=>'patient_new', 'label'=>'Patient Create'),
-            'select' => array('route'=>'patient_new', 'label'=>'Select Questionary'),
-            'create' => array('route'=>'patient_new', 'label'=>'Create Questionary'),
             'edit' => array('route'=>'patient_edit', 'label'=>'Patient Edit'),
+            'select' => array('route'=>'questionary_patient_new', 'label'=>'Select Questionary'),
+            'create' => array('route'=>'questionary_patient_create', 'label'=>'Create Questionary'),
+            'questionaryEdit' => array('route'=>'questionary_patient_create', 'label'=>'Create Questionary'),
         );
     }
 }

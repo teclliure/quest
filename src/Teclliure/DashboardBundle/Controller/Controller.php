@@ -56,7 +56,7 @@ class Controller extends Sf2Controller
      *
      * @return array
      */
-    public function buildBreadcrumbs($action, MenuItemInterface $menu = null)
+    public function buildBreadcrumbs($action, $params = array(), MenuItemInterface $menu = null)
     {
         $breadcrumbsRoutes = $this->getBreadcrumbsRoutes();
         if (!$this->menuFactory) {
@@ -75,16 +75,16 @@ class Controller extends Sf2Controller
         if ($action == 'list' || $action == 'edit' || $action == 'show' || $action == 'new') {
             $child = $child->addChild(
                 $this->trans($breadcrumbsRoutes['list']['label']),
-                array('uri' => $this->generateUrl($breadcrumbsRoutes['list']['route']))
+                array('uri' => $this->generateUrl($breadcrumbsRoutes['list']['route'], $params))
             );
         }
 
         $id = $this->getRequest()->get('id');
         if ($id) {
-            $url = $this->generateUrl($breadcrumbsRoutes[$action]['route'], array('id'=>$id));
+            $url = $this->generateUrl($breadcrumbsRoutes[$action]['route'], array_merge(array('id'=>$id), $params));
         }
         else {
-            $url = $this->generateUrl($breadcrumbsRoutes[$action]['route']);
+            $url = $this->generateUrl($breadcrumbsRoutes[$action]['route'], $params);
         }
         $child = $child->addChild(
             $this->trans($breadcrumbsRoutes[$action]['label']), array('uri' => $url)

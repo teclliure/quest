@@ -28,6 +28,7 @@ class QuestionFieldsSubscriber implements EventSubscriberInterface
         // event and that the preSetData method should be called.
         return array(
             FormEvents::POST_SET_DATA => 'preSetData',
+             FormEvents::POST_BIND => 'postBind',
         );
     }
 
@@ -65,6 +66,23 @@ class QuestionFieldsSubscriber implements EventSubscriberInterface
                     'required'  => true,
                 )
             ));
+        }
+    }
+
+    public function postBind(FormEvent $event)
+    {
+        $data = $event->getData();
+        $form = $event->getForm();
+
+        // $form->add($this->factory->createNamed('catW', 'text'));
+
+        // Add category selectors
+        $questionaryRepository = $this->em->getRepository('TeclliureQuestionBundle:Questionary');
+        $questions = $questionaryRepository->findQuestions($data->getQuestionary());
+
+        $data->answersTmp = array();
+        foreach ($questions as $question) {
+            $data->answersTmp[] = $form['patientQuestionaryAnswers'.$question->getId()]->getViewData();
         }
     }
 }

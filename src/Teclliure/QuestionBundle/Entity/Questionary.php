@@ -221,7 +221,7 @@ class Questionary
     {
         $questionaryRepository = $entityManager->getRepository('TeclliureQuestionBundle:Questionary');
 
-        if (isset($this->subcategories)) {
+        if (isset($this->subcategoriesTmp)) {
             $questionaryRepository->deleteSubcategories($this);
             $questionaryRepository->addSubcategories($this, $this->subcategoriesTmp);
         }
@@ -233,6 +233,7 @@ class Questionary
         $questionaryRepository = $entityManager->getRepository('TeclliureQuestionBundle:Questionary');
         $questionaryRepository->deleteSubcategories($this);
     }
+
     /**
      * Constructor
      */

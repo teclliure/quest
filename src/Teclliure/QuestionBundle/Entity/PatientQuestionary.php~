@@ -199,7 +199,6 @@ class PatientQuestionary
         if (isset($this->answersTmp)) {
             $patientQuestionaryRepository->deleteAnswers($this);
             $patientQuestionaryRepository->addAnswers($this, $this->answersTmp);
-            print '---'.$this->getId();
         }
     }
 

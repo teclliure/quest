@@ -54,16 +54,16 @@ class QuestionFieldsSubscriber implements EventSubscriberInterface
             $currentVal = null;
             $patientQuestionAnswer = $question->getPatientQuestionAnswer();
             if ($patientQuestionAnswer) {
-                $currentVal = array($patientQuestionAnswer->getAnswer()->getId());
+                $currentVal = $patientQuestionAnswer->getAnswer()->getId();
             }
 
             // $builder->add('patientQuestionaryAnswers', new QuestionWithAnswersType($question));
             $questionType = new QuestionWithAnswersType();
-            $questionType->setQuestion($question);
+            $questionType->setQuestion($question, $currentVal);
             $form->add($this->factory->createNamed(
                 'patientQuestionaryAnswers'.$question->getId(),
                 $questionType,
-                $currentVal,
+                null,
                 array(
                     'mapped'    => false,
                     'attr'      => array('class' => 'patientQuestionContent'),

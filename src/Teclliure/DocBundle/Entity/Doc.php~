@@ -1,0 +1,129 @@
+<?php
+
+namespace Teclliure\DocBundle\Entity;
+
+use Gedmo\Mapping\Annotation as Gedmo;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+
+/**
+ * @ORM\Table(name="doc")
+ * @ORM\Entity(repositoryClass="Teclliure\DocBundle\Entity\DocRepository")
+ * @ORM\HasLifecycleCallbacks
+ */
+class Doc
+{
+    /**
+    *
+    * @ORM\Id
+    * @ORM\Column(type="integer")
+    * @ORM\GeneratedValue
+    *
+    */
+    private $id;
+
+    /**
+     *
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     *
+     */
+    protected $name;
+
+    /**
+     *
+     * @ORM\Column(type="string", length=255, nullable=true)
+     *
+     */
+    protected $path;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $description;
+
+    /**
+     * @var datetime $created
+     *
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime")
+     *
+     */
+    private $created;
+
+    /**
+     * @var datetime $updated
+     *
+     * @ORM\Column(type="datetime")
+     * @Gedmo\Timestampable(on="update")
+     *
+     */
+    private $updated;
+
+    /**
+     * @ORM\Column(type="boolean")
+     *
+     * @Assert\Type(type="bool")
+     *
+     */
+    private $active = false;
+
+    /**
+     *
+     * @ORM\OneToMany(targetEntity="Teclliure\DocBundle\Entity\DocSubcategory", mappedBy="doc")
+     *
+     */
+    private $subcategories;
+
+    /**
+     * @Assert\File(maxSize="6000000")
+     */
+    public $file;
+
+    public function getAbsolutePath()
+    {
+        return null === $this->name ? null : $this->getUploadRootDir().'/'.$this->name;
+    }
+
+    public function getWebPath()
+    {
+        return null === $this->name ? null : $this->getUploadDir().'/'.$this->name;
+    }
+
+    protected function getUploadRootDir($basepath)
+    {
+        // the absolute directory path where uploaded documents should be saved
+        return $basepath.$this->getUploadDir();
+    }
+
+    protected function getUploadDir()
+    {
+        // get rid of the __DIR__ so it doesn't screw when displaying uploaded doc/image in the view.
+        return 'uploads/documents';
+    }
+
+    public function upload($basepath)
+    {
+        // the file property can be empty if the field is not required
+        if (null === $this->file) {
+            return;
+        }
+
+        if (null === $basepath) {
+            return;
+        }
+
+        // we use the original file name here but you should
+        // sanitize it at least to avoid any security issues
+
+        // move takes the target directory and then the target filename to move to
+        $this->file->move($this->getUploadRootDir($basepath), $this->file->getClientOriginalName());
+
+        // set the path property to the filename where you'ved saved the file
+        $this->setName($this->file->getClientOriginalName());
+
+        // clean up the file property as you won't need it anymore
+        $this->file = null;
+    }
+}

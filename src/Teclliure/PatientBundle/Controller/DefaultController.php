@@ -132,6 +132,7 @@ class DefaultController extends Controller
                 $em->getConnection()->beginTransaction(); // suspend auto-commit
                 try
                 {
+                    $patientQuestionary->setUpdated(new \DateTime());
                     $em->persist($patientQuestionary);
                     $em->flush();
 
@@ -260,11 +261,34 @@ class DefaultController extends Controller
             throw $this->createNotFoundException('Unable to find Patient entity.');
         }
 
+        $em->remove($entity);
+        $em->flush();
         $this->get('session')->setFlash('notice',
             'Patient DELETED correctly'
         );
 
         return $this->redirect($this->generateUrl('home'));
+    }
+
+    public function deletePatientQuestionaryAction($id) {
+        $em = $this->getDoctrine()->getManager();
+        $patientQuestionaryRepository = $em->getRepository('TeclliureQuestionBundle:PatientQuestionary');
+
+        $entity = $patientQuestionaryRepository->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find PatientQuestionary entity.');
+        }
+        $patientId = $entity->getPatient()->getId();
+        $patientQuestionaryRepository->deleteAnswers($entity);
+        $em->remove($entity);
+        $em->flush();
+
+        $this->get('session')->setFlash('notice',
+            'PatientQuestionary DELETED correctly'
+        );
+
+        return $this->redirect($this->generateUrl('patient_show', array('id' => $patientId)));
     }
 
     public function reloadPatientContentAction($id) {

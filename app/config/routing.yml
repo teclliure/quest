@@ -1,3 +1,7 @@
+teclliure_doc:
+    resource: "@TeclliureDocBundle/Resources/config/routing.yml"
+    prefix:   /
+
 home:
     pattern:  /
     defaults: { _controller: TeclliurePatientBundle:Default:index }

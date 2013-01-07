@@ -67,6 +67,11 @@ class Answer
     private $question;
 
     /**
+     * @ORM\OneToMany(targetEntity="Teclliure\QuestionBundle\Entity\AnswerDisableQuestion", mappedBy="answer")
+     */
+    private $disables_questions;
+
+    /**
      * @ORM\PrePersist
      * @ORM\PreUpdate
      */
@@ -222,5 +227,45 @@ class Answer
     public function getCategory()
     {
         return $this->category;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->disables_questions = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add disables_questions
+     *
+     * @param \Teclliure\QuestionBundle\Entity\AnswerDisableQuestion $disablesQuestions
+     * @return Answer
+     */
+    public function addDisablesQuestion(\Teclliure\QuestionBundle\Entity\AnswerDisableQuestion $disablesQuestions)
+    {
+        $this->disables_questions[] = $disablesQuestions;
+    
+        return $this;
+    }
+
+    /**
+     * Remove disables_questions
+     *
+     * @param \Teclliure\QuestionBundle\Entity\AnswerDisableQuestion $disablesQuestions
+     */
+    public function removeDisablesQuestion(\Teclliure\QuestionBundle\Entity\AnswerDisableQuestion $disablesQuestions)
+    {
+        $this->disables_questions->removeElement($disablesQuestions);
+    }
+
+    /**
+     * Get disables_questions
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getDisablesQuestions()
+    {
+        return $this->disables_questions;
     }
 }

@@ -82,6 +82,11 @@ class Question
     private $patientQuestionAnswer = null;
 
     /**
+     * @ORM\OneToMany(targetEntity="Teclliure\QuestionBundle\Entity\AnswerDisableQuestion", mappedBy="question")
+     */
+    private $disabled_by_answers;
+
+    /**
      * @ORM\PrePersist
      * @ORM\PreUpdate
      */
@@ -327,5 +332,71 @@ class Question
     public function getPatientQuestionAnswer()
     {
         return $this->patientQuestionAnswer;
+    }
+
+    /**
+     * Add patientsQuestionAnswers
+     *
+     * @param \Teclliure\QuestionBundle\Entity\PatientQuestionaryAnswer $patientsQuestionAnswers
+     * @return Question
+     */
+    public function addPatientsQuestionAnswer(\Teclliure\QuestionBundle\Entity\PatientQuestionaryAnswer $patientsQuestionAnswers)
+    {
+        $this->patientsQuestionAnswers[] = $patientsQuestionAnswers;
+    
+        return $this;
+    }
+
+    /**
+     * Remove patientsQuestionAnswers
+     *
+     * @param \Teclliure\QuestionBundle\Entity\PatientQuestionaryAnswer $patientsQuestionAnswers
+     */
+    public function removePatientsQuestionAnswer(\Teclliure\QuestionBundle\Entity\PatientQuestionaryAnswer $patientsQuestionAnswers)
+    {
+        $this->patientsQuestionAnswers->removeElement($patientsQuestionAnswers);
+    }
+
+    /**
+     * Get patientsQuestionAnswers
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPatientsQuestionAnswers()
+    {
+        return $this->patientsQuestionAnswers;
+    }
+
+    /**
+     * Add disabled_by_answers
+     *
+     * @param \Teclliure\QuestionBundle\Entity\AnswerDisableQuestion $disabledByAnswers
+     * @return Question
+     */
+    public function addDisabledByAnswer(\Teclliure\QuestionBundle\Entity\AnswerDisableQuestion $disabledByAnswers)
+    {
+        $this->disabled_by_answers[] = $disabledByAnswers;
+    
+        return $this;
+    }
+
+    /**
+     * Remove disabled_by_answers
+     *
+     * @param \Teclliure\QuestionBundle\Entity\AnswerDisableQuestion $disabledByAnswers
+     */
+    public function removeDisabledByAnswer(\Teclliure\QuestionBundle\Entity\AnswerDisableQuestion $disabledByAnswers)
+    {
+        $this->disabled_by_answers->removeElement($disabledByAnswers);
+    }
+
+    /**
+     * Get disabled_by_answers
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getDisabledByAnswers()
+    {
+        return $this->disabled_by_answers;
     }
 }

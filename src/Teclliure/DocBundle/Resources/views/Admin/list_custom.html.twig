@@ -1,0 +1,7 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+
+{% block field %}
+    <div>
+        <a href="{{ asset(object.getWebPath) }}" target="_blank">{{ 'View/Download file' | trans }}</a>
+    </div>
+{% endblock %}

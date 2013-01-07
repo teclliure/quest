@@ -1,0 +1,17 @@
+parameters:
+#    teclliure_doc.example.class: Teclliure\DocBundle\Example
+
+
+services:
+    sonata.teclliure.admin.doc:
+        class: Teclliure\DocBundle\Admin\DocAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm,group: 'Doc', label: Documentation }
+        arguments:
+            - null
+            - Teclliure\DocBundle\Entity\Doc
+            - TeclliureUserBundle:Admin
+
+#    teclliure_doc.example:
+#        class: %teclliure_doc.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

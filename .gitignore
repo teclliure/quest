@@ -17,4 +17,4 @@ app/config/parameters.ini
 .settings
 .idea
 .tm_properties
-
+.rsync*

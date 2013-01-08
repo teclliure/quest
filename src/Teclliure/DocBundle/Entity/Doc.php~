@@ -7,6 +7,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
+/*
+ *  TODO:
+ *  - Filter by file type (only pdf and images)
+ *  - Add subcategory selector
+ */
+
 /**
  * @ORM\Table(name="doc")
  * @ORM\Entity(repositoryClass="Teclliure\DocBundle\Entity\DocRepository")
@@ -26,7 +32,6 @@ class Doc
     /**
      *
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank
      *
      */
     protected $name;
@@ -77,24 +82,29 @@ class Doc
     private $subcategories;
 
     /**
-     * @Assert\File(maxSize="6000000")
+     * @Assert\File(
+     *      maxSize="6000000",
+     *      mimeTypes = {"application/pdf", "application/x-pdf"},
+     *      mimeTypesMessage = "Please upload a valid PDF"
+     * )
+     *
      */
-    public $file;
+    protected $file;
 
     public function getAbsolutePath()
     {
-        return null === $this->name ? null : $this->getUploadRootDir().'/'.$this->name;
+        return null === $this->name ? null : $this->getUploadRootDir().'/'.$this->path;
     }
 
     public function getWebPath()
     {
-        return null === $this->name ? null : $this->getUploadDir().'/'.$this->name;
+        return null === $this->name ? null : $this->getUploadDir().'/'.$this->path;
     }
 
-    protected function getUploadRootDir($basepath)
+    protected function getUploadRootDir()
     {
         // the absolute directory path where uploaded documents should be saved
-        return $basepath.$this->getUploadDir();
+        return __DIR__.'/../../../../web/'.$this->getUploadDir();
     }
 
     protected function getUploadDir()
@@ -103,14 +113,32 @@ class Doc
         return 'uploads/documents';
     }
 
-    public function upload($basepath)
+
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function preUpload()
+    {
+        if (null !== $this->file) {
+            if ($this->getPath()) {
+                unlink($this->getAbsolutePath());
+            }
+            $this->setName($this->file->getClientOriginalName());
+            $this->setPath(sha1(uniqid(mt_rand(), true)).'.'.$this->file->guessExtension());
+
+
+        }
+    }
+
+    /**
+     * @ORM\PostPersist()
+     * @ORM\PostUpdate()
+     */
+    public function upload()
     {
         // the file property can be empty if the field is not required
         if (null === $this->file) {
-            return;
-        }
-
-        if (null === $basepath) {
             return;
         }
 
@@ -118,12 +146,216 @@ class Doc
         // sanitize it at least to avoid any security issues
 
         // move takes the target directory and then the target filename to move to
-        $this->file->move($this->getUploadRootDir($basepath), $this->file->getClientOriginalName());
-
-        // set the path property to the filename where you'ved saved the file
-        $this->setName($this->file->getClientOriginalName());
+        $this->file->move($this->getUploadRootDir(), $this->getPath());
 
         // clean up the file property as you won't need it anymore
         $this->file = null;
+    }
+
+    /**
+     * @ORM\PreRemove()
+     */
+    public function storeFilenameForRemove()
+    {
+        $this->filenameForRemove = $this->getAbsolutePath();
+    }
+
+    /**
+     * @ORM\PostRemove()
+     */
+    public function removeUpload()
+    {
+        if ($this->filenameForRemove) {
+            unlink($this->filenameForRemove);
+        }
+    }
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->subcategories = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return Doc
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set path
+     *
+     * @param string $path
+     * @return Doc
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+    
+        return $this;
+    }
+
+    /**
+     * Get path
+     *
+     * @return string 
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return Doc
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     * @return Doc
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+    
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime 
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     * @return Doc
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+    
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime 
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
+    }
+
+    /**
+     * Set active
+     *
+     * @param boolean $active
+     * @return Doc
+     */
+    public function setActive($active)
+    {
+        $this->active = $active;
+    
+        return $this;
+    }
+
+    /**
+     * Get active
+     *
+     * @return boolean 
+     */
+    public function getActive()
+    {
+        return $this->active;
+    }
+
+    /**
+     * Add subcategories
+     *
+     * @param \Teclliure\DocBundle\Entity\DocSubcategory $subcategories
+     * @return Doc
+     */
+    public function addSubcategorie(\Teclliure\DocBundle\Entity\DocSubcategory $subcategories)
+    {
+        $this->subcategories[] = $subcategories;
+    
+        return $this;
+    }
+
+    /**
+     * Remove subcategories
+     *
+     * @param \Teclliure\DocBundle\Entity\DocSubcategory $subcategories
+     */
+    public function removeSubcategorie(\Teclliure\DocBundle\Entity\DocSubcategory $subcategories)
+    {
+        $this->subcategories->removeElement($subcategories);
+    }
+
+    /**
+     * Get subcategories
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSubcategories()
+    {
+        return $this->subcategories;
     }
 }

@@ -11,6 +11,7 @@ services:
             - null
             - Teclliure\DocBundle\Entity\Doc
             - TeclliureUserBundle:Admin
+            - "@doctrine.orm.entity_manager"
 
 #    teclliure_doc.example:
 #        class: %teclliure_doc.example.class%

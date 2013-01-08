@@ -19,7 +19,8 @@ class QuestionaryType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $subscriber = new CategoryFieldsSubscriber($builder->getFormFactory(), $this->em);
+        $modelRepository = $this->em->getRepository('TeclliureQuestionBundle:Questionary');
+        $subscriber = new CategoryFieldsSubscriber($builder->getFormFactory(), $this->em, $modelRepository);
 
         $builder
             ->add('name')

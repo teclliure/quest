@@ -14,11 +14,13 @@ class CategoryFieldsSubscriber implements EventSubscriberInterface
     private $factory;
 
     private $em;
+    private $modelRepository;
 
-    public function __construct(FormFactoryInterface $factory, EntityManager $em)
+    public function __construct(FormFactoryInterface $factory, EntityManager $em, EntityRepository $modelRepository)
     {
         $this->factory = $factory;
         $this->em = $em;
+        $this->modelRepository = $modelRepository;
     }
 
     public static function getSubscribedEvents()
@@ -49,7 +51,6 @@ class CategoryFieldsSubscriber implements EventSubscriberInterface
 
         // Add category selectors
         $catRepository = $this->em->getRepository('TeclliureCategoryBundle:Category');
-        $questionaryRepository = $this->em->getRepository('TeclliureQuestionBundle:Questionary');
 
         $categories = $catRepository->findActive();
         foreach ($categories as $category) {
@@ -74,7 +75,7 @@ class CategoryFieldsSubscriber implements EventSubscriberInterface
                 // Load current values from database
                 $currentValues = null;
                 if ($data->getId()) {
-                    $currentValues = $questionaryRepository->getSubcategories($data, $category);
+                    $currentValues = $this->modelRepository->getSubcategories($data, $category);
 
                     if (!$category->getIsMultiple()) {
                         $currentValues = $currentValues[0];

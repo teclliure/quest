@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="1">
+                <source>Powered by</source>
+                <target>Desarrolado usando</target>
+            </trans-unit>
+            <trans-unit id="2">
+                <source>Frontpage Quiz</source>
+                <target>Inicio Encuesta</target>
+            </trans-unit>
+            <trans-unit id="3">
+                <source>Quiz Demo</source>
+                <target>Prueba Encuesta</target>
+            </trans-unit>
+            <trans-unit id="4">
+                <source>Symfony2 Quiz Application</source>
+                <target>Aplicación Encuestas con Symfony2</target>
+            </trans-unit>
+            <trans-unit id="5">
+                <source>Don't have breadcrumbs !!</source>
+                <target>¡ No existen migajas de pan !</target>
+            </trans-unit>
+            <trans-unit id="6">
+                <source>Hi</source>
+                <target>Hola</target>
+            </trans-unit>
+            <trans-unit id="7">
+                <source>Logout</source>
+                <target>Salir</target>
+            </trans-unit>
+            <trans-unit id="8">
+                <source>Dashboard</source>
+                <target>Escritorio</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

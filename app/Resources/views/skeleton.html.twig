@@ -42,11 +42,11 @@
     <div class="row">
         <div id="banner" class="span12">
             <div class="hero-unit">
-                <h1 id="logo-text"><a href="{{ path('home') }}">Quest Demo</a></h1>
+                <h1 id="logo-text"><a href="{{ path('home') }}">{{ 'Quiz Demo'|trans }}</a></h1>
                 {% if app.user %}
-                    <div style="float: right">Hi {{ app.user.username }} <a href="{{ path('logout') }}"><span class="btn btn-danger">Logout</span></a></div>
+                    <div style="float: right">{{ 'Hi'|trans }} {{ app.user.username }} <a href="{{ path('logout') }}"><span class="btn btn-danger">{{ 'Logout'|trans }}</span></a></div>
                 {% endif %}
-                <p id="slogan">Symfony2 Quest Application</p>
+                <p id="slogan">{{ 'Symfony2 Quiz Application'|trans }}</p>
             </div>
         </div>
 
@@ -123,13 +123,13 @@
                      {% if breadcrumbs %}
                         {% for label, uri in breadcrumbs %}
                             {% if not loop.last  %}
-                                <li><a href="{{ uri }}">{{ label }}</a></li>
+                                <li><a href="{{ uri }}">{{ label|trans }}</a></li>
                             {% else %}
-                                <li class="active">{{ label }}</li>
+                                <li class="active">{{ label|trans }}</li>
                             {% endif %}
                         {% endfor %}
                     {% else %}
-                        <li><a href="#">Don't have breadcrumbs !!</a></li>
+                        <li><a href="#">{{ 'Don\'t have breadcrumbs !!'|trans }}</a></li>
                     {% endif %}
 
 
@@ -172,7 +172,7 @@
                 {# {{ knp_menu_render('service') }} #}
             </div>
             <div class="span12">
-                <p>Powered by <a href="http://symfony.com/">Symfony</a></p>
+                <p>{{ 'Powered by'| trans }} <a href="http://symfony.com/">Symfony</a></p>
             </div>
         {% endblock %}
     </div>

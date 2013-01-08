@@ -7,6 +7,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
+/*
+ *  TODO:
+ *  - Filter by file type (only pdf and images)
+ *  - Add subcategory selector
+ */
+
 /**
  * @ORM\Table(name="doc")
  * @ORM\Entity(repositoryClass="Teclliure\DocBundle\Entity\DocRepository")
@@ -76,9 +82,14 @@ class Doc
     private $subcategories;
 
     /**
-     * @Assert\File(maxSize="6000000")
+     * @Assert\File(
+     *      maxSize="6000000",
+     *      mimeTypes = {"application/pdf", "application/x-pdf"},
+     *      mimeTypesMessage = "Please upload a valid PDF"
+     * )
+     *
      */
-    public $file;
+    protected $file;
 
     public function getAbsolutePath()
     {
@@ -346,5 +357,30 @@ class Doc
     public function getSubcategories()
     {
         return $this->subcategories;
+    }
+
+    public function getFile() {
+        return $this->file;
+    }
+
+    public function setFile($file) {
+        return $this->file = $file;
+    }
+
+    public function doSaveSubcategories($entityManager)
+    {
+        $docRepository = $entityManager->getRepository('TeclliureDocBundle:Doc');
+
+        if (isset($this->subcategoriesTmp)) {
+            $docRepository->deleteSubcategories($this);
+            $docRepository->addSubcategories($this, $this->subcategoriesTmp);
+        }
+    }
+
+
+    public function doDeleteSubcategories($entityManager)
+    {
+        $docRepository = $entityManager->getRepository('TeclliureDocBundle:Doc');
+        $docRepository->deleteSubcategories($this);
     }
 }

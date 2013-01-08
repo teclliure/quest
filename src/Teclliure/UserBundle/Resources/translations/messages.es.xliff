@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="1">
+                <source>Please sign in</source>
+                <target>Por favor, identifíquese</target>
+            </trans-unit>
+            <trans-unit id="2">
+                <source>Email address</source>
+                <target>Dirección correo electrónico</target>
+            </trans-unit>
+            <trans-unit id="3">
+                <source>Password</source>
+                <target>Contraseña</target>
+            </trans-unit>
+            <trans-unit id="4">
+                <source>Remember me</source>
+                <target>Recordarme</target>
+            </trans-unit>
+            <trans-unit id="5">
+                <source>Sign in</source>
+                <target>Registrarse</target>
+            </trans-unit>
+            <trans-unit id="6">
+                <source>Error!</source>
+                <target>¡Error!</target>
+            </trans-unit>
+            <trans-unit id="7">
+                <source>Hi</source>
+                <target>Hola</target>
+            </trans-unit>
+            <trans-unit id="8">
+                <source>Logout</source>
+                <target>Salir</target>
+            </trans-unit>
+            <trans-unit id="9">
+                <source>Bad credentials</source>
+                <target>Usuario/Password incorrecto</target>
+            </trans-unit>
+            <trans-unit id="10">
+                <source>User account has expired.</source>
+                <target>La cuenta de usuario ha caducado.</target>
+            </trans-unit>
+            <trans-unit id="11">
+                <source>User account is disabled.</source>
+                <target>La cuenta de usuario ha sido deshabilitada.</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

@@ -1,23 +1,23 @@
 {% extends '::one_column.html.twig' %}
 
-{% block title %}Frontpage Quest{% endblock %}
+{% block title %}{{ 'Frontpage Quiz'| trans }}{% endblock %}
 
 {% block inner_content %}
     {% if error %}
         <div  class="alert alert-error">
             <button type="button" class="close" data-dismiss="alert">×</button>
-            <strong>Error!</strong>
-            {{ error.message }}
+            <strong>{{ 'Error!'| trans }}</strong>
+            {{ error.message|trans }}
         </div>
     {% endif %}
 
     <form action="{{ path('login_check') }}" method="post" class="form-signin">
-        <h2 class="form-signin-heading">Please sign in</h2>
-        <input id="username" name="_username" class="input-block-level" placeholder="Email address" value="{{ last_username }}" type="text">
-        <input id="password" name="_password" class="input-block-level" placeholder="Password" type="password">
+        <h2 class="form-signin-heading">{{ 'Please sign in'| trans }}</h2>
+        <input id="username" name="_username" class="input-block-level" placeholder="{{ 'Email address'| trans }}" value="{{ last_username }}" type="text">
+        <input id="password" name="_password" class="input-block-level" placeholder="{{ 'Password'| trans }}" type="password">
         <label class="checkbox">
-            <input name="_remember_me" value="remember-me" type="checkbox" checked> Remember me
+            <input name="_remember_me" value="remember-me" type="checkbox" checked> {{ 'Remember me'| trans }}
         </label>
-        <button class="btn btn-large btn-primary" type="submit">Sign in</button>
+        <button class="btn btn-large btn-primary" type="submit">{{ 'Sign in'| trans }}</button>
     </form>
 {% endblock %}

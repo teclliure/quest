@@ -69,7 +69,7 @@ class ValidationController extends Controller
             }
 
 
-            $validations = $validationary->findValidations($entity);
+            $validations = $questionary->findValidations($entity);
 
             return $this->render(':ajax:base_ajax.html.twig', array(
                 'template'             => 'TeclliureQuestionBundle:Validation:validation.html.twig',

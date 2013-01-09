@@ -18,3 +18,4 @@ app/config/parameters.ini
 .idea
 .tm_properties
 .rsync*
+.rsync_cache

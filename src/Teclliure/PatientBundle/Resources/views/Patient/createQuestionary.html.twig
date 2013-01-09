@@ -1,4 +1,4 @@
-{% extends '::one_column.html.twig' %}
+{% extends '::two_columns_right.html.twig' %}
 
 {% block javascripts %}
     {{ parent() }}
@@ -51,5 +51,11 @@
 
     <input type="submit" value="{{ 'Save' | trans }}" />
 </form>
+</div>
+{% endblock %}
+
+{% block right_content %}
+<div class="well">
+    <h4>{{ 'Related documentation'|trans }}</h4>
 </div>
 {% endblock %}

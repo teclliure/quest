@@ -1,0 +1,16 @@
+{% extends '::skeleton.html.twig' %}
+
+{% block content %}
+<div class="span9">
+    <div id="content">
+        <div class="inner">
+            {% block inner_content %}
+            {% endblock %}
+        </div>
+    </div>
+</div>
+<div id="navigation" class="span3">
+    {% block right_content %}
+    {% endblock %}
+</div>
+{% endblock %}

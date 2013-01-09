@@ -112,6 +112,7 @@ class DefaultController extends Controller
         if (!$questionary) {
             throw $this->createNotFoundException('Unable to find Questionary entity.');
         }
+        $docs = $questionaryRepository->getDocs($questionary);
 
         if ($patientQuestionaryId) {
             $patientQuestionary = $patientQuestionaryRepository->find($patientQuestionaryId);
@@ -164,10 +165,11 @@ class DefaultController extends Controller
 
 
         return $this->render('TeclliurePatientBundle:Patient:createQuestionary.html.twig', array(
-            'patient'           => $patient,
-            'questionary'       => $questionary,
-            'patientQuestionary'       => $patientQuestionary,
-            'patientQuestionaryForm'=> $patientQuestionaryForm->createView()
+            'patient'                   => $patient,
+            'questionary'               => $questionary,
+            'patientQuestionary'        => $patientQuestionary,
+            'patientQuestionaryForm'    => $patientQuestionaryForm->createView(),
+            'docs'                      => $docs
         ));
     }
 

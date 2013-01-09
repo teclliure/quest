@@ -56,6 +56,17 @@
 
 {% block right_content %}
 <div class="well">
-    <h4>{{ 'Related documentation'|trans }}</h4>
+
+    {%  if docs is  empty %}
+        <span class="alert alert-error">{{ 'No related documentation'|trans }}</span>
+    {% else  %}
+        <h4>{{ 'Related documentation'|trans }}</h4>
+        <span class="alert alert-success">{{ docs|length }} {{ 'documents'|trans }}</span>
+        <ul id="questionaryDocumentsList">
+        {% for doc in docs %}
+            <li><a class="tooltiplink" data-content="{{ doc.name }}" data-original-title="{{ doc.description }}" href="{{  asset(doc.getWebPath) }}" target="_blank"><i class="icon-file"></i> {{ doc.name }}</a></li>
+        {% endfor %}
+        </ul>
+    {% endif  %}
 </div>
 {% endblock %}

@@ -32,7 +32,8 @@
         "sonata-project/doctrine-orm-admin-bundle": "dev-master",
         "sonata-project/intl-bundle": "dev-master",
         "sonata-project/cache-bundle": "dev-master",
-        "ideup/simple-paginator-bundle": "dev-master"
+        "ideup/simple-paginator-bundle": "dev-master",
+        "psliwa/pdf-bundle": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [
@@ -46,6 +47,13 @@
 "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
 "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
 "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
-    ]
-    }
+    ] },
+    "repositories": [   {
+        "type": "composer",
+        "url": "http://packages.zendframework.com/"
+    },
+    {
+        "type": "composer",
+        "url": "http://packagist.org/"
+    } ]
 }

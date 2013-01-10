@@ -62,4 +62,26 @@ class PatientQuestionaryRepository extends EntityRepository
             }
         }
     }
+
+    public function findValidations($questionary) {
+        $em = $this->getEntityManager();
+
+        // $patientQuestionaryAnswers = $patientQuestionary->getPatientQuestionaryAnswers();
+        $dql = 'SELECT v FROM TeclliureQuestionBundle:Validation v WHERE v.questionary = :questionary ORDER BY v.name desc';
+
+        $query = $em->createQuery($dql);
+        $query->setParameter('questionary', $questionary->getId());
+
+        /*$questions = $query->getResult();
+        foreach ($questions as $question) {
+            foreach ($patientQuestionaryAnswers as $key=>$patientQuestionaryAnswer) {
+                if ($patientQuestionaryAnswer->getQuestion()->getId() == $question->getId()) {
+                    $question->setPatientQuestionAnswer($patientQuestionaryAnswer);
+                    unset ($patientQuestionaryAnswers[$key]);
+                }
+            }
+        }*/
+
+        return $query->getResult();
+    }
 }

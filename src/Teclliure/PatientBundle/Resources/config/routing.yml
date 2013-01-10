@@ -29,3 +29,11 @@ questionary_patient_create:
 questionary_patient_delete:
     pattern:  /patientQuestionary/delete/{id}
     defaults: { _controller: TeclliurePatientBundle:Default:deletePatientQuestionary }
+
+questionary_patient_validation:
+    pattern:  /patientQuestionary/validations/{id}
+    defaults: { _controller: TeclliurePatientBundle:Default:validationPatientQuestionary }
+
+patient_report:
+    pattern:  /patientReport/{id}
+    defaults: { _controller: TeclliurePatientBundle:Default:patientReport }

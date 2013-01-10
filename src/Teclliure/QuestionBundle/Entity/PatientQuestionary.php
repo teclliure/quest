@@ -5,6 +5,7 @@ namespace Teclliure\QuestionBundle\Entity;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Table(name="patient_questionary")
@@ -41,6 +42,13 @@ class PatientQuestionary
     private $patientQuestionaryAnswers;
 
     /**
+     *
+     * @ORM\OneToMany(targetEntity="Teclliure\QuestionBundle\Entity\PatientQuestionaryValidation",mappedBy="patientQuestionary",cascade={"persist"})
+     *
+     */
+    private $validations;
+
+    /**
      * @var datetime $created
      *
      * @Gedmo\Timestampable(on="create")
@@ -66,6 +74,11 @@ class PatientQuestionary
      */
     private $notes;
 
+    public function __construct()
+    {
+        $this->validations = new ArrayCollection();
+        $this->patientQuestionaryAnswers = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -208,14 +221,7 @@ class PatientQuestionary
         $questionaryRepository = $entityManager->getRepository('TeclliureQuestionBundle:PatientQuestionary');
         $questionaryRepository->deleteAnswers($this);
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->patientQuestionaryAnswers = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-    
+
     /**
      * Add patientQuestionaryAnswers
      *
@@ -247,5 +253,56 @@ class PatientQuestionary
     public function getPatientQuestionaryAnswers()
     {
         return $this->patientQuestionaryAnswers;
+    }
+
+    /**
+     * Add validations
+     *
+     * @param \Teclliure\QuestionBundle\Entity\PatientQuestionaryValidation $validations
+     * @return PatientQuestionary
+     */
+    public function addValidation(\Teclliure\QuestionBundle\Entity\PatientQuestionaryValidation $validations)
+    {
+        $this->validations[] = $validations;
+    
+        return $this;
+    }
+
+    /**
+     * Remove validations
+     *
+     * @param \Teclliure\QuestionBundle\Entity\PatientQuestionaryValidation $validations
+     */
+    public function removeValidation(\Teclliure\QuestionBundle\Entity\PatientQuestionaryValidation $validations)
+    {
+        $this->validations->removeElement($validations);
+    }
+
+    /**
+     * Get validations
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getValidations()
+    {
+        return $this->validations;
+    }
+
+    /**
+     * Set validations
+     *
+     * @param \Doctrine\Common\Collections\Collection $validations
+     */
+    public function setValidations(\Doctrine\Common\Collections\ArrayCollection $validations)
+    {
+        foreach ($this->getValidations() as $validation) {
+            $this->removeValidation($validation);
+        }
+
+        foreach ($validations as $validation) {
+            $validation->setPatientQuestionary($this);
+            $this->addValidation($validation);
+        }
+        return $this->validations;
     }
 }

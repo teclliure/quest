@@ -358,4 +358,29 @@ class Doc
     {
         return $this->subcategories;
     }
+
+    public function getFile() {
+        return $this->file;
+    }
+
+    public function setFile($file) {
+        return $this->file = $file;
+    }
+
+    public function doSaveSubcategories($entityManager)
+    {
+        $docRepository = $entityManager->getRepository('TeclliureDocBundle:Doc');
+
+        if (isset($this->subcategoriesTmp)) {
+            $docRepository->deleteSubcategories($this);
+            $docRepository->addSubcategories($this, $this->subcategoriesTmp);
+        }
+    }
+
+
+    public function doDeleteSubcategories($entityManager)
+    {
+        $docRepository = $entityManager->getRepository('TeclliureDocBundle:Doc');
+        $docRepository->deleteSubcategories($this);
+    }
 }

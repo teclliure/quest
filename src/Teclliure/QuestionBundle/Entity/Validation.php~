@@ -66,6 +66,13 @@ class Validation
     private $validationRules;
 
     /**
+     *
+     * @ORM\OneToMany(targetEntity="Teclliure\QuestionBundle\Entity\PatientQuestionaryValidation",mappedBy="validation")
+     *
+     */
+    private $patientQuestionaries;
+
+    /**
      * @ORM\PrePersist
      * @ORM\PreUpdate
      */
@@ -239,5 +246,38 @@ class Validation
     public function getValidationRules()
     {
         return $this->validationRules;
+    }
+
+    /**
+     * Add patientQuestionaries
+     *
+     * @param \Teclliure\QuestionBundle\Entity\PatientQuestionaryValidation $patientQuestionaries
+     * @return Validation
+     */
+    public function addPatientQuestionarie(\Teclliure\QuestionBundle\Entity\PatientQuestionaryValidation $patientQuestionaries)
+    {
+        $this->patientQuestionaries[] = $patientQuestionaries;
+    
+        return $this;
+    }
+
+    /**
+     * Remove patientQuestionaries
+     *
+     * @param \Teclliure\QuestionBundle\Entity\PatientQuestionaryValidation $patientQuestionaries
+     */
+    public function removePatientQuestionarie(\Teclliure\QuestionBundle\Entity\PatientQuestionaryValidation $patientQuestionaries)
+    {
+        $this->patientQuestionaries->removeElement($patientQuestionaries);
+    }
+
+    /**
+     * Get patientQuestionaries
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPatientQuestionaries()
+    {
+        return $this->patientQuestionaries;
     }
 }

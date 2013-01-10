@@ -41,6 +41,13 @@ class PatientQuestionary
     private $patientQuestionaryAnswers;
 
     /**
+     *
+     * @ORM\OneToMany(targetEntity="Teclliure\QuestionBundle\Entity\PatientQuestionaryValidation",mappedBy="patientQuestionary")
+     *
+     */
+    private $validations;
+
+    /**
      * @var datetime $created
      *
      * @Gedmo\Timestampable(on="create")
@@ -247,5 +254,38 @@ class PatientQuestionary
     public function getPatientQuestionaryAnswers()
     {
         return $this->patientQuestionaryAnswers;
+    }
+
+    /**
+     * Add validations
+     *
+     * @param \Teclliure\QuestionBundle\Entity\PatientQuestionaryValidation $validations
+     * @return PatientQuestionary
+     */
+    public function addValidation(\Teclliure\QuestionBundle\Entity\PatientQuestionaryValidation $validations)
+    {
+        $this->validations[] = $validations;
+    
+        return $this;
+    }
+
+    /**
+     * Remove validations
+     *
+     * @param \Teclliure\QuestionBundle\Entity\PatientQuestionaryValidation $validations
+     */
+    public function removeValidation(\Teclliure\QuestionBundle\Entity\PatientQuestionaryValidation $validations)
+    {
+        $this->validations->removeElement($validations);
+    }
+
+    /**
+     * Get validations
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getValidations()
+    {
+        return $this->validations;
     }
 }

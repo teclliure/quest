@@ -10,6 +10,7 @@ use Teclliure\PatientBundle\Entity\Patient;
 use Teclliure\QuestionBundle\Entity\PatientQuestionary;
 use Teclliure\PatientBundle\Form\PatientType;
 use Teclliure\QuestionBundle\Form\PatientQuestionaryType;
+use Teclliure\QuestionBundle\Entity\PatientQuestionaryValidation;
 
 class DefaultController extends Controller
 {
@@ -304,6 +305,37 @@ class DefaultController extends Controller
 
         return $this->render('TeclliurePatientBundle:Patient:showContent.html.twig', array(
             'entity'          => $entity,
+        ));
+    }
+
+    public function validationPatientQuestionaryAction($id) {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('TeclliureQuestionBundle:PatientQuestionary')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find PatientQuestionary entity.');
+        }
+        $patientQuestionaryForm = $this->createForm('teclliure_questionbundle_patientquestionary_validationtype', $entity);
+
+        if ($this->getRequest()->isMethod('POST')) {
+            $patientQuestionaryForm->bind($this->getRequest());
+            if ($patientQuestionaryForm->isValid()) {
+                $em->persist($entity);
+
+                /*foreach($entity->getValidations() as $validation) {
+                    $em->persist($validation);
+                }*/
+                $em->flush();
+
+                $this->get('session')->setFlash('notice',
+                    'Patient questionary validations saved correctly'
+                );
+            }
+        }
+        return $this->render('TeclliurePatientBundle:Validation:selectValidations.html.twig', array(
+            'entity'          => $entity,
+            'patientQuestionaryForm' => $patientQuestionaryForm->createView()
         ));
     }
 

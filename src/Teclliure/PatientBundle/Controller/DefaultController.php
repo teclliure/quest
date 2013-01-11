@@ -339,6 +339,22 @@ class DefaultController extends Controller
         ));
     }
 
+    public function resultsPatientQuestionaryAction($id) {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('TeclliureQuestionBundle:PatientQuestionary')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find PatientQuestionary entity.');
+        }
+        $results = $em->getRepository('TeclliureQuestionBundle:PatientQuestionary')->calculateResults($entity);
+
+        return $this->render('TeclliurePatientBundle:Validation:validationsResults.html.twig', array(
+            'entity'          => $entity,
+            'results' => $results
+        ));
+    }
+
     public function getBreadcrumbsRoutes() {
         return array(
             'list' => array('route'=>'home', 'label'=>'List patients'),

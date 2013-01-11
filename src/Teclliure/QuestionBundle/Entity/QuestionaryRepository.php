@@ -105,13 +105,22 @@ class QuestionaryRepository extends SortableRepository
         return $result;
     }
 
-    public function getQuestionariesByCategory() {
+    public function getQuestionariesByCategory($active = true) {
         $em = $this->getEntityManager();
 
         // $dql = 'select q, qs, s, c FROM TeclliureQuestionBundle:Questionary q LEFT JOIN q.subcategories qs JOIN qs.subcategory s JOIN s.category c ORDER BY q.name ASC';
-        $dql = 'select q FROM TeclliureQuestionBundle:Questionary q LEFT JOIN q.subcategories qs LEFT JOIN qs.subcategory s LEFT JOIN s.category c ORDER BY c.name ASC, q.name ASC';
+        if ($active) {
+            $dql = 'select q FROM TeclliureQuestionBundle:Questionary q LEFT JOIN q.subcategories qs LEFT JOIN qs.subcategory s LEFT JOIN s.category c where q.active = :active ORDER BY c.name ASC, q.name ASC';
+        }
+        else {
+            $dql = 'select q FROM TeclliureQuestionBundle:Questionary q LEFT JOIN q.subcategories qs LEFT JOIN qs.subcategory s LEFT JOIN s.category c ORDER BY c.name ASC, q.name ASC';
+        }
 
         $query = $em->createQuery($dql);
+
+        if ($active) {
+            $query->setParameter('active', true);
+        }
 
         $resultArray = array();
         $result = $query->execute();

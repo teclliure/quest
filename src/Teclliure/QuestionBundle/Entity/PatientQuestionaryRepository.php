@@ -84,4 +84,21 @@ class PatientQuestionaryRepository extends EntityRepository
 
         return $query->getResult();
     }
+
+    public function calculateResults(PatientQuestionary $patientQuestionary) {
+        $em = $this->getEntityManager();
+
+        $totalValue = $patientQuestionary->getTotalValue();
+        $selectedValidations = $patientQuestionary->getValidations();
+        foreach ($selectedValidations as $selectedValidation) {
+            $rules = $selectedValidation->getValidationRules();
+            foreach ($rules as $rule) {
+                if ($totalValue >= $rule->getRangeMin() && $totalValue <= $rule->getRangeMax()) {
+                    $selectedValidation->setSelectedValidationRule($rule);
+                    break;
+                }
+            }
+        }
+        return $selectedValidations;
+    }
 }

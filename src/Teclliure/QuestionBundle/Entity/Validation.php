@@ -65,12 +65,17 @@ class Validation
      */
     private $validationRules;
 
+
     /**
-     *
-     * @ORM\OneToMany(targetEntity="Teclliure\QuestionBundle\Entity\PatientQuestionaryValidation",mappedBy="validation")
-     *
+     * @ORM\ManyToMany(targetEntity="Teclliure\QuestionBundle\Entity\PatientQuestionary", mappedBy="validations")
      */
     private $patientQuestionaries;
+
+    /**
+     * Not saved on BBDD. Used to store tmp info when checking patientQuestionary results
+     */
+    private $selectedValidationRule;
+
 
     /**
      * @ORM\PrePersist
@@ -122,6 +127,30 @@ class Validation
     {
         return $this->name;
     }
+
+    /**
+     * Set selectedValidationRule
+     *
+     * @param Validation $selectedValidationRule
+     * @return Validation
+     */
+    public function setSelectedValidationRule(ValidationRule $selectedValidationRule)
+    {
+        $this->selectedValidationRule = $selectedValidationRule;
+
+        return $this;
+    }
+
+    /**
+     * Get selectedValidationRule
+     *
+     * @return ValidationRule
+     */
+    public function getSelectedValidationRule()
+    {
+        return $this->selectedValidationRule;
+    }
+
 
     /**
      * Set help
@@ -248,13 +277,15 @@ class Validation
         return $this->validationRules;
     }
 
+  
+
     /**
      * Add patientQuestionaries
      *
-     * @param \Teclliure\QuestionBundle\Entity\PatientQuestionaryValidation $patientQuestionaries
+     * @param \Teclliure\QuestionBundle\Entity\PatientQuestionary $patientQuestionaries
      * @return Validation
      */
-    public function addPatientQuestionarie(\Teclliure\QuestionBundle\Entity\PatientQuestionaryValidation $patientQuestionaries)
+    public function addPatientQuestionarie(\Teclliure\QuestionBundle\Entity\PatientQuestionary $patientQuestionaries)
     {
         $this->patientQuestionaries[] = $patientQuestionaries;
     
@@ -264,9 +295,9 @@ class Validation
     /**
      * Remove patientQuestionaries
      *
-     * @param \Teclliure\QuestionBundle\Entity\PatientQuestionaryValidation $patientQuestionaries
+     * @param \Teclliure\QuestionBundle\Entity\PatientQuestionary $patientQuestionaries
      */
-    public function removePatientQuestionarie(\Teclliure\QuestionBundle\Entity\PatientQuestionaryValidation $patientQuestionaries)
+    public function removePatientQuestionarie(\Teclliure\QuestionBundle\Entity\PatientQuestionary $patientQuestionaries)
     {
         $this->patientQuestionaries->removeElement($patientQuestionaries);
     }

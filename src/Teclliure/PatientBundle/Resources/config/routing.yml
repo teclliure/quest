@@ -34,6 +34,10 @@ questionary_patient_validation:
     pattern:  /patientQuestionary/validations/{id}
     defaults: { _controller: TeclliurePatientBundle:Default:validationPatientQuestionary }
 
+questionary_patient_results:
+    pattern:  /patientQuestionary/results/{id}
+    defaults: { _controller: TeclliurePatientBundle:Default:resultsPatientQuestionary }
+
 patient_report:
     pattern:  /patientReport/{id}
     defaults: { _controller: TeclliurePatientBundle:Default:patientReport }

@@ -25,7 +25,7 @@ class PatientQuestionaryValidationType extends AbstractType
 
         $questionary = $data->getQuestionary();
 
-        $transformer = new PatientQuestionaryValidationToNumberTransformer($this->em);
+        /*$transformer = new PatientQuestionaryValidationToNumberTransformer($this->em);
 
         $builder->add(
             $builder->create('validations', 'entity', array(
@@ -40,6 +40,20 @@ class PatientQuestionaryValidationType extends AbstractType
                                ->orderBy('q.name', 'ASC');
                       },
             ))->addModelTransformer($transformer)
+        );*/
+
+        $builder->add('validations', 'entity', array(
+                'class'    => 'TeclliureQuestionBundle:Validation' ,
+                'property' => 'name',
+                'expanded' => true ,
+                'multiple' => true,
+                'query_builder' => function(EntityRepository $er) use ($questionary) {
+                    return $er->createQueryBuilder('q')
+                        ->where('q.questionary = :questionary')
+                        ->setParameter('questionary',$questionary->getId())
+                        ->orderBy('q.name', 'ASC');
+                },
+            )
         );
     }
 

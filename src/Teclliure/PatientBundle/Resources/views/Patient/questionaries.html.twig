@@ -18,6 +18,12 @@
                     <i class="icon-certificate"></i>
                     {{ 'Validate'|trans }}
                 </a>
+                {% if entity.validations and entity.validations is not empty %}
+                <a class="btn btn-mini" href="{{ path('questionary_patient_results', { 'id': entity.id}) }}">
+                    <i class="icon-check"></i>
+                    {{ 'Results' | trans }}
+                </a>
+                {% endif %}
                 <a class="btn btn-mini" href="{{ path('questionary_patient_delete', { 'id': entity.id}) }}">
                     <i class="icon-trash"></i>
                     {{ 'Delete'|trans }}

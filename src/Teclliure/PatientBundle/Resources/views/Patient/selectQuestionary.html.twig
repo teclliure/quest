@@ -34,6 +34,7 @@
             </li>
         {% endfor %}
     {% endif %}
+    {% if catQuestionaries.categories is defined %}
     {% for category in catQuestionaries.categories %}
         <li class="category">
             <a class="tooltiplink" data-content="{{ category.cat.description }}" title="{{ category.cat.name }}">{{ category.cat.name }}</a>
@@ -53,5 +54,6 @@
             </ul>
         </li>
     {% endfor %}
+    {% endif %}
 </ul>
 {% endblock %}

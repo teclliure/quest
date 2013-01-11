@@ -42,11 +42,11 @@ class PatientQuestionary
     private $patientQuestionaryAnswers;
 
     /**
-     *
-     * @ORM\OneToMany(targetEntity="Teclliure\QuestionBundle\Entity\PatientQuestionaryValidation",mappedBy="patientQuestionary",cascade={"persist"})
-     *
+     * @ORM\ManyToMany(targetEntity="Teclliure\QuestionBundle\Entity\Validation", cascade={"persist"},inversedBy="patientQuestionaries" )
+     * @ORM\JoinTable(name="patient_questionary_validation")
      */
     private $validations;
+
 
     /**
      * @var datetime $created
@@ -256,12 +256,30 @@ class PatientQuestionary
     }
 
     /**
+     * Set validations
+     *
+     * @param \Doctrine\Common\Collections\Collection $validations
+     */
+    /*public function setValidations(\Doctrine\Common\Collections\ArrayCollection $validations)
+    {
+        foreach ($this->getValidations() as $validation) {
+            $this->removeValidation($validation);
+        }
+
+        foreach ($validations as $validation) {
+            // $validation->setPatientQuestionary($this);
+            $this->addValidation($validation);
+        }
+        return $this->validations;
+    }*/
+
+    /**
      * Add validations
      *
-     * @param \Teclliure\QuestionBundle\Entity\PatientQuestionaryValidation $validations
+     * @param \Teclliure\QuestionBundle\Entity\Validation $validations
      * @return PatientQuestionary
      */
-    public function addValidation(\Teclliure\QuestionBundle\Entity\PatientQuestionaryValidation $validations)
+    public function addValidation(\Teclliure\QuestionBundle\Entity\Validation $validations)
     {
         $this->validations[] = $validations;
     
@@ -271,9 +289,9 @@ class PatientQuestionary
     /**
      * Remove validations
      *
-     * @param \Teclliure\QuestionBundle\Entity\PatientQuestionaryValidation $validations
+     * @param \Teclliure\QuestionBundle\Entity\Validation $validations
      */
-    public function removeValidation(\Teclliure\QuestionBundle\Entity\PatientQuestionaryValidation $validations)
+    public function removeValidation(\Teclliure\QuestionBundle\Entity\Validation $validations)
     {
         $this->validations->removeElement($validations);
     }
@@ -288,21 +306,13 @@ class PatientQuestionary
         return $this->validations;
     }
 
-    /**
-     * Set validations
-     *
-     * @param \Doctrine\Common\Collections\Collection $validations
-     */
-    public function setValidations(\Doctrine\Common\Collections\ArrayCollection $validations)
-    {
-        foreach ($this->getValidations() as $validation) {
-            $this->removeValidation($validation);
+    public function getTotalValue() {
+        $total = 0;
+        $answers = $this->getPatientQuestionaryAnswers();
+        foreach ($answers as $answer) {
+            $total += $answer->getAnswer()->getRawValue();
         }
-
-        foreach ($validations as $validation) {
-            $validation->setPatientQuestionary($this);
-            $this->addValidation($validation);
-        }
-        return $this->validations;
+        return $total;
     }
+
 }

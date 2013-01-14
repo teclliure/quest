@@ -1,0 +1,23 @@
+{%  if closeDialog  %}
+    <script>
+        $('#validationQuestionsModal{{ entity.id }}').modal('hide');
+    </script>
+{%  endif  %}
+<form id="saveValidationsQuestionsForm{{ entity.id }}" class="validationsQuestionsForm" action="{{ path('validation_questions', { 'id': entity.id }) }}" method="post" {{ form_enctype(form) }}>
+    <div class="modal-header">
+        <button type="button" style="margin-right: 15px" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+
+        <h3 id="myModalLabel">{{ 'Select questions'|trans }}</h3>
+    </div>
+    <div class="modal-body">
+        <legend>
+            {{ 'Validation' | trans }} <span class="legendName">{{ entity.name }}</span>
+        </legend>
+        {{ form_widget(form) }}
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">{{ 'Close' }}</button>
+        <button class="btn btn-primary" type="submit">{{ 'Save' }}</button>
+    </div>
+</form>

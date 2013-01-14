@@ -9,6 +9,7 @@ use Teclliure\QuestionBundle\Entity\Validation;
 use Teclliure\QuestionBundle\Entity\ValidationRule;
 use Teclliure\QuestionBundle\Form\ValidationType;
 use Teclliure\QuestionBundle\Form\ValidationRuleType;
+use Teclliure\QuestionBundle\Form\ValidationQuestionsType;
 
 use Knp\Menu\FactoryInterface as MenuFactoryInterface;
 use Knp\Menu\ItemInterface as MenuItemInterface;
@@ -287,6 +288,56 @@ class ValidationController extends Controller
             return $this->render(':ajax:base_ajax.html.twig', array(
                 'template'      => 'TeclliureQuestionBundle:Validation:ruleList.html.twig',
                 'validation'      => $validation
+            ));
+        }
+        else {
+            return $this->render(':msg:error.html.twig', array(
+                'msg' => 'Error: Not ajax call'
+            ));
+        }
+    }
+
+
+    /**
+     * Saves validation questions
+     *
+     */
+    public function saveValidationQuestionsAction($id)
+    {
+        $request = $this->getRequest();
+        $em = $this->getDoctrine()->getManager();
+
+        if ($request->isXmlHttpRequest()) {
+            $closeDialog = false;
+            $validationRepository = $em->getRepository('TeclliureQuestionBundle:Validation');
+
+            $entity = $validationRepository->find($id);
+
+            if (!$entity) {
+                throw $this->createNotFoundException('Unable to find Validation entity.');
+            }
+
+            $validationQuestionForm = $this->createForm(new ValidationQuestionsType(), $entity);
+
+            if  ($request->isMethod('post')) {
+                $validationQuestionForm->bind($request);
+
+                if ($validationQuestionForm->isValid()) {
+                    $em->persist($entity);
+                    $em->flush();
+
+                    $this->get('session')->setFlash('info',
+                        'Validation questions saved correctly'
+                    );
+                    $closeDialog = true;
+                }
+            }
+
+            return $this->render(':ajax:base_ajax.html.twig', array(
+                'template'          => 'TeclliureQuestionBundle:Validation:validationQuestions.html.twig',
+                'entity'            => $entity,
+                'form'              => $validationQuestionForm->createView(),
+                'closeDialog'       => $closeDialog
             ));
         }
         else {

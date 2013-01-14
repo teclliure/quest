@@ -11,6 +11,7 @@ use Teclliure\QuestionBundle\Entity\PatientQuestionary;
 use Teclliure\PatientBundle\Form\PatientType;
 use Teclliure\QuestionBundle\Form\PatientQuestionaryType;
 use Teclliure\QuestionBundle\Entity\PatientQuestionaryValidation;
+use Teclliure\QuestionBundle\Form\PatientQuestionaryValidationType;
 
 class DefaultController extends Controller
 {
@@ -316,7 +317,7 @@ class DefaultController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find PatientQuestionary entity.');
         }
-        $patientQuestionaryForm = $this->createForm('teclliure_questionbundle_patientquestionary_validationtype', $entity);
+        $patientQuestionaryForm = $this->createForm(new PatientQuestionaryValidationType(), $entity);
 
         if ($this->getRequest()->isMethod('POST')) {
             $patientQuestionaryForm->bind($this->getRequest());

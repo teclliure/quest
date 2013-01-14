@@ -8,16 +8,9 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\FormEvents;
 use Doctrine\ORM\EntityRepository;
-use Teclliure\QuestionBundle\Form\DataTransformer\PatientQuestionaryValidationToNumberTransformer;
 
 class PatientQuestionaryValidationType extends AbstractType
 {
-    protected $em;
-
-    public function __construct(EntityManager $em)
-    {
-        $this->em = $em;
-    }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {

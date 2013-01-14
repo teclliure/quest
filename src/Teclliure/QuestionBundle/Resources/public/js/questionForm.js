@@ -206,6 +206,41 @@ $(function() {
     });
 
     makeValidationsSortable();
+
+    // Validation questions
+    $("body").on("click", ".selectValidationQuestion", function(event) {
+        event.preventDefault();
+
+        actionUrl = $(this).attr('href');
+
+        if (actionUrl != '') {
+            validationDivId = $(this).attr('data-target');
+
+            $.ajax({
+                url: actionUrl,
+                success: function(data) {
+                    $(validationDivId).html(data);
+                }
+            });
+            $(this).attr('href','');
+        }
+    });
+
+    $("body").on("submit", ".validationsQuestionsForm", function(event) {
+        event.preventDefault();
+
+        actionUrl = $(this).attr('action');
+        validationDivId = $(this).parents('div .validationQuestionsModal').attr('id');
+
+        $.post(
+            actionUrl,
+            $(this).serialize(),
+            function(data) {
+                $('#'+validationDivId).html(data);
+            }
+        );
+
+    });
 });
 
 function makeQuestionsSortable() {
@@ -245,8 +280,7 @@ function makeValidationsSortable() {
         update: function(event, ui) {
             $.ajax({
                 url: basePath + '/admin/questionary/sortValidation/' + ui.item.attr('id') + '/' + ui.item.index()
-            })
-
+            });
         }
     });
     $( "#validationsListSortable" ).disableSelection();

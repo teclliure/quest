@@ -71,6 +71,13 @@ class Validation
      */
     private $patientQuestionaries;
 
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Teclliure\QuestionBundle\Entity\Question", cascade={"persist"}, inversedBy="validations")
+     * @ORM\JoinTable(name="validation_question")
+     */
+    private $questions;
+
     /**
      * Not saved on BBDD. Used to store tmp info when checking patientQuestionary results
      */
@@ -310,5 +317,38 @@ class Validation
     public function getPatientQuestionaries()
     {
         return $this->patientQuestionaries;
+    }
+
+    /**
+     * Add questions
+     *
+     * @param \Teclliure\QuestionBundle\Entity\Question $questions
+     * @return Validation
+     */
+    public function addQuestion(\Teclliure\QuestionBundle\Entity\Question $questions)
+    {
+        $this->questions[] = $questions;
+    
+        return $this;
+    }
+
+    /**
+     * Remove questions
+     *
+     * @param \Teclliure\QuestionBundle\Entity\Question $questions
+     */
+    public function removeQuestion(\Teclliure\QuestionBundle\Entity\Question $questions)
+    {
+        $this->questions->removeElement($questions);
+    }
+
+    /**
+     * Get questions
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getQuestions()
+    {
+        return $this->questions;
     }
 }

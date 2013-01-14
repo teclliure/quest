@@ -81,10 +81,17 @@ class Question
      */
     private $patientQuestionAnswer = null;
 
+
     /**
-     * @ORM\OneToMany(targetEntity="Teclliure\QuestionBundle\Entity\AnswerDisableQuestion", mappedBy="question")
+     * @ORM\ManyToMany(targetEntity="Teclliure\QuestionBundle\Entity\Answer", cascade={"persist"}, inversedBy="disabledQuestions")
+     * @ORM\JoinTable(name="answer_disable_question")
      */
-    private $disabled_by_answers;
+    private $disabledByAnswers;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Teclliure\QuestionBundle\Entity\Validation", mappedBy="questions")
+     */
+    private $validations;
 
     /**
      * @ORM\PrePersist
@@ -368,35 +375,68 @@ class Question
     }
 
     /**
-     * Add disabled_by_answers
+     * Add disabledByAnswers
      *
-     * @param \Teclliure\QuestionBundle\Entity\AnswerDisableQuestion $disabledByAnswers
+     * @param \Teclliure\QuestionBundle\Entity\Answer $disabledByAnswers
      * @return Question
      */
-    public function addDisabledByAnswer(\Teclliure\QuestionBundle\Entity\AnswerDisableQuestion $disabledByAnswers)
+    public function addDisabledByAnswer(\Teclliure\QuestionBundle\Entity\Answer $disabledByAnswers)
     {
-        $this->disabled_by_answers[] = $disabledByAnswers;
+        $this->disabledByAnswers[] = $disabledByAnswers;
     
         return $this;
     }
 
     /**
-     * Remove disabled_by_answers
+     * Remove disabledByAnswers
      *
-     * @param \Teclliure\QuestionBundle\Entity\AnswerDisableQuestion $disabledByAnswers
+     * @param \Teclliure\QuestionBundle\Entity\Answer $disabledByAnswers
      */
-    public function removeDisabledByAnswer(\Teclliure\QuestionBundle\Entity\AnswerDisableQuestion $disabledByAnswers)
+    public function removeDisabledByAnswer(\Teclliure\QuestionBundle\Entity\Answer $disabledByAnswers)
     {
-        $this->disabled_by_answers->removeElement($disabledByAnswers);
+        $this->disabledByAnswers->removeElement($disabledByAnswers);
     }
 
     /**
-     * Get disabled_by_answers
+     * Get disabledByAnswers
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
     public function getDisabledByAnswers()
     {
-        return $this->disabled_by_answers;
+        return $this->disabledByAnswers;
+    }
+
+    /**
+     * Add validations
+     *
+     * @param \Teclliure\QuestionBundle\Entity\Validation $validations
+     * @return Question
+     */
+    public function addValidation(\Teclliure\QuestionBundle\Entity\Validation $validations)
+    {
+        $this->validations[] = $validations;
+    
+        return $this;
+    }
+
+    /**
+     * Remove validations
+     *
+     * @param \Teclliure\QuestionBundle\Entity\Validation $validations
+     */
+    public function removeValidation(\Teclliure\QuestionBundle\Entity\Validation $validations)
+    {
+        $this->validations->removeElement($validations);
+    }
+
+    /**
+     * Get validations
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getValidations()
+    {
+        return $this->validations;
     }
 }

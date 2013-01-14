@@ -67,9 +67,17 @@ class Answer
     private $question;
 
     /**
-     * @ORM\OneToMany(targetEntity="Teclliure\QuestionBundle\Entity\AnswerDisableQuestion", mappedBy="answer")
+     * @ORM\ManyToMany(targetEntity="Teclliure\QuestionBundle\Entity\Question", mappedBy="disabledByAnswers")
      */
-    private $disables_questions;
+    private $disabledQuestions;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->disabledQuestions = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * @ORM\PrePersist
@@ -228,44 +236,37 @@ class Answer
     {
         return $this->category;
     }
+
     /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->disables_questions = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-    
-    /**
-     * Add disables_questions
+     * Add disabledQuestions
      *
-     * @param \Teclliure\QuestionBundle\Entity\AnswerDisableQuestion $disablesQuestions
+     * @param \Teclliure\QuestionBundle\Entity\Question $disabledQuestions
      * @return Answer
      */
-    public function addDisablesQuestion(\Teclliure\QuestionBundle\Entity\AnswerDisableQuestion $disablesQuestions)
+    public function addDisabledQuestion(\Teclliure\QuestionBundle\Entity\Question $disabledQuestions)
     {
-        $this->disables_questions[] = $disablesQuestions;
+        $this->disabledQuestions[] = $disabledQuestions;
     
         return $this;
     }
 
     /**
-     * Remove disables_questions
+     * Remove disabledQuestions
      *
-     * @param \Teclliure\QuestionBundle\Entity\AnswerDisableQuestion $disablesQuestions
+     * @param \Teclliure\QuestionBundle\Entity\Question $disabledQuestions
      */
-    public function removeDisablesQuestion(\Teclliure\QuestionBundle\Entity\AnswerDisableQuestion $disablesQuestions)
+    public function removeDisabledQuestion(\Teclliure\QuestionBundle\Entity\Question $disabledQuestions)
     {
-        $this->disables_questions->removeElement($disablesQuestions);
+        $this->disabledQuestions->removeElement($disabledQuestions);
     }
 
     /**
-     * Get disables_questions
+     * Get disabledQuestions
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getDisablesQuestions()
+    public function getDisabledQuestions()
     {
-        return $this->disables_questions;
+        return $this->disabledQuestions;
     }
 }

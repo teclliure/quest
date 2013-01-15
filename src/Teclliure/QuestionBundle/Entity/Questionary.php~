@@ -31,9 +31,24 @@ class Questionary
     private $name;
 
     /**
+     * @ORM\Column(type="text", length=500, nullable=true)
+     * @Assert\Length(min = 5, max = 500)
+     */
+    private $libraryReference;
+
+    /**
      * @ORM\Column(type="text", nullable=true)
+     * @Assert\Length(min = 5)
+     *
      */
     private $description;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     * @Assert\Length(min = 5)
+     *
+     */
+    private $help;
 
     /**
      * @var datetime $created

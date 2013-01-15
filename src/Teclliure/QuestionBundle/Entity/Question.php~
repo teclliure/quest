@@ -373,4 +373,70 @@ class Question
     {
         return $this->patientsQuestionAnswers;
     }
+
+    /**
+     * Add disabledByAnswers
+     *
+     * @param \Teclliure\QuestionBundle\Entity\Answer $disabledByAnswers
+     * @return Question
+     */
+    public function addDisabledByAnswer(\Teclliure\QuestionBundle\Entity\Answer $disabledByAnswers)
+    {
+        $this->disabledByAnswers[] = $disabledByAnswers;
+    
+        return $this;
+    }
+
+    /**
+     * Remove disabledByAnswers
+     *
+     * @param \Teclliure\QuestionBundle\Entity\Answer $disabledByAnswers
+     */
+    public function removeDisabledByAnswer(\Teclliure\QuestionBundle\Entity\Answer $disabledByAnswers)
+    {
+        $this->disabledByAnswers->removeElement($disabledByAnswers);
+    }
+
+    /**
+     * Get disabledByAnswers
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getDisabledByAnswers()
+    {
+        return $this->disabledByAnswers;
+    }
+
+    /**
+     * Add validations
+     *
+     * @param \Teclliure\QuestionBundle\Entity\Validation $validations
+     * @return Question
+     */
+    public function addValidation(\Teclliure\QuestionBundle\Entity\Validation $validations)
+    {
+        $this->validations[] = $validations;
+    
+        return $this;
+    }
+
+    /**
+     * Remove validations
+     *
+     * @param \Teclliure\QuestionBundle\Entity\Validation $validations
+     */
+    public function removeValidation(\Teclliure\QuestionBundle\Entity\Validation $validations)
+    {
+        $this->validations->removeElement($validations);
+    }
+
+    /**
+     * Get validations
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getValidations()
+    {
+        return $this->validations;
+    }
 }

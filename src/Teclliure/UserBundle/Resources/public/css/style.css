@@ -272,8 +272,11 @@ hr {
     color: #333;
 }
 
-.questionsList p.questionHelp, .questionAnswersList p.answerHelp, .validationsList p.validationHelp, .validationRulesList p.ruleHelp {
+.questionsList p.questionHelp, .questionAnswersList p.answerHelp, .validationsList p.validationHelp, .validationRulesList p.ruleHelp, p.questionHelp {
     color: #999;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: normal;
 }
 
 .questionAnswersList p.answer, .validationRulesList p.rule {

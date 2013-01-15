@@ -11,7 +11,7 @@
             <th>{{ 'Created' | trans }}</th>
             <th>{{ 'Updated' | trans }}</th>
             <th>{{ 'Active' | trans }}</th>
-            <th>{{ 'Actions' | trans }}</th>
+            <!--<th>{{ 'Actions' | trans }}</th>-->
         </tr>
     </thead>
     <tbody>
@@ -28,7 +28,7 @@
                     <img src="{{ asset('bundles/sonataadmin/famfamfam/exclamation.png') }}" alt="{%- trans from 'SonataAdminBundle' %}label_type_no{% endtrans -%}" />
                 {% endif %}
             </td>
-            <td>
+            <!--<td>
                 <div class="btn-group btn-group-vertical">
                     <a class="btn btn-mini" href="{{ path('questionary_show', { 'id': entity.id }) }}">
                         <i class="icon-eye-open"></i> {{ 'Show' | trans }}
@@ -37,7 +37,7 @@
                         <i class="icon-edit"></i> {{ 'Edit' | trans }}
                     </a>
                 </div>
-            </td>
+            </td>-->
         </tr>
     {% endfor %}
     </tbody>

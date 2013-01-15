@@ -24,7 +24,9 @@ class QuestionaryType extends AbstractType
 
         $builder
             ->add('name')
+            ->add('libraryReference')
             ->add('description')
+            ->add('help')
             ->add('active','checkbox', array('required' => false))
         ;
 

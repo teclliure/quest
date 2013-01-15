@@ -236,4 +236,37 @@ class Answer
     {
         return $this->category;
     }
+
+    /**
+     * Add disabledQuestions
+     *
+     * @param \Teclliure\QuestionBundle\Entity\Question $disabledQuestions
+     * @return Answer
+     */
+    public function addDisabledQuestion(\Teclliure\QuestionBundle\Entity\Question $disabledQuestions)
+    {
+        $this->disabledQuestions[] = $disabledQuestions;
+    
+        return $this;
+    }
+
+    /**
+     * Remove disabledQuestions
+     *
+     * @param \Teclliure\QuestionBundle\Entity\Question $disabledQuestions
+     */
+    public function removeDisabledQuestion(\Teclliure\QuestionBundle\Entity\Question $disabledQuestions)
+    {
+        $this->disabledQuestions->removeElement($disabledQuestions);
+    }
+
+    /**
+     * Get disabledQuestions
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getDisabledQuestions()
+    {
+        return $this->disabledQuestions;
+    }
 }

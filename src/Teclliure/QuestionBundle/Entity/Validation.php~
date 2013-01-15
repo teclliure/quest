@@ -318,4 +318,37 @@ class Validation
     {
         return $this->patientQuestionaries;
     }
+
+    /**
+     * Add questions
+     *
+     * @param \Teclliure\QuestionBundle\Entity\Question $questions
+     * @return Validation
+     */
+    public function addQuestion(\Teclliure\QuestionBundle\Entity\Question $questions)
+    {
+        $this->questions[] = $questions;
+    
+        return $this;
+    }
+
+    /**
+     * Remove questions
+     *
+     * @param \Teclliure\QuestionBundle\Entity\Question $questions
+     */
+    public function removeQuestion(\Teclliure\QuestionBundle\Entity\Question $questions)
+    {
+        $this->questions->removeElement($questions);
+    }
+
+    /**
+     * Get questions
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getQuestions()
+    {
+        return $this->questions;
+    }
 }

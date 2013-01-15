@@ -31,9 +31,24 @@ class Questionary
     private $name;
 
     /**
+     * @ORM\Column(type="text", length=500, nullable=true)
+     * @Assert\Length(min = 5, max = 500)
+     */
+    private $libraryReference;
+
+    /**
      * @ORM\Column(type="text", nullable=true)
+     * @Assert\Length(min = 5)
+     *
      */
     private $description;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     * @Assert\Length(min = 5)
+     *
+     */
+    private $help;
 
     /**
      * @var datetime $created
@@ -339,5 +354,51 @@ class Questionary
     public function getQuestions()
     {
         return $this->questions;
+    }
+
+    /**
+     * Set libraryReference
+     *
+     * @param string $libraryReference
+     * @return Questionary
+     */
+    public function setLibraryReference($libraryReference)
+    {
+        $this->libraryReference = $libraryReference;
+    
+        return $this;
+    }
+
+    /**
+     * Get libraryReference
+     *
+     * @return string 
+     */
+    public function getLibraryReference()
+    {
+        return $this->libraryReference;
+    }
+
+    /**
+     * Set help
+     *
+     * @param string $help
+     * @return Questionary
+     */
+    public function setHelp($help)
+    {
+        $this->help = $help;
+    
+        return $this;
+    }
+
+    /**
+     * Get help
+     *
+     * @return string 
+     */
+    public function getHelp()
+    {
+        return $this->help;
     }
 }

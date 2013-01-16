@@ -14,7 +14,7 @@
 <br />
 <legend>
     {{ 'Person' | trans }} <span class="legendName">{{ entity.patient.name }}</span>
-    {{ 'Questionary' | trans }} <span class="legendName">{{ entity.questionary.name }} ({{ 'Raw value'|trans }}: {{ entity.getTotalValue }})</span>
+    {{ 'Questionary' | trans }} <span class="legendName">{{ entity.questionary.name }}</span>
 </legend>
 
 <div id="validationResults">
@@ -22,7 +22,7 @@
 
         <div class="result well well-small">
             <legend class="resultValidationName">
-                {{ 'Validation'|trans }}: {{ result.name }}
+                {{ 'Validation'|trans }}: {{ result.name }} - ({{ 'Raw value'|trans }}: {{ result.totalValue }})
                 {% if result.selectedValidationRule is not empty %}
                     <button type="button" class="btn btn-success" style="float: right;">
                         <i class="icon-ok"></i>

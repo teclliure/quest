@@ -131,3 +131,8 @@ rule_delete:
         _controller: "TeclliureQuestionBundle:Validation:deleteRule"
         requirements:
             _method:  GET
+
+validation_questions_number:
+    pattern:  /validation/getQuestionsNumber/{id}
+    defaults:
+        _controller: "TeclliureQuestionBundle:Validation:getValidationQuestionsNumber"

@@ -88,13 +88,16 @@ class PatientQuestionaryRepository extends EntityRepository
     public function calculateResults(PatientQuestionary $patientQuestionary) {
         $em = $this->getEntityManager();
 
-        $totalValue = $patientQuestionary->getTotalValue();
+
         $selectedValidations = $patientQuestionary->getValidations();
         foreach ($selectedValidations as $selectedValidation) {
+            $totalValue = $patientQuestionary->getTotalValue($selectedValidation);
+            $selectedValidation->totalValue = $totalValue;
             $rules = $selectedValidation->getValidationRules();
             foreach ($rules as $rule) {
                 if ($totalValue >= $rule->getRangeMin() && $totalValue <= $rule->getRangeMax()) {
                     $selectedValidation->setSelectedValidationRule($rule);
+
                     break;
                 }
             }

@@ -13,10 +13,12 @@
         <legend>
             {{ 'Validation' | trans }} <span class="legendName">{{ entity.name }}</span>
         </legend>
+        {{ form_widget(form.questions) }}
         {{ form_widget(form) }}
     </div>
 
     <div class="modal-footer">
+        <button class="btn btn-small" onclick="$('#saveValidationsQuestionsForm{{ entity.id }} input:checked').attr('checked', false); return false;" style="float: left;">{{ 'Unselect all' }}</button>
         <button class="btn" data-dismiss="modal" aria-hidden="true">{{ 'Close' }}</button>
         <button class="btn btn-primary" type="submit">{{ 'Save' }}</button>
     </div>

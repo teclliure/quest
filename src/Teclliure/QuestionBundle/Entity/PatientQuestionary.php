@@ -306,12 +306,32 @@ class PatientQuestionary
         return $this->validations;
     }
 
-    public function getTotalValue() {
+    public function getTotalValue(Validation $validation = null) {
         $total = 0;
+        $checkQuestions = false;
         $answers = $this->getPatientQuestionaryAnswers();
-        foreach ($answers as $answer) {
-            $total += $answer->getAnswer()->getRawValue();
+        $questions = array();
+        if ($validation) {
+            $questions = $validation->getQuestions();
+            if ($questions && count($questions)) {
+                $checkQuestions = true;
+            }
         }
+
+        foreach ($answers as $answer) {
+            if ($checkQuestions) {
+                foreach ($questions as $key=>$question) {
+                    if ($question->getId() == $answer->getQuestion()->getId()) {
+                        $total += $answer->getAnswer()->getRawValue();
+                        unset ($questions[$key]);
+                    }
+                }
+            }
+            else {
+                $total += $answer->getAnswer()->getRawValue();
+            }
+        }
+
         return $total;
     }
 

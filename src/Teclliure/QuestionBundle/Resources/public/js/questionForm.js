@@ -226,6 +226,24 @@ $(function() {
         }
     });
 
+    $('.validationQuestionsModal').on('hidden', function () {
+        idNumber = $(this).attr('id').replace('validationQuestionsModal','');
+        $.ajax({
+            url: basePath + '/admin/questionary/validation/getQuestionsNumber/' + idNumber,
+            success: function(data) {
+                if (data > 0) {
+                    $('#validationQuestionsNumber'+idNumber).addClass('badge-success');
+                }
+                else {
+                    $('#validationQuestionsNumber'+idNumber).removeClass('badge-success');
+                }
+                $('#validationQuestionsNumber'+idNumber).html(data);
+            }
+        });
+
+    });
+
+
     $("body").on("submit", ".validationsQuestionsForm", function(event) {
         event.preventDefault();
 
@@ -239,7 +257,6 @@ $(function() {
                 $('#'+validationDivId).html(data);
             }
         );
-
     });
 });
 

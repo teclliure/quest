@@ -384,3 +384,13 @@ hr {
     width: 80%;
     margin-left: 20px;
 }
+
+#teclliure_questionbundle_validationquestions_type_questions input {
+    display: inline-block;
+    float: left;
+    clear: left;
+}
+
+#teclliure_questionbundle_validationquestions_type_questions label {
+    margin-left: 20px;
+}

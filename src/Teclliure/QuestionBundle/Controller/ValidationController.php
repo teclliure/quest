@@ -346,4 +346,32 @@ class ValidationController extends Controller
             ));
         }
     }
+
+    /**
+     * Get validation questions number
+     *
+     */
+    public function getValidationQuestionsNumberAction($id)
+    {
+        $request = $this->getRequest();
+        $em = $this->getDoctrine()->getManager();
+
+        if ($request->isXmlHttpRequest()) {
+            $closeDialog = false;
+            $validationRepository = $em->getRepository('TeclliureQuestionBundle:Validation');
+
+            $entity = $validationRepository->find($id);
+
+            if (!$entity) {
+                throw $this->createNotFoundException('Unable to find Validation entity.');
+            }
+
+            return new Response(json_encode(count($entity->getQuestions())));
+        }
+        else {
+            return $this->render(':msg:error.html.twig', array(
+                'msg' => 'Error: Not ajax call'
+            ));
+        }
+    }
 }

@@ -3,6 +3,7 @@
     <a data-target="#validationQuestionsModal{{ validation.id }}" href="{{ path('validation_questions', { 'id': validation.id }) }}" data-toggle="modal" class="btn btn-small btn-warning selectValidationQuestion">
         <i class="icon-tasks"></i>
         {{ 'Select questions used in validation' | trans }}
+        <span id="validationQuestionsNumber{{ validation.id }}" class="badge {% if validation.questions|length > 0 %}badge-success{% endif %} validationQuestionsNumber">{{ validation.questions | length }}</span>
     </a>
     &nbsp;
     <a class="btn btn-small btn-danger deleteValidation" href="{{ path('validation_delete', { 'validationId': validation.id }) }}">

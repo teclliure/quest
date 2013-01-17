@@ -45,7 +45,29 @@
     {{ 'Person' | trans }} <span class="legendName">{{ patient.name }}</span> - {{ 'Questionary' | trans }} <span class="legendName">{{ questionary.name }}</span>
 </legend>
 
+
 <div id="questionaryPatient">
+    {% if questionary.libraryReference %}
+    <div class="description well well-small">
+        <h5>{{ 'Library reference' }}</h5>
+        {{ questionary.libraryReference }}
+    </div>
+    {% endif %}
+
+    {% if questionary.description %}
+    <div class="description well well-small">
+        <h5>{{ 'Description' }}</h5>
+        {{ questionary.description }}
+    </div>
+    {% endif %}
+
+    {% if questionary.help %}
+    <div class="description well well-small">
+        <h5>{{ 'Help' }}</h5>
+        {{ questionary.help }}
+    </div>
+    {% endif %}
+
 <form action="{{ path('questionary_patient_create', {'id': patient.id, 'questionaryId': questionary.id, 'patientQuestionaryId': patientQuestionary.id} ) }}" method="post" {{ form_enctype(patientQuestionaryForm) }}>
     {{ form_widget(patientQuestionaryForm) }}
 

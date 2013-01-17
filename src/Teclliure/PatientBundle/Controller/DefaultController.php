@@ -146,6 +146,8 @@ class DefaultController extends Controller
                     $this->get('session')->setFlash('notice',
                         'Patient questionary saved correctly'
                     );
+
+                    return $this->redirect($this->generateUrl('questionary_patient_validation', array('id' => $patientQuestionary->getId())));
                 }
                 catch (Exception $e) {
                     $em->getConnection()->rollback();
@@ -332,6 +334,8 @@ class DefaultController extends Controller
                 $this->get('session')->setFlash('notice',
                     'Patient questionary validations saved correctly'
                 );
+
+                return $this->redirect($this->generateUrl('questionary_patient_results', array('id' => $entity->getId())));
             }
         }
         return $this->render('TeclliurePatientBundle:Validation:selectValidations.html.twig', array(

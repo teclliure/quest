@@ -106,11 +106,6 @@ validation_delete:
         requirements:
             _method:  GET
 
-validation_questions:
-    pattern:  /validationQuestions/{id}
-    defaults:
-        _controller: "TeclliureQuestionBundle:Validation:saveValidationQuestions"
-
 rule_form_show:
     pattern:  /formRule/{validationId}
     defaults:
@@ -132,7 +127,22 @@ rule_delete:
         requirements:
             _method:  GET
 
+validation_questions:
+    pattern:  /validationQuestions/{id}
+    defaults:
+        _controller: "TeclliureQuestionBundle:Validation:saveValidationQuestions"
+
 validation_questions_number:
     pattern:  /validation/getQuestionsNumber/{id}
     defaults:
         _controller: "TeclliureQuestionBundle:Validation:getValidationQuestionsNumber"
+
+answer_questions:
+    pattern:  /answerQuestions/{id}
+    defaults:
+        _controller: "TeclliureQuestionBundle:Question:saveAnswerQuestions"
+
+answer_questions_number:
+    pattern:  /answer/getQuestionsNumber/{id}
+    defaults:
+        _controller: "TeclliureQuestionBundle:Question:getAnswerQuestionsNumber"

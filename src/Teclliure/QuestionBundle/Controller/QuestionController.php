@@ -9,6 +9,7 @@ use Teclliure\QuestionBundle\Entity\Question;
 use Teclliure\QuestionBundle\Entity\Answer;
 use Teclliure\QuestionBundle\Form\QuestionType;
 use Teclliure\QuestionBundle\Form\AnswerType;
+use Teclliure\QuestionBundle\Form\AnswerQuestionsType;
 /**
  * Questionary controller.
  *
@@ -318,6 +319,83 @@ class QuestionController extends Controller
             $em->flush();
 
             return new Response();
+        }
+        else {
+            return $this->render(':msg:error.html.twig', array(
+                'msg' => 'Error: Not ajax call'
+            ));
+        }
+    }
+
+    /**
+     * Saves answer disabled questions
+     *
+     */
+    public function saveAnswerQuestionsAction($id)
+    {
+        $request = $this->getRequest();
+        $em = $this->getDoctrine()->getManager();
+
+        if ($request->isXmlHttpRequest()) {
+            $closeDialog = false;
+            $answerRepository = $em->getRepository('TeclliureQuestionBundle:Answer');
+
+            $entity = $answerRepository->find($id);
+
+            if (!$entity) {
+                throw $this->createNotFoundException('Unable to find Answer entity.');
+            }
+
+            $answerQuestionForm = $this->createForm(new AnswerQuestionsType(), $entity);
+
+            if  ($request->isMethod('post')) {
+                $answerQuestionForm->bind($request);
+
+                if ($answerQuestionForm->isValid()) {
+                    $em->persist($entity);
+                    $em->flush();
+
+                    $this->get('session')->setFlash('info',
+                        'Answer questions saved correctly'
+                    );
+                    $closeDialog = true;
+                }
+            }
+
+            return $this->render(':ajax:base_ajax.html.twig', array(
+                'template'          => 'TeclliureQuestionBundle:Question:answerQuestions.html.twig',
+                'entity'            => $entity,
+                'form'              => $answerQuestionForm->createView(),
+                'closeDialog'       => $closeDialog
+            ));
+        }
+        else {
+            return $this->render(':msg:error.html.twig', array(
+                'msg' => 'Error: Not ajax call'
+            ));
+        }
+    }
+
+    /**
+     * Get answer disabled questions number
+     *
+     */
+    public function getAnswerQuestionsNumberAction($id)
+    {
+        $request = $this->getRequest();
+        $em = $this->getDoctrine()->getManager();
+
+        if ($request->isXmlHttpRequest()) {
+            $closeDialog = false;
+            $answerRepository = $em->getRepository('TeclliureQuestionBundle:Answer');
+
+            $entity = $answerRepository->find($id);
+
+            if (!$entity) {
+                throw $this->createNotFoundException('Unable to find Answer entity.');
+            }
+
+            return new Response(json_encode(count($entity->getDisabledQuestions())));
         }
         else {
             return $this->render(':msg:error.html.twig', array(

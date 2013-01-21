@@ -1,3 +1,0 @@
-teclliure_question_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: TeclliureQuestionBundle:Default:index }

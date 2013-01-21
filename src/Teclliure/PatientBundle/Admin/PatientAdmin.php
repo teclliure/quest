@@ -49,7 +49,11 @@ class PatientAdmin extends Admin {
         ->add('phone')
         ->add('address')
         ->add('user')
-        ->add('birthDate','date')
+        ->add('birthDate', 'date', array(
+                'widget' => 'single_text',
+                'format' => 'dd-MM-yyyy',
+                'attr'   => array('class' => 'date'))
+        )
         ->add('notes')
         ->add('active','checkbox', array('required' => false))
         ;

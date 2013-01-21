@@ -67,7 +67,8 @@ class Answer
     private $question;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Teclliure\QuestionBundle\Entity\Question", mappedBy="disabledByAnswers")
+     * @ORM\ManyToMany(targetEntity="Teclliure\QuestionBundle\Entity\Question", cascade={"persist"}, inversedBy="disabledByAnswers")
+     * @ORM\JoinTable(name="answer_disable_question")
      */
     private $disabledQuestions;
 

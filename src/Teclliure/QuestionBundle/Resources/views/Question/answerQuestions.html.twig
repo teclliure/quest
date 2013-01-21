@@ -1,0 +1,25 @@
+{%  if closeDialog  %}
+    <script>
+        $('#answerQuestionsModal{{ entity.id }}').modal('hide');
+    </script>
+{%  endif  %}
+<form id="saveAnswersQuestionsForm{{ entity.id }}" class="answersQuestionsForm" action="{{ path('answer_questions', { 'id': entity.id }) }}" method="post" {{ form_enctype(form) }}>
+    <div class="modal-header">
+        <button type="button" style="margin-right: 15px" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+
+        <h3 id="myModalLabel">{{ 'Select questions'|trans }}</h3>
+    </div>
+    <div class="modal-body">
+        <legend>
+            {{ 'Answer' | trans }} <span class="legendName">{{ entity.answer }}</span>
+        </legend>
+        {{ form_widget(form.disabledQuestions) }}
+        {{ form_widget(form) }}
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn-small" onclick="$('#saveAnswersQuestionsForm{{ entity.id }} input:checked').attr('checked', false); return false;" style="float: left;">{{ 'Unselect all' }}</button>
+        <button class="btn" data-dismiss="modal" aria-hidden="true">{{ 'Close' }}</button>
+        <button class="btn btn-primary" type="submit">{{ 'Save' }}</button>
+    </div>
+</form>

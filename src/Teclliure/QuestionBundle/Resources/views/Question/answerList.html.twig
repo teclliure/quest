@@ -6,6 +6,11 @@
         {% for answer in question.answers %}
             <li id="answerId{{ answer.id }}">
                 <div class="answer_buttons">
+                    <a data-target="#answerQuestionsModal{{ answer.id }}" href="{{ path('answer_questions', { 'id': answer.id }) }}" data-toggle="modal" class="btn btn-small btn-warning selectAnswerQuestion">
+                        <i class="icon-tasks"></i>
+                        {{ 'Select disabled questions' | trans }}
+                        <span id="answerQuestionsNumber{{ answer.id }}" class="badge {% if answer.disabledQuestions|length > 0 %}badge-success{% endif %} validationQuestionsNumber">{{ answer.disabledQuestions | length }}</span>
+                    </a>
                     &nbsp;
                     <a class="btn btn-mini btn-danger deleteAnswer" href="{{ path('answer_delete', { 'answerId': answer.id }) }}">
                         <i class="icon-trash"></i>
@@ -14,6 +19,10 @@
                 </div>
                 <p class="answer">{{ answer.answer }} ({{ 'Raw value' | trans }}: <strong>{{ answer.rawValue }}</strong>)</p>
                 <p class="answerHelp">{{ answer.help }}</p>
+                <!-- Modal -->
+                <div id="answerQuestionsModal{{ answer.id }}" class="modal hide fade answerQuestionsModal" >
+                    <img src="{{ asset('bundles/teclliureuser/images/ajax-loading.gif') }}" alt="{{ 'Ajax loading'|trans }}" style="margin: auto auto">
+                </div>
             </li>
         {% endfor %}
     </ul>

@@ -258,6 +258,58 @@ $(function() {
             }
         );
     });
+
+    // Answer questions
+    $("body").on("click", ".selectAnswerQuestion", function(event) {
+        event.preventDefault();
+
+        actionUrl = $(this).attr('href');
+
+        if (actionUrl != '') {
+            answerDivId = $(this).attr('data-target');
+
+            $.ajax({
+                url: actionUrl,
+                success: function(data) {
+                    $(answerDivId).html(data);
+                }
+            });
+            $(this).attr('href','');
+        }
+    });
+
+    $('.answerQuestionsModal').on('hidden', function () {
+        idNumber = $(this).attr('id').replace('answerQuestionsModal','');
+        $.ajax({
+            url: basePath + '/admin/questionary/answer/getQuestionsNumber/' + idNumber,
+            success: function(data) {
+                if (data > 0) {
+                    $('#answerQuestionsNumber'+idNumber).addClass('badge-success');
+                }
+                else {
+                    $('#answerQuestionsNumber'+idNumber).removeClass('badge-success');
+                }
+                $('#answerQuestionsNumber'+idNumber).html(data);
+            }
+        });
+
+    });
+
+
+    $("body").on("submit", ".answersQuestionsForm", function(event) {
+        event.preventDefault();
+
+        actionUrl = $(this).attr('action');
+        answerDivId = $(this).parents('div .answerQuestionsModal').attr('id');
+
+        $.post(
+            actionUrl,
+            $(this).serialize(),
+            function(data) {
+                $('#'+answerDivId).html(data);
+            }
+        );
+    });
 });
 
 function makeQuestionsSortable() {

@@ -218,7 +218,11 @@ class DefaultController extends Controller
             $em->getConnection()->beginTransaction(); // suspend auto-commit
             try
             {
+                if (!$entity->getUser()) {
+                    $entity->setUser($this->getUser());
+                }
                 $em->persist($entity);
+
                 $em->flush();
 
                 $em->getConnection()->commit();
@@ -362,10 +366,10 @@ class DefaultController extends Controller
 
     public function getBreadcrumbsRoutes() {
         return array(
-            'list' => array('route'=>'home', 'label'=>'List patients'),
-            'show' => array('route'=>'patient_show', 'label'=>'Patient Show'),
-            'new' => array('route'=>'patient_new', 'label'=>'Patient Create'),
-            'edit' => array('route'=>'patient_edit', 'label'=>'Patient Edit'),
+            'list' => array('route'=>'home', 'label'=>'List persons'),
+            'show' => array('route'=>'patient_show', 'label'=>'Person Show'),
+            'new' => array('route'=>'patient_new', 'label'=>'Person Create'),
+            'edit' => array('route'=>'patient_edit', 'label'=>'Person Edit'),
             'select' => array('route'=>'questionary_patient_new', 'label'=>'Select Questionary'),
             'create' => array('route'=>'questionary_patient_create', 'label'=>'Create Questionary'),
             'questionaryEdit' => array('route'=>'questionary_patient_create', 'label'=>'Create Questionary'),

@@ -47,8 +47,11 @@ class UserAdmin extends Admin {
         ->add('is_admin', null, array('label' => 'Admin ?'))
         ->add('created')
         ->add('updated')
-        ->add('expire_date')
-        ;
+        ->add('expire_date','date',array(
+            'widget' => 'single_text',
+            'format' => 'dd-MM-yyyy',
+            'attr' => array('class' => 'date')
+        ));
     }
 
     protected function configureDatagridFilters(DatagridMapper $mapper)
@@ -75,7 +78,11 @@ class UserAdmin extends Admin {
         ))
         ->add('is_admin','checkbox', array('required' => false))
         ->add('active','checkbox', array('required' => false))
-        ->add('expire_date','date')
+        ->add('expire_date','date',array(
+            'widget' => 'single_text',
+            'format' => 'dd-MM-yyyy',
+            'attr' => array('class' => 'date')
+        ))
         ;
     }
 }

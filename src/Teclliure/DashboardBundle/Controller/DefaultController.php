@@ -23,10 +23,10 @@ class DefaultController extends sf2Controller
 
     public function getBreadcrumbsRoutes() {
         return array(
-            'list' => array('route'=>'home', 'label'=>'List patients'),
-            'show' => array('route'=>'patient_show', 'label'=>'Patient Show'),
-            'new' => array('route'=>'patient_new', 'label'=>'Patient Create'),
-            'edit' => array('route'=>'patient_edit', 'label'=>'Patient Edit'),
+            'list' => array('route'=>'home', 'label'=>'List persons'),
+            'show' => array('route'=>'patient_show', 'label'=>'Person Show'),
+            'new' => array('route'=>'patient_new', 'label'=>'Person Create'),
+            'edit' => array('route'=>'patient_edit', 'label'=>'Person Edit'),
         );
     }
 }

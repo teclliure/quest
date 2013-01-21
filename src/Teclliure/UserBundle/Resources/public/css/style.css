@@ -18,6 +18,11 @@ a:hover {
     background: none;
 }
 
+input.date {
+    text-align: center;
+    width: 6em;
+}
+
 hr {
     border-color: #aaa;
     clear: both;

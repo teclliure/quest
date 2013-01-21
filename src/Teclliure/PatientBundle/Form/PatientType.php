@@ -16,7 +16,11 @@ class PatientType extends AbstractType
             ->add('email')
             ->add('phone')
             ->add('address')
-            ->add('birthDate','date')
+            ->add('birthDate', 'date', array(
+                'widget' => 'single_text',
+                'format' => 'dd-MM-yyyy',
+                'attr'   => array('class' => 'date'))
+            )
             ->add('notes')
         ;
     }

@@ -3,6 +3,7 @@
 {% block javascripts %}
     {{ parent() }}
     <script src="{{ asset('bundles/teclliurepatient/js/createQuestionary.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('app_dev.php/js/disableQuestions' ~ questionary.id ~ '.js') }}" type="text/javascript"></script>
 {% endblock %}
 
 {% block title %}{{ "Create questionary" | trans }}{% endblock %}

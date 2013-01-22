@@ -19,7 +19,7 @@ class ValidationQuestionsType extends AbstractType
 
         $builder->add('questions', 'entity', array(
                 'class'    => 'TeclliureQuestionBundle:Question' ,
-                'property' => 'question',
+                'property' => 'questionHelp',
                 'expanded' => true ,
                 'multiple' => true,
                 'query_builder' => function(EntityRepository $er) use ($questionary) {

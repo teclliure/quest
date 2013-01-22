@@ -41,3 +41,7 @@ questionary_patient_results:
 patient_report:
     pattern:  /patientReport/{id}
     defaults: { _controller: TeclliurePatientBundle:Default:patientReport }
+
+disabled_questions:
+    pattern:  /js/disableQuestions{id}.js
+    defaults: { _controller: TeclliurePatientBundle:Default:disableQuestions }

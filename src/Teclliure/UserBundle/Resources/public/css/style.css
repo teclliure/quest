@@ -385,17 +385,12 @@ hr {
     margin-left: 20px;
 }
 
-#validationResults {
-    width: 80%;
-    margin-left: 20px;
-}
-
-#teclliure_questionbundle_validationquestions_type_questions input {
+#teclliure_questionbundle_validationquestions_type_questions input, #teclliure_questionbundle_answerquestions_type_disabledQuestions input {
     display: inline-block;
     float: left;
     clear: left;
 }
 
-#teclliure_questionbundle_validationquestions_type_questions label {
+#teclliure_questionbundle_validationquestions_type_questions label, #teclliure_questionbundle_answerquestions_type_disabledQuestions label {
     margin-left: 20px;
 }

@@ -12,6 +12,7 @@ use Teclliure\PatientBundle\Form\PatientType;
 use Teclliure\QuestionBundle\Form\PatientQuestionaryType;
 use Teclliure\QuestionBundle\Entity\PatientQuestionaryValidation;
 use Teclliure\QuestionBundle\Form\PatientQuestionaryValidationType;
+use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller
 {
@@ -362,6 +363,24 @@ class DefaultController extends Controller
             'entity'          => $entity,
             'results' => $results
         ));
+    }
+
+    public function disableQuestionsAction($id) {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('TeclliureQuestionBundle:Questionary')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Questionary entity.');
+        }
+        $questions = $entity->getQuestions();
+        $response = new Response();
+        $response->headers->set('Content-Type', 'text/javascript');
+        $response->setContent($this->renderView('TeclliurePatientBundle:Patient:disableQuestions.js.twig', array(
+            'questions'          => $questions
+        )));
+
+        return $response;
     }
 
     public function getBreadcrumbsRoutes() {

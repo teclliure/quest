@@ -1,0 +1,52 @@
+var disableQuestionsArray = new Array();
+$(function() {
+{% for question in questions %}
+{% spaceless %}
+    {% set disabledQuestion = false %}
+    {% for answer in question.answers %}
+        {% if answer.disabledQuestions|length > 0 %}
+            {% set disabledQuestion = "teclliure_questionbundle_patientquestionarytype_patientQuestionaryAnswers" ~ question.id ~ "_answer_" ~ loop.index0 %}
+            disableQuestionsArray[{{ answer.id }}] = new Array({% for disabledQuestion in answer.disabledQuestions %}{{- disabledQuestion.id -}}{% if loop.last == false %},{% endif %}{% endfor %});
+            checkAnswer({{ question.id }}, $('#{{ disabledQuestion }}'));
+        {% endif %}
+    {% endfor %}
+    {% if disabledQuestion %}
+        $("body").on("change", "input[name='teclliure_questionbundle_patientquestionarytype[patientQuestionaryAnswers{{ question.id }}][answer]']", function(event) {
+            checkAnswer({{ question.id }}, $('#{{ disabledQuestion }}'));
+        });
+    {% endif %}
+{% endspaceless %}
+{% endfor %}
+});
+
+function checkAnswer(questionId, answer) {
+    var questionsToDisable = new Array();
+
+    answerId = answer.attr('class').replace('objectId','');
+    if (disableQuestionsArray[answerId] != "undefined") {
+        questionsToDisable = disableQuestionsArray[answerId];
+    }
+
+    if (answer.is(':checked')) {
+        disableQuestions(questionsToDisable);
+    }
+    else {
+        enableQuestions(questionsToDisable);
+    }
+}
+
+function disableQuestions(questionsId) {
+    $.each(questionsId, function(key, value) {
+        $("input[name='teclliure_questionbundle_patientquestionarytype[patientQuestionaryAnswers" + value + "][answer]']").each(function(i) {
+            $(this).attr('disabled', 'disabled');
+        });
+    });
+}
+
+function enableQuestions(questionsId) {
+    $.each(questionsId, function(key, value) {
+        $("input[name='teclliure_questionbundle_patientquestionarytype[patientQuestionaryAnswers" + value + "][answer]']").each(function(i) {
+            $(this).removeAttr("disabled");
+        });
+    });
+}

@@ -14,17 +14,19 @@ class AnswerQuestionsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $data = $builder->getData();
-        $questionary = $data->getQuestion()->getQuestionary();
+        $question = $data->getQuestion();
+        $questionary = $question->getQuestionary();
 
         $builder->add('disabledQuestions', 'entity', array(
                 'class'    => 'TeclliureQuestionBundle:Question',
                 'property' => 'questionHelp',
                 'expanded' => true,
                 'multiple' => true,
-                'query_builder' => function(EntityRepository $er) use ($questionary) {
+                'query_builder' => function(EntityRepository $er) use ($questionary, $question) {
                     return $er->createQueryBuilder('q')
-                        ->where('q.questionary = :questionary')
+                        ->where('q.questionary = :questionary AND q.id != :question')
                         ->setParameter('questionary', $questionary->getId())
+                        ->setParameter('question', $question->getId())
                         ->orderBy('q.category','DESC')
                         ->addOrderBy('q.position', 'ASC');
                 },

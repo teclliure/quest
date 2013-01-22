@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Teclliure\QuestionBundle\Entity\Question;
+use Teclliure\PatientBundle\Form\CustomType\ChoiceType;
 
 class QuestionWithAnswersType extends AbstractType
 {
@@ -25,14 +26,17 @@ class QuestionWithAnswersType extends AbstractType
             $choices[$answer->getId()] = '<span class="tooltiplink" title="'.$answer->getAnswer().'" data-content="'.$answer->getHelp().'">'.$answer->getAnswer().'</span>';
         }
 
-        $builder->add('answer', 'choice', array(
+        $attr = array('class'=>'patientResponseLabel');
+
+        $builder->add('answer', new ChoiceType(), array(
+        // $builder->add('answer', 'choice', array(
             'choices'   => $choices,
             'required'  => true,
             'expanded'  => true,
             'multiple'  => false,
             'label'     => false,
-            'attr'      => array('class'=>'patientResponseLabel'),
-            'data'     => $this->selectedValue,
+            'attr'      => $attr,
+            'data'     => $this->selectedValue
         ));
     }
 

@@ -17,6 +17,41 @@ use Teclliure\QuestionBundle\Form\AnswerQuestionsType;
 class QuestionController extends Controller
 {
     /**
+     * Loads question edit form
+     */
+    public function editQuestionAction($questionId)
+    {
+        $request = $this->getRequest();
+        $em = $this->getDoctrine()->getManager();
+
+        $questionRepository = $em->getRepository('TeclliureQuestionBundle:Question');
+
+        $entity = $questionRepository->find($questionId);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Question entity.');
+        }
+
+        if ($request->isXmlHttpRequest()) {
+            $questionForm = $this->createForm(new QuestionType(), $entity);
+            $questionary = $entity->getQuestionary();
+
+
+            return $this->render(':ajax:base_ajax.html.twig', array(
+                'template'          => 'TeclliureQuestionBundle:Question:questionForm.html.twig',
+                'entity'            => $questionary,
+                'questionForm'      => $questionForm->createView(),
+                'questionFormError' => true
+            ));
+        }
+        else {
+            return $this->render(':msg:error.html.twig', array(
+                'msg' => 'Error: Not ajax call'
+            ));
+        }
+    }
+
+    /**
      * Saves a question
      *
      */
@@ -173,11 +208,12 @@ class QuestionController extends Controller
      * Show answer form
      *
      */
-    public function formAnswerAction($questionId)
+    public function formAnswerAction($questionId, $answerId)
     {
         $em = $this->getDoctrine()->getManager();
 
         $questionRepository = $em->getRepository('TeclliureQuestionBundle:Question');
+        $answerRepository = $em->getRepository('TeclliureQuestionBundle:Answer');
 
         $entity = $questionRepository->find($questionId);
 
@@ -185,7 +221,18 @@ class QuestionController extends Controller
             throw $this->createNotFoundException('Unable to find Question entity.');
         }
 
-        $answerForm = $this->createForm(new AnswerType(), new Answer());
+        if ($answerId) {
+            $answer = $answerRepository->find($answerId);
+
+            if (!$answer) {
+                throw $this->createNotFoundException('Unable to find Answer entity.');
+            }
+        }
+        else {
+            $answer = new Answer();
+        }
+
+        $answerForm = $this->createForm(new AnswerType(), $answer);
 
         return $this->render('TeclliureQuestionBundle:Question:answerForm.html.twig', array(
             'question'      => $entity,

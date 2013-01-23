@@ -29,11 +29,19 @@ questionary_delete:
     defaults: { _controller: "TeclliureQuestionBundle:Questionary:delete" }
 
 question_save:
-    pattern:  /saveQuestion/{id}
+    pattern:  /saveQuestion/{id}/{questionId}
     defaults:
         _controller: "TeclliureQuestionBundle:Question:saveQuestion"
+        questionId: null
         requirements:
             _method:  POST
+
+question_edit:
+    pattern:  /editQuestion/{questionId}
+    defaults:
+        _controller: "TeclliureQuestionBundle:Question:editQuestion"
+        requirements:
+            _method:  GET
 
 question_sort:
     pattern:  /sortQuestion/{questionId}/{sortOrder}
@@ -50,9 +58,10 @@ question_delete:
             _method:  GET
 
 answer_form_show:
-    pattern:  /formAnswer/{questionId}
+    pattern:  /formAnswer/{questionId}/{answerId}
     defaults:
         _controller: "TeclliureQuestionBundle:Question:formAnswer"
+        answerId: null
         requirements:
             _method:  GET
 

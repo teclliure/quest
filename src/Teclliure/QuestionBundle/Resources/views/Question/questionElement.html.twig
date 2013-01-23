@@ -1,4 +1,8 @@
 <div class="question_buttons">
+    <a class="btn btn-small btn-info editQuestion" href="{{ path('question_edit', { 'questionId': question.id }) }}">
+        <i class="icon-edit"></i>
+        {{ 'Edit' | trans }}
+    </a>
     &nbsp;
     <a class="btn btn-small btn-danger deleteQuestion" href="{{ path('question_delete', { 'questionId': question.id }) }}">
         <i class="icon-trash"></i>

@@ -1,22 +1,9 @@
 <button type="button"  id="showQuestionForm" class="btn btn-small pull-right">
     <i class="{% if questionFormError is not defined or questionFormError == false %}icon-chevron-right{% else %}icon-chevron-down{% endif %}"></i> {{ 'Add question' | trans }}
 </button>
+
 <div id="new_question_form" class="clearfix" {% if questionFormError is not defined or questionFormError == false %}style="display: none"{% endif %}>
-    <form id="saveQuestionForm" action="{{ path('question_save', { 'id': entity.id }) }}" method="post">
-        <div>
-            {{ form_label(questionForm.question, 'Question') }}
-            {{ form_errors(questionForm.question) }}
-            {{ form_widget(questionForm.question) }}
-        </div>
-
-        <div>
-            {{ form_row(questionForm.help) }}
-        </div>
-
-        {{ form_rest(questionForm) }}
-
-        <button type="submit" class="btn btn-primary btn-mini">{{ 'Question add' | trans }}</button>
-    </form>
+        {% include 'TeclliureQuestionBundle:Question:questionForm.html.twig' %}
 </div>
 
 

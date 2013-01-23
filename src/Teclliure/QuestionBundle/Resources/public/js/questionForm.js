@@ -40,6 +40,27 @@ $(function() {
         });
     });
 
+    $("body").on("click", ".editQuestion", function(event) {
+        event.preventDefault();
+
+        if ($('#showQuestionForm').children('i').hasClass('icon-chevron-right')) {
+            $('#showQuestionForm').children('i').toggleClass('icon-chevron-down');
+            $('#new_question_form').slideDown();
+        }
+
+        actionUrl = $(this).attr('href');
+
+        $.ajax({
+            url: actionUrl,
+            success: function(data) {
+                $('#new_question_form').html(data);
+                $('html, body').animate({scrollTop: $('#alerts').offset().top-5}, 1000);
+            }
+        });
+    });
+
+
+
     $("body").on("click", ".answersListShow", function(event) {
         questionId = $(this).attr('id').replace('questionId','').replace('answersListShow','')
         $(this).children('i').toggleClass('icon-chevron-right');

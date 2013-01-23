@@ -1,4 +1,4 @@
-<form class="saveAnswerForm" id="questionId{{ question.id }}saveAnswerForm" action="{{ path('answer_save', { 'questionId': question.id }) }}" method="post">
+<form class="saveAnswerForm" id="questionId{{ question.id }}saveAnswerForm" action="{{ path('answer_save', { 'questionId': question.id, 'answerId': answerForm.vars.data.id }) }}" method="post">
     <div>
         {{ form_label(answerForm.answer, 'Answer') }}
         {{ form_errors(answerForm.answer) }}

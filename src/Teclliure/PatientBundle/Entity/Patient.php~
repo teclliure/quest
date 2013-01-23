@@ -118,6 +118,11 @@ class Patient
     private $questionaries;
 
     /**
+     * @ORM\OneToMany(targetEntity="Teclliure\QuestionBundle\Entity\Report", mappedBy="patient")
+     */
+    private $reports;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -418,5 +423,38 @@ class Patient
     public function getQuestionaries()
     {
         return $this->questionaries;
+    }
+
+    /**
+     * Add reports
+     *
+     * @param \Teclliure\QuestionBundle\Entity\Report $reports
+     * @return Patient
+     */
+    public function addReport(\Teclliure\QuestionBundle\Entity\Report $reports)
+    {
+        $this->reports[] = $reports;
+    
+        return $this;
+    }
+
+    /**
+     * Remove reports
+     *
+     * @param \Teclliure\QuestionBundle\Entity\Report $reports
+     */
+    public function removeReport(\Teclliure\QuestionBundle\Entity\Report $reports)
+    {
+        $this->reports->removeElement($reports);
+    }
+
+    /**
+     * Get reports
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getReports()
+    {
+        return $this->reports;
     }
 }

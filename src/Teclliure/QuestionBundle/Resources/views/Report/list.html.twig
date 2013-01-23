@@ -1,0 +1,31 @@
+<table class="records_list table table-bordered table-striped" style="margin-top: 20px;">
+    <thead>
+    <tr>
+        <th style="width: 35%">{{ 'Report' | trans }}</th>
+        <th>{{ 'Created' | trans }}</th>
+        <th>{{ 'Updated' | trans }}</th>
+        <th>{{ 'Actions' | trans }}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for entity in reports %}
+        <tr>
+            <td><a href="{{ path('create_report', { 'personId': entity.patient.id, 'reportId': entity.id}) }}">{{ entity.name }}</a></td>
+            <td>{{ entity.created|date('Y-m-d H:i:s') }}</td>
+            <td>{{ entity.updated|date('Y-m-d H:i:s') }}</td>
+            <td style="text-align: center">
+                {% if entity.patientQuestionaries and entity.patientQuestionaries is not empty %}
+                <a class="btn btn-mini" href="{{ path('print_report', { 'id': entity.id}) }}">
+                    <i class="icon-print"></i>
+                    {{ 'PDF' | trans }}
+                </a>
+                {% endif %}
+                <a class="btn btn-mini btn-danger" href="{{ path('delete_report', { 'id': entity.id}) }}">
+                    <i class="icon-trash"></i>
+                    {{ 'Delete'|trans }}
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

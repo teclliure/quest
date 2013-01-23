@@ -47,6 +47,11 @@ class PatientQuestionary
      */
     private $validations;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Teclliure\QuestionBundle\Entity\Report", mappedBy="patientQuestionaries" )
+     */
+    private $reports;
+
 
     /**
      * @var datetime $created
@@ -335,4 +340,37 @@ class PatientQuestionary
         return $total;
     }
 
+
+    /**
+     * Add reports
+     *
+     * @param \Teclliure\QuestionBundle\Entity\Report $reports
+     * @return PatientQuestionary
+     */
+    public function addReport(\Teclliure\QuestionBundle\Entity\Report $reports)
+    {
+        $this->reports[] = $reports;
+    
+        return $this;
+    }
+
+    /**
+     * Remove reports
+     *
+     * @param \Teclliure\QuestionBundle\Entity\Report $reports
+     */
+    public function removeReport(\Teclliure\QuestionBundle\Entity\Report $reports)
+    {
+        $this->reports->removeElement($reports);
+    }
+
+    /**
+     * Get reports
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getReports()
+    {
+        return $this->reports;
+    }
 }

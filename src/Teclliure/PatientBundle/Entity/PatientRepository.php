@@ -24,4 +24,17 @@ class PatientRepository extends SortableRepository
         }
         return $query;
     }
+
+    public function findPatientReports($patient) {
+        $em = $this->getEntityManager();
+
+        // $patientQuestionaryAnswers = $patientQuestionary->getPatientQuestionaryAnswers();
+        $dql = 'SELECT r FROM TeclliureQuestionBundle:Report r WHERE r.patient = :person ORDER BY r.created desc';
+
+        $query = $em->createQuery($dql);
+        $query->setParameter('person', $patient->getId());
+
+
+        return $query->getResult();
+    }
 }

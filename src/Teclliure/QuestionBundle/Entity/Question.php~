@@ -83,8 +83,7 @@ class Question
 
 
     /**
-     * @ORM\ManyToMany(targetEntity="Teclliure\QuestionBundle\Entity\Answer", cascade={"persist"}, inversedBy="disabledQuestions")
-     * @ORM\JoinTable(name="answer_disable_question")
+     * @ORM\ManyToMany(targetEntity="Teclliure\QuestionBundle\Entity\Answer", cascade={"persist"}, mappedBy="disabledQuestions")
      */
     private $disabledByAnswers;
 
@@ -438,5 +437,9 @@ class Question
     public function getValidations()
     {
         return $this->validations;
+    }
+
+    public function getQuestionHelp() {
+        return $this->getQuestion().' - '.$this->getHelp();
     }
 }

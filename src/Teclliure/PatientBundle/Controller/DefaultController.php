@@ -56,6 +56,7 @@ class DefaultController extends Controller
         }
 
         $questionaries = $questionaryRepository->findPatientQuestionaries($entity);
+        $reports = $patientRepository->findPatientReports($entity);
 
         $patientForm = $this->createForm(new PatientType(), $entity);
 
@@ -64,6 +65,7 @@ class DefaultController extends Controller
         return $this->render('TeclliurePatientBundle:Patient:show.html.twig', array(
             'entity'            => $entity,
             'editForm'          => $patientForm->createView(),
+            'reports'           => $reports,
             'questionaries'     => $questionaries
         ));
     }

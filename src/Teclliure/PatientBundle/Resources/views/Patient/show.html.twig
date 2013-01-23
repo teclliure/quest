@@ -8,11 +8,26 @@
 {% block title %}{{ "Person Show" | trans }}{% endblock %}
 
 {% block inner_content %}
-<div style="float: left"><a class="btn btn-danger btn-sonata-action-element" href="{{ path('patient_delete', { 'id': entity.id }) }}">{{ 'Delete patient' | trans }}</a></div>
+<div style="float: left">
+    <a class="btn btn-danger btn-sonata-action-element" href="{{ path('patient_delete', { 'id': entity.id }) }}">
+        <i class="icon-trash"></i>
+        {{ 'Delete patient' | trans }}
+    </a>
+</div>
 <div style="float: right">
     <div class="sonata-actions">
-        <a class="btn btn-primary btn-sonata-action-element" href="{{ path('questionary_patient_new', { 'id': entity.id }) }}">{{ 'New questionary' | trans }}</a>
+        <a class="btn btn-info btn-sonata-action-element" href="{{ path('create_report', { 'personId': entity.id }) }}">
+            <i class="icon-print"></i>
+            {{ 'New report' | trans }}
+        </a>
+        &nbsp;
+        <a class="btn btn-primary btn-sonata-action-element" href="{{ path('questionary_patient_new', { 'id': entity.id }) }}">
+            <i class="icon-list-alt"></i>
+            {{ 'New questionary' | trans }}
+        </a>
+        &nbsp;
         <a class="btn sonata-action-element" href="{{ path('home') }}">
+            <i class="icon-list"></i>
             {{ 'Back to the list' | trans }}
         </a>
     </div>
@@ -27,6 +42,7 @@
   <li class="active"><a href="#show" data-toggle="tab">{{ 'Show' | trans }}</a></li>
   <li><a href="#editPatientForm" data-toggle="tab">{{ 'Edit' | trans }}</a></li>
   <li><a href="#questionaries" data-toggle="tab">{{ 'Questionaries' | trans }}</a></li>
+  <li><a href="#reports" data-toggle="tab">{{ 'Reports' | trans }}</a></li>
 </ul>
 
 <div class="tab-content">
@@ -40,6 +56,10 @@
 
     <div class="tab-pane" id="questionaries">
         {% include 'TeclliurePatientBundle:Patient:questionaries.html.twig' %}
+    </div>
+
+    <div class="tab-pane" id="reports">
+        {% include 'TeclliureQuestionBundle:Report:list.html.twig' %}
     </div>
 </div>
 

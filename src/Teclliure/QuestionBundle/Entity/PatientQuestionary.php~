@@ -47,6 +47,11 @@ class PatientQuestionary
      */
     private $validations;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Teclliure\QuestionBundle\Entity\Report", mappedBy="patientQuestionaries" )
+     */
+    private $reports;
+
 
     /**
      * @var datetime $created
@@ -306,13 +311,66 @@ class PatientQuestionary
         return $this->validations;
     }
 
-    public function getTotalValue() {
+    public function getTotalValue(Validation $validation = null) {
         $total = 0;
+        $checkQuestions = false;
         $answers = $this->getPatientQuestionaryAnswers();
-        foreach ($answers as $answer) {
-            $total += $answer->getAnswer()->getRawValue();
+        $questions = array();
+        if ($validation) {
+            $questions = $validation->getQuestions();
+            if ($questions && count($questions)) {
+                $checkQuestions = true;
+            }
         }
+
+        foreach ($answers as $answer) {
+            if ($checkQuestions) {
+                foreach ($questions as $key=>$question) {
+                    if ($question->getId() == $answer->getQuestion()->getId()) {
+                        $total += $answer->getAnswer()->getRawValue();
+                        unset ($questions[$key]);
+                    }
+                }
+            }
+            else {
+                $total += $answer->getAnswer()->getRawValue();
+            }
+        }
+
         return $total;
     }
 
+
+    /**
+     * Add reports
+     *
+     * @param \Teclliure\QuestionBundle\Entity\Report $reports
+     * @return PatientQuestionary
+     */
+    public function addReport(\Teclliure\QuestionBundle\Entity\Report $reports)
+    {
+        $this->reports[] = $reports;
+    
+        return $this;
+    }
+
+    /**
+     * Remove reports
+     *
+     * @param \Teclliure\QuestionBundle\Entity\Report $reports
+     */
+    public function removeReport(\Teclliure\QuestionBundle\Entity\Report $reports)
+    {
+        $this->reports->removeElement($reports);
+    }
+
+    /**
+     * Get reports
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getReports()
+    {
+        return $this->reports;
+    }
 }

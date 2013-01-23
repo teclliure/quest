@@ -1,0 +1,15 @@
+create_report:
+    pattern:  /editReport/{personId}/{reportId}
+    defaults:
+        reportId: null
+        _controller: "TeclliureQuestionBundle:Report:createEditReport"
+
+delete_report:
+    pattern:  /deleteReport/{id}
+    defaults:
+        _controller: "TeclliureQuestionBundle:Report:deleteReport"
+
+print_report:
+    pattern:  /printReport/{id}
+    defaults:
+        _controller: "TeclliureQuestionBundle:Report:printReport"

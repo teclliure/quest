@@ -1,0 +1,27 @@
+{% extends '::one_column.html.twig' %}
+
+{% block title %}{{ "Create report" | trans }}{% endblock %}
+
+{% block inner_content %}
+<div style="float: right">
+    <div class="sonata-actions">
+        <a class="btn sonata-action-element" href="{{ path('patient_show', { 'id': patient.id }) }}">
+            <i class="icon-repeat"></i>
+            {{ 'Back to show' | trans }}
+        </a>
+    </div>
+</div>
+<br />
+<br />
+<legend>
+    {{ 'Person' | trans }} <span class="legendName">{{ patient.name }}</span>
+</legend>
+
+<div id="questionaryPatient">
+    <form action="{{ path('create_report', {'personId': patient.id, 'reportId': report.id} ) }}" method="post" {{ form_enctype(reportForm) }}>
+        {{ form_widget(reportForm) }}
+
+        <input type="submit" value="{{ 'Save' | trans }}" />
+    </form>
+</div>
+{% endblock %}

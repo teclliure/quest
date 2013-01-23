@@ -44,7 +44,8 @@ $(function() {
         event.preventDefault();
 
         if ($('#showQuestionForm').children('i').hasClass('icon-chevron-right')) {
-            $('#showQuestionForm').children('i').toggleClass('icon-chevron-down');
+            $('#showQuestionForm').children('i').removeClass('icon-chevron-right');
+            $('#showQuestionForm').children('i').addClass('icon-chevron-down');
             $('#new_question_form').slideDown();
         }
 
@@ -89,13 +90,12 @@ $(function() {
     $("body").on("click", ".answerShowForm", function(event) {
         event.preventDefault();
 
-        $(this).children('i').toggleClass('icon-chevron-right');
-        $(this).children('i').toggleClass('icon-chevron-down');
+        questionShowButtonClass = $(this).attr('id');
 
         questionId = $(this).attr('id').replace('questionId','');
         questionId = questionId.replace('showForm','');
 
-        if ($.trim($('#questionId' + questionId + 'AnswerForm').html()) == '') {
+        if ($.trim($('#questionId' + questionId + 'AnswerForm').html()) == '' || $(this).hasClass('editAnswer')) {
             $.ajax({
                 url: $(this).attr('href'),
                 success: function(data) {
@@ -103,7 +103,19 @@ $(function() {
                 }
             });
         }
-        $('#questionId' + questionId + 'AnswerForm').slideToggle();
+
+        if ($(this).hasClass('editAnswer')) {
+            if ($('.' + questionShowButtonClass).children('i').hasClass('icon-chevron-right')) {
+                $('.' + questionShowButtonClass).children('i').removeClass('icon-chevron-right');
+                $('.' + questionShowButtonClass).children('i').addClass('icon-chevron-down');
+                $('#questionId' + questionId + 'AnswerForm').slideDown();
+            }
+        }
+        else {
+            $(this).children('i').toggleClass('icon-chevron-right');
+            $(this).children('i').toggleClass('icon-chevron-down');
+            $('#questionId' + questionId + 'AnswerForm').slideToggle();
+        }
     });
 
     // Delete answer
@@ -169,17 +181,36 @@ $(function() {
         });
     });
 
+    $("body").on("click", ".editValidation", function(event) {
+        event.preventDefault();
+
+        if ($('#showValidationForm').children('i').hasClass('icon-chevron-right')) {
+            $('#showValidationForm').children('i').removeClass('icon-chevron-right');
+            $('#showValidationForm').children('i').addClass('icon-chevron-down');
+            $('#new_validation_form').slideDown();
+        }
+
+        actionUrl = $(this).attr('href');
+
+        $.ajax({
+            url: actionUrl,
+            success: function(data) {
+                $('#new_validation_form').html(data);
+                $('html, body').animate({scrollTop: $('#alerts').offset().top-5}, 1000);
+            }
+        });
+    });
+
     // Show answer form
     $("body").on("click", ".ruleShowForm", function(event) {
         event.preventDefault();
 
-        $(this).children('i').toggleClass('icon-chevron-right');
-        $(this).children('i').toggleClass('icon-chevron-down');
+        ruleShowButtonClass = $(this).attr('id');
 
         validationId = $(this).attr('id').replace('validationId','');
         validationId = validationId.replace('showForm','');
 
-        if ($.trim($('#validationId' + validationId + 'RuleForm').html()) == '') {
+        if ($.trim($('#validationId' + validationId + 'RuleForm').html()) == '' || $(this).hasClass('editRule')) {
             $.ajax({
                 url: $(this).attr('href'),
                 success: function(data) {
@@ -187,7 +218,21 @@ $(function() {
                 }
             });
         }
-        $('#validationId' + validationId + 'RuleForm').slideToggle();
+
+        if ($(this).hasClass('editRule')) {
+            if ($('.' + ruleShowButtonClass).children('i').hasClass('icon-chevron-right')) {
+                $('.' + ruleShowButtonClass).children('i').removeClass('icon-chevron-right');
+                $('.' + ruleShowButtonClass).children('i').addClass('icon-chevron-down');
+                $('#validationId' + validationId + 'RuleForm').slideDown();
+            }
+        }
+        else {
+            $(this).children('i').toggleClass('icon-chevron-right');
+            $(this).children('i').toggleClass('icon-chevron-down');
+
+            $('#validationId' + validationId + 'RuleForm').slideToggle();
+        }
+
     });
 
     $("body").on("submit", ".saveRuleForm", function(event) {

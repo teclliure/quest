@@ -18,10 +18,11 @@ class RangeMinMaxOverlapsValidator extends ConstraintValidator
 
     public function validate($object, Constraint $constraint)
     {
-        $dql = 'SELECT count(vr.id) FROM TeclliureQuestionBundle:ValidationRule vr WHERE vr.validation = :validation AND
+        $dql = 'SELECT count(vr.id) FROM TeclliureQuestionBundle:ValidationRule vr WHERE vr.id != :id AND vr.validation = :validation AND
         ((:rangeMin >= vr.rangeMin AND :rangeMin <= vr.rangeMax) OR (:rangeMax >= vr.rangeMin AND :rangeMax <= vr.rangeMax))';
 
         $query = $this->em->createQuery($dql);
+        $query->setParameter('id', $object->getId());
         $query->setParameter('validation', $object->getValidation()->getId());
         $query->setParameter('rangeMin', $object->getRangeMin());
         $query->setParameter('rangeMax', $object->getRangeMax());

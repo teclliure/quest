@@ -22,10 +22,43 @@ use Knp\Menu\MenuItem;
 class ValidationController extends Controller
 {
     /**
+     * Loads question edit validation
+     */
+    public function editValidationAction($validationId)
+    {
+        $request = $this->getRequest();
+        $em = $this->getDoctrine()->getManager();
+
+        $validationRepository = $em->getRepository('TeclliureQuestionBundle:Validation');
+
+        $entity = $validationRepository->find($validationId);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Validation entity.');
+        }
+
+        if ($request->isXmlHttpRequest()) {
+            $validationForm = $this->createForm(new ValidationType(), $entity);
+
+            return $this->render(':ajax:base_ajax.html.twig', array(
+                'template'          => 'TeclliureQuestionBundle:Validation:validationForm.html.twig',
+                'entity'            => $entity->getQuestionary(),
+                'validationForm'      => $validationForm->createView(),
+                'validationFormError' => true
+            ));
+        }
+        else {
+            return $this->render(':msg:error.html.twig', array(
+                'msg' => 'Error: Not ajax call'
+            ));
+        }
+    }
+
+    /**
      * Saves a validation
      *
      */
-    public function saveValidationAction($id)
+    public function saveValidationAction($id, $validationId)
     {
         $request = $this->getRequest();
         $em = $this->getDoctrine()->getManager();
@@ -34,14 +67,13 @@ class ValidationController extends Controller
 
         $entity = $questionary->find($id);
 
-
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Questionary entity.');
         }
 
         if ($request->isXmlHttpRequest()) {
-            if ($request->get('validationId')) {
-                $validation = $em->getRepository('TeclliureQuestionBundle:Validation')->find($request->get('validationId'));
+            if ($validationId) {
+                $validation = $em->getRepository('TeclliureQuestionBundle:Validation')->find($validationId);
             }
             else {
                 $validation = new Validation();
@@ -176,11 +208,12 @@ class ValidationController extends Controller
      * Show rule form
      *
      */
-    public function formRuleAction($validationId)
+    public function formRuleAction($validationId, $ruleId)
     {
         $em = $this->getDoctrine()->getManager();
 
         $validationRepository = $em->getRepository('TeclliureQuestionBundle:Validation');
+        $ruleRepository = $em->getRepository('TeclliureQuestionBundle:ValidationRule');
 
         $entity = $validationRepository->find($validationId);
 
@@ -188,7 +221,18 @@ class ValidationController extends Controller
             throw $this->createNotFoundException('Unable to find Validation entity.');
         }
 
-        $ruleForm = $this->createForm(new ValidationRuleType(), new ValidationRule());
+        if ($ruleId) {
+            $rule = $ruleRepository->find($ruleId);
+
+            if (!$rule) {
+                throw $this->createNotFoundException('Unable to find Rule entity.');
+            }
+        }
+        else {
+            $rule = new ValidationRule();
+        }
+
+        $ruleForm = $this->createForm(new ValidationRuleType(), $rule);
 
         return $this->render('TeclliureQuestionBundle:Validation:ruleForm.html.twig', array(
             'validation'      => $entity,

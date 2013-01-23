@@ -92,11 +92,18 @@ answer_sort:
                     _controller: "TeclliureQuestionBundle:Question:saveQuestion"
                     requirements:
                         _method:  POST
+validation_edit:
+    pattern:  /editValidation/{validationId}
+    defaults:
+        _controller: "TeclliureQuestionBundle:Validation:editValidation"
+        requirements:
+            _method:  GET
 
 validation_save:
-    pattern:  /saveValidation/{id}
+    pattern:  /saveValidation/{id}/{validationId}
     defaults:
         _controller: "TeclliureQuestionBundle:Validation:saveValidation"
+        validationId: null
         requirements:
             _method:  POST
 
@@ -116,16 +123,18 @@ validation_delete:
             _method:  GET
 
 rule_form_show:
-    pattern:  /formRule/{validationId}
+    pattern:  /formRule/{validationId}/{ruleId}
     defaults:
         _controller: "TeclliureQuestionBundle:Validation:formRule"
+        ruleId: null
         requirements:
             _method:  GET
 
 rule_save:
-    pattern:  /saveRule/{validationId}
+    pattern:  /saveRule/{validationId}/{ruleId}
     defaults:
         _controller: "TeclliureQuestionBundle:Validation:saveRule"
+        ruleId: null
         requirements:
             _method:  POST
 

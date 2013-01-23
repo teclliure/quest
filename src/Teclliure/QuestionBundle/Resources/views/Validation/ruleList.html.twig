@@ -6,6 +6,10 @@
         {% for rule in validation.validationRules %}
             <li id="ruleId{{ rule.id }}">
                 <div class="rule_buttons">
+                    <a class="btn btn-mini btn-info editRule ruleShowForm" id="validationId{{ validation.id }}showForm" href="{{ path('rule_form_show', { 'validationId': validation.id, 'ruleId': rule.id }) }}">
+                        <i class="icon-edit"></i>
+                        {{ 'Edit' | trans }}
+                    </a>
                     &nbsp;
                     <a class="btn btn-mini btn-danger deleteRule" href="{{ path('rule_delete', { 'ruleId': rule.id }) }}">
                         <i class="icon-trash"></i>

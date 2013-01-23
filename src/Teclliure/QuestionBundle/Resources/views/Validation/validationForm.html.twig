@@ -1,0 +1,13 @@
+<form id="saveValidationForm" action="{{ path('validation_save', { 'id': entity.id, 'validationId': validationForm.vars.data.id }) }}" method="post">
+    <div>
+        {{ form_row(validationForm.name) }}
+    </div>
+
+    <div>
+        {{ form_row(validationForm.help) }}
+    </div>
+
+    {{ form_rest(validationForm) }}
+
+    <button type="submit" class="btn btn-primary btn-mini">{{ 'Validation add' | trans }}</button>
+</form>

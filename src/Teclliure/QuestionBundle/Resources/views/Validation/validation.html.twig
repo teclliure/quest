@@ -2,19 +2,7 @@
     <i class="{% if validationFormError is not defined or validationFormError == false %}icon-chevron-right{% else %}icon-chevron-down{% endif %}"></i> {{ 'Add validation' | trans }}
 </button>
 <div id="new_validation_form" class="clearfix" {% if validationFormError is not defined or validationFormError == false %}style="display: none"{% endif %}>
-    <form id="saveValidationForm" action="{{ path('validation_save', { 'id': entity.id }) }}" method="post">
-        <div>
-            {{ form_row(validationForm.name) }}
-        </div>
-
-        <div>
-            {{ form_row(validationForm.help) }}
-        </div>
-
-        {{ form_rest(validationForm) }}
-
-        <button type="submit" class="btn btn-primary btn-mini">{{ 'Validation add' | trans }}</button>
-    </form>
+    {% include 'TeclliureQuestionBundle:Validation:validationForm.html.twig' %}
 </div>
 
 

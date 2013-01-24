@@ -18,6 +18,11 @@ a:hover {
     background: none;
 }
 
+input.date {
+    text-align: center;
+    width: 6em;
+}
+
 hr {
     border-color: #aaa;
     clear: both;
@@ -272,8 +277,11 @@ hr {
     color: #333;
 }
 
-.questionsList p.questionHelp, .questionAnswersList p.answerHelp, .validationsList p.validationHelp, .validationRulesList p.ruleHelp {
+.questionsList p.questionHelp, .questionAnswersList p.answerHelp, .validationsList p.validationHelp, .validationRulesList p.ruleHelp, p.questionHelp {
     color: #999;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: normal;
 }
 
 .questionAnswersList p.answer, .validationRulesList p.rule {
@@ -364,4 +372,25 @@ hr {
 .legendName {
   font-style: italic;
   color: #000100;
+}
+
+#questionaryDocumentsList {
+    margin-top: 20px;
+    margin-left: 5px;
+    list-style: none;
+}
+
+#validationResults {
+    width: 80%;
+    margin-left: 20px;
+}
+
+#teclliure_questionbundle_validationquestions_type_questions input, #teclliure_questionbundle_answerquestions_type_disabledQuestions input {
+    display: inline-block;
+    float: left;
+    clear: left;
+}
+
+#teclliure_questionbundle_validationquestions_type_questions label, #teclliure_questionbundle_answerquestions_type_disabledQuestions label {
+    margin-left: 20px;
 }

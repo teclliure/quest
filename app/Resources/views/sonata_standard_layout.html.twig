@@ -10,9 +10,13 @@
 
 {% block javascripts %}
     {{ parent() }}
-    <script src="{{ asset('bundles/sonataadmin/qtip/jquery.qtip-1.0.0-rc3.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('bundles/sonataadmin/jquery/jquery.form.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('bundles/sonataadmin/base.js') }}" type="text/javascript"></script>
+    {% javascripts
+    'bundles/sonataadmin/qtip/jquery.qtip-1.0.0-rc3.min.js'
+    'bundles/sonataadmin/jquery/jquery.form.js'
+    'bundles/sonataadmin/base.js'
+    output='js/sonata_js.js' %}
+    <script src="{{ asset_url }}" type="text/javascript"></script>
+    {% endjavascripts %}
 {% endblock %}
 
 {% set _side_menu    = block('side_menu') %}

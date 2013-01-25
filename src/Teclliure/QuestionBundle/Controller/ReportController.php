@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Teclliure\QuestionBundle\Entity\Report;
 use Teclliure\QuestionBundle\Form\ReportType;
+use Ps\PdfBundle\Annotation\Pdf;
 
 use Knp\Menu\FactoryInterface as MenuFactoryInterface;
 use Knp\Menu\ItemInterface as MenuItemInterface;
@@ -170,5 +171,33 @@ class ReportController extends Controller
         }
 
         return $this->redirect($this->generateUrl('patient_show', array('id' => $patient->getId())));
+    }
+
+    /*
+     * @Pdf()
+     */
+    public function printReportAction($id) {
+        $em = $this->getDoctrine()->getManager();
+
+        $reportRepository = $em->getRepository('TeclliureQuestionBundle:Report');
+
+        $entity = $reportRepository->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Report entity.');
+        }
+
+        $html = $this->renderView('TeclliureQuestionBundle:Report:report.html.twig', array(
+            'report' => $entity
+        ));
+
+        return new Response(
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
+            200,
+            array(
+                'Content-Type'          => 'application/pdf',
+                'Content-Disposition'   => 'attachment; filename="report'.$entity->getId().'.pdf"'
+            )
+        );
     }
 }

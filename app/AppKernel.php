@@ -36,6 +36,7 @@ class AppKernel extends Kernel
             new Ideup\SimplePaginatorBundle\IdeupSimplePaginatorBundle(),
             // new Ideup\ExtraValidatorBundle\ExtraValidatorBundle(),
             new Teclliure\DocBundle\TeclliureDocBundle(),
+            new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

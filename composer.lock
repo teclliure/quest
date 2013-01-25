@@ -1,5 +1,5 @@
 {
-    "hash": "e8db982b487861b3f106a5b8c40c7eba",
+    "hash": "0e5febdc22e3aa86616723b672f81fa8",
     "packages": [
         {
             "name": "beberlei/DoctrineExtensions",
@@ -409,12 +409,12 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/l3pp4rd/DoctrineExtensions.git",
-                "reference": "baa42fda5607978d70040b9f38b6b3a13823c903"
+                "reference": "93349ad3ab200c7aa69237355c4ee811d359d160"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/l3pp4rd/DoctrineExtensions/archive/baa42fda5607978d70040b9f38b6b3a13823c903.zip",
-                "reference": "baa42fda5607978d70040b9f38b6b3a13823c903",
+                "url": "https://github.com/l3pp4rd/DoctrineExtensions/archive/93349ad3ab200c7aa69237355c4ee811d359d160.zip",
+                "reference": "93349ad3ab200c7aa69237355c4ee811d359d160",
                 "shasum": ""
             },
             "require": {
@@ -434,7 +434,7 @@
                 "doctrine/mongodb": ">=1.0.0",
                 "doctrine/mongodb-odm": ">=1.0.0-BETA7"
             },
-            "time": "2013-01-18 18:21:44",
+            "time": "2013-01-24 18:57:40",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -879,6 +879,108 @@
             ]
         },
         {
+            "name": "knplabs/knp-snappy",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "git://github.com/KnpLabs/snappy.git",
+                "reference": "0.1.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/KnpLabs/snappy/archive/0.1.0.zip",
+                "reference": "0.1.0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "suggest": {
+                "symfony/process": "Process Component of Symfony2."
+            },
+            "time": "2012-11-07 09:48:01",
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Knp\\Snappy": "src/"
+                }
+            },
+            "notification-url": "http://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "KnpLabs Team",
+                    "homepage": "http://knplabs.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://github.com/KnpLabs/snappy/contributors"
+                }
+            ],
+            "description": "PHP5 library allowing thumbnail, snapshot or PDF generation from a url or a html page. Wrapper for wkhtmltopdf/wkhtmltoimage.",
+            "homepage": "http://github.com/KnpLabs/snappy",
+            "keywords": [
+                "knp",
+                "knplabs",
+                "pdf",
+                "thumbnail",
+                "snapshot"
+            ]
+        },
+        {
+            "name": "knplabs/knp-snappy-bundle",
+            "version": "dev-master",
+            "target-dir": "Knp/Bundle/SnappyBundle",
+            "source": {
+                "type": "git",
+                "url": "git://github.com/KnpLabs/KnpSnappyBundle.git",
+                "reference": "cabfd9b6ade11094002d3d873bdf260ec3ded3c7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/KnpLabs/KnpSnappyBundle/archive/cabfd9b6ade11094002d3d873bdf260ec3ded3c7.zip",
+                "reference": "cabfd9b6ade11094002d3d873bdf260ec3ded3c7",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2",
+                "symfony/framework-bundle": ">=2.0.0",
+                "knplabs/knp-snappy": "*"
+            },
+            "time": "2012-11-05 12:46:28",
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "Knp\\Bundle\\SnappyBundle": ""
+                }
+            },
+            "notification-url": "http://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "KnpLabs Team",
+                    "homepage": "http://knplabs.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://github.com/KnpLabs/KnpSnappyBundle/contributors"
+                }
+            ],
+            "description": "Easily create PDF and images in Symfony2 by converting Twig/HTML templates.",
+            "homepage": "http://github.com/KnpLabs/KnpSnappyBundle",
+            "keywords": [
+                "knp",
+                "knplabs",
+                "bundle",
+                "snappy",
+                "pdf"
+            ]
+        },
+        {
             "name": "kriswallsmith/assetic",
             "version": "dev-master",
             "source": {
@@ -1002,100 +1104,6 @@
             "keywords": [
                 "log",
                 "logging"
-            ]
-        },
-        {
-            "name": "psliwa/pdf-bundle",
-            "version": "dev-master",
-            "target-dir": "Ps/PdfBundle",
-            "source": {
-                "type": "git",
-                "url": "git://github.com/psliwa/PdfBundle.git",
-                "reference": "623579091a94baa71363d01abf35334dddc2a400"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://github.com/psliwa/PdfBundle/archive/623579091a94baa71363d01abf35334dddc2a400.zip",
-                "reference": "623579091a94baa71363d01abf35334dddc2a400",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0",
-                "symfony/symfony": ">=2.0",
-                "sensio/framework-extra-bundle": ">=2.0",
-                "psliwa/php-pdf": ">=1.1.5"
-            },
-            "time": "2013-01-23 18:43:34",
-            "type": "symfony-bundle",
-            "autoload": {
-                "psr-0": {
-                    "Ps\\PdfBundle": ""
-                }
-            },
-            "notification-url": "http://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Piotr Śliwa",
-                    "email": "peter.pl7@gmail.com",
-                    "homepage": "http://ohey.pl"
-                }
-            ],
-            "description": "This bundle integrates Symfony2 with PHPPdf library.",
-            "keywords": [
-                "pdf",
-                "PHPPdf"
-            ]
-        },
-        {
-            "name": "psliwa/php-pdf",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "git://github.com/psliwa/PHPPdf.git",
-                "reference": "fa1a3d5e8f8cf564d5038f24ad56be12d4bb9c4c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://github.com/psliwa/PHPPdf/archive/fa1a3d5e8f8cf564d5038f24ad56be12d4bb9c4c.zip",
-                "reference": "fa1a3d5e8f8cf564d5038f24ad56be12d4bb9c4c",
-                "shasum": ""
-            },
-            "require": {
-                "zendframework/zend-cache": ">=2.0.0-rc2",
-                "zendframework/zendpdf": ">=2.0.0-rc2",
-                "zendframework/zend-memory": ">=2.0.0-rc2"
-            },
-            "suggest": {
-                "zendframework/zend-barcode": "If you want to use barcodes",
-                "zendframework/zend-validator": "If you want to use barcodes (required by zend-barcode)",
-                "imagine/Imagine": "If you want to use image generating (required version: >=v0.2.6)"
-            },
-            "time": "2013-01-23 18:34:06",
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "PHPPdf": "lib/",
-                    "Imagine": "lib/"
-                }
-            },
-            "notification-url": "http://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Piotr Śliwa",
-                    "email": "peter.pl7@gmail.com",
-                    "homepage": "http://ohey.pl"
-                }
-            ],
-            "description": "Pdf and graphic files generator library for PHP.",
-            "keywords": [
-                "pdf",
-                "PHPPdf"
             ]
         },
         {
@@ -1246,12 +1254,12 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/sonata-project/SonataAdminBundle.git",
-                "reference": "f734fbcbc0b17a5559d873b0909de197b36657d0"
+                "reference": "25e5892ce956c4c50bcc17e75d78b8084d49894a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/sonata-project/SonataAdminBundle/archive/f734fbcbc0b17a5559d873b0909de197b36657d0.zip",
-                "reference": "f734fbcbc0b17a5559d873b0909de197b36657d0",
+                "url": "https://github.com/sonata-project/SonataAdminBundle/archive/25e5892ce956c4c50bcc17e75d78b8084d49894a.zip",
+                "reference": "25e5892ce956c4c50bcc17e75d78b8084d49894a",
                 "shasum": ""
             },
             "require": {
@@ -1276,7 +1284,7 @@
                 "sonata-project/doctrine-orm-admin-bundle": "dev-master",
                 "sonata-project/intl-bundle": "dev-master"
             },
-            "time": "2013-01-23 23:52:04",
+            "time": "2013-01-24 11:51:06",
             "type": "symfony-bundle",
             "autoload": {
                 "psr-0": {
@@ -2100,242 +2108,6 @@
             "keywords": [
                 "templating"
             ]
-        },
-        {
-            "name": "zendframework/zend-cache",
-            "version": "2.0.6",
-            "target-dir": "Zend/Cache",
-            "dist": {
-                "type": "zip",
-                "url": "http://packages.zendframework.com/composer/Zend_Cache-2.0.6.zip",
-                "reference": null,
-                "shasum": null
-            },
-            "require": {
-                "php": ">=5.3.3",
-                "zendframework/zend-stdlib": "self.version",
-                "zendframework/zend-servicemanager": "self.version",
-                "zendframework/zend-eventmanager": "self.version"
-            },
-            "require-dev": {
-                "zendframework/zend-serializer": "self.version"
-            },
-            "suggest": {
-                "zendframework/zend-serializer": "Zend\\Serializer component",
-                "ext-apc": "APC >= 3.1.6 to use the APC storage adapter",
-                "ext-dba": "DBA, to use the DBA storage adapter",
-                "ext-memcached": "Memcached >= 1.0.0 to use the Memcached storage adapter",
-                "ext-wincache": "WinCache, to use the WinCache storage adapter"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Zend\\Cache\\": ""
-                }
-            },
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "description": "provides a generic way to cache any data",
-            "homepage": "http://packages.zendframework.com/",
-            "keywords": [
-                "zf2",
-                "cache"
-            ],
-            "support": {
-                "email": "fw-general-subscribe@lists.zend.com",
-                "irc": "irc://irc.freenode.net/zftalk",
-                "issues": "https://github.com/zendframework/zf2/issues",
-                "source": "https://github.com/zendframework/zf2"
-            }
-        },
-        {
-            "name": "zendframework/zend-eventmanager",
-            "version": "2.0.6",
-            "target-dir": "Zend/EventManager",
-            "dist": {
-                "type": "zip",
-                "url": "http://packages.zendframework.com/composer/Zend_EventManager-2.0.6.zip",
-                "reference": null,
-                "shasum": null
-            },
-            "require": {
-                "php": ">=5.3.3",
-                "zendframework/zend-stdlib": "self.version"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Zend\\EventManager\\": ""
-                }
-            },
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "description": " ",
-            "homepage": "http://packages.zendframework.com/",
-            "keywords": [
-                "zf2",
-                "eventmanager"
-            ],
-            "support": {
-                "email": "fw-general-subscribe@lists.zend.com",
-                "irc": "irc://irc.freenode.net/zftalk",
-                "issues": "https://github.com/zendframework/zf2/issues",
-                "source": "https://github.com/zendframework/zf2"
-            }
-        },
-        {
-            "name": "zendframework/zend-memory",
-            "version": "2.0.6",
-            "target-dir": "Zend/Memory",
-            "dist": {
-                "type": "zip",
-                "url": "http://packages.zendframework.com/composer/Zend_Memory-2.0.6.zip",
-                "reference": null,
-                "shasum": null
-            },
-            "require": {
-                "php": ">=5.3.3"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Zend\\Memory\\": ""
-                }
-            },
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "description": " ",
-            "homepage": "http://packages.zendframework.com/",
-            "keywords": [
-                "zf2",
-                "memory"
-            ],
-            "support": {
-                "email": "fw-general-subscribe@lists.zend.com",
-                "irc": "irc://irc.freenode.net/zftalk",
-                "issues": "https://github.com/zendframework/zf2/issues",
-                "source": "https://github.com/zendframework/zf2"
-            }
-        },
-        {
-            "name": "zendframework/zend-servicemanager",
-            "version": "2.0.6",
-            "target-dir": "Zend/ServiceManager",
-            "dist": {
-                "type": "zip",
-                "url": "http://packages.zendframework.com/composer/Zend_ServiceManager-2.0.6.zip",
-                "reference": null,
-                "shasum": null
-            },
-            "require": {
-                "php": ">=5.3.3"
-            },
-            "suggest": {
-                "zendframework/zend-di": "Zend\\Di component"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Zend\\ServiceManager\\": ""
-                }
-            },
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "description": " ",
-            "homepage": "http://packages.zendframework.com/",
-            "keywords": [
-                "zf2",
-                "servicemanager"
-            ],
-            "support": {
-                "email": "fw-general-subscribe@lists.zend.com",
-                "irc": "irc://irc.freenode.net/zftalk",
-                "issues": "https://github.com/zendframework/zf2/issues",
-                "source": "https://github.com/zendframework/zf2"
-            }
-        },
-        {
-            "name": "zendframework/zend-stdlib",
-            "version": "2.0.6",
-            "target-dir": "Zend/Stdlib",
-            "dist": {
-                "type": "zip",
-                "url": "http://packages.zendframework.com/composer/Zend_Stdlib-2.0.6.zip",
-                "reference": null,
-                "shasum": null
-            },
-            "require": {
-                "php": ">=5.3.3"
-            },
-            "suggest": {
-                "pecl-weakref": "Implementation of weak references for Stdlib\\CallbackHandler"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Zend\\Stdlib\\": ""
-                }
-            },
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "description": " ",
-            "homepage": "http://packages.zendframework.com/",
-            "keywords": [
-                "zf2",
-                "stdlib"
-            ],
-            "support": {
-                "email": "fw-general-subscribe@lists.zend.com",
-                "irc": "irc://irc.freenode.net/zftalk",
-                "issues": "https://github.com/zendframework/zf2/issues",
-                "source": "https://github.com/zendframework/zf2"
-            }
-        },
-        {
-            "name": "zendframework/zendpdf",
-            "version": "2.0.1",
-            "dist": {
-                "type": "zip",
-                "url": "http://packages.zendframework.com/composer/ZendPdf-2.0.1.zip",
-                "reference": null,
-                "shasum": null
-            },
-            "require": {
-                "php": ">=5.3.3",
-                "zendframework/zend-memory": ">=2.0.0",
-                "zendframework/zend-stdlib": ">=2.0.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "ZendPdf": "library/"
-                }
-            },
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "description": "Zend Pdf Component",
-            "homepage": "http://packages.zendframework.com/",
-            "keywords": [
-                "zf2",
-                "pdf"
-            ],
-            "support": {
-                "email": "fw-general-subscribe@lists.zend.com",
-                "irc": "irc://irc.freenode.net/zftalk",
-                "issues": "https://github.com/zendframework/zf2/issues",
-                "source": "https://github.com/zendframework/zf2"
-            }
         }
     ],
     "packages-dev": null,
@@ -2351,6 +2123,6 @@
         "sonata-project/intl-bundle": 20,
         "sonata-project/cache-bundle": 20,
         "ideup/simple-paginator-bundle": 20,
-        "psliwa/pdf-bundle": 20
+        "knplabs/knp-snappy-bundle": 20
     }
 }

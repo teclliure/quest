@@ -3,7 +3,7 @@
 <head>
     <meta name="viewport" content=" minimum-scale=1.0, maximum-scale=1.0, width=device-width, user-scalable=no">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>{% block title %}Page{% endblock %} | Quest Devel</title>
+    <title>{% block title %}{{ 'Default pagename'|trans }}{% endblock %} | {{ 'Quiz Devel'|trans }}</title>
 
     {% block stylesheets %}
         {% stylesheets
@@ -161,7 +161,7 @@
 
 
 
-    <div  class="row" >
+    <div  class="row">
         <div id="content-container" class="span12 boxed">
             <div class="row">
                 {% include '::flashbag.html.twig' %}
@@ -172,17 +172,13 @@
         </div>
     </div>
 
-    <hr style="margin-left: 30px;"/>
-
-    <div id="footer" class="row" style="margin-left: 30px;">
-        {% block footer %}
-            <div id="menu-service">
-                {# {{ knp_menu_render('service') }} #}
-            </div>
-            <div class="span12">
+    <div class="row">
+        <div id="footer" class="span12">
+            <hr />
+            {% block footer %}
                 <p>{{ 'Powered by'| trans }} <a href="http://symfony.com/">Symfony</a></p>
-            </div>
-        {% endblock %}
+            {% endblock %}
+        </div>
     </div>
 </div>
 {% block javascripts %}

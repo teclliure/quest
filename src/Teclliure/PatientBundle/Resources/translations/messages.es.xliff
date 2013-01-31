@@ -1,15 +1,215 @@
-<?xml version="1.0"?>
-<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-    <file source-language="en" datatype="plaintext" original="file.ext">
-        <body>
-            <trans-unit id="1">
-                <source>breadcrumb.link_patient_list</source>
-                <target>Listado pacientes</target>
-            </trans-unit>
-            <trans-unit id="2">
-                <source>Name</source>
-                <target>Nombre</target>
-            </trans-unit>
-        </body>
-    </file>
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="es" datatype="plaintext" original="file.ext">
+    <body>
+      <trans-unit id="1">
+        <source>Dashboard quest</source>
+        <target>Escritorio Quiz</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>Create new person</source>
+        <target>Crear nueva persona</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Reset</source>
+        <target>Reset</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>Search</source>
+        <target>Buscar</target>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>Name</source>
+        <target>Nombre</target>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>Identification</source>
+        <target>Identificación</target>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>Email</source>
+        <target>Correo electrónico</target>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>Created/Updated</source>
+        <target>Creado/Actualizado</target>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>Active</source>
+        <target>Activo</target>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>Address</source>
+        <target>Dirección</target>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>Phone</source>
+        <target>Teléfono</target>
+      </trans-unit>
+      <trans-unit id="12">
+        <source>Birth date</source>
+        <target>Fecha de nacimiento</target>
+      </trans-unit>
+      <trans-unit id="13">
+        <source>Created</source>
+        <target>Creado</target>
+      </trans-unit>
+      <trans-unit id="14">
+        <source>Updated</source>
+        <target>Actualizado</target>
+      </trans-unit>
+      <trans-unit id="15">
+        <source>Notes</source>
+        <target>Notas</target>
+      </trans-unit>
+      <trans-unit id="16">
+        <source>Show</source>
+        <target>Mostrar</target>
+      </trans-unit>
+      <trans-unit id="17">
+        <source>Hide</source>
+        <target>Ocultar</target>
+      </trans-unit>
+      <trans-unit id="18">
+        <source>Person New</source>
+        <target>Nueva persona</target>
+      </trans-unit>
+      <trans-unit id="19">
+        <source>Back to the list</source>
+        <target>Volver a la lista</target>
+      </trans-unit>
+      <trans-unit id="20">
+        <source>New Person</source>
+        <target>Nueva persona</target>
+      </trans-unit>
+      <trans-unit id="21">
+        <source>Select questionary</source>
+        <target>Seleccionar cuestionario</target>
+      </trans-unit>
+      <trans-unit id="22">
+        <source>Back to show</source>
+        <target>Volver a mostrar</target>
+      </trans-unit>
+      <trans-unit id="23">
+        <source>Person</source>
+        <target>Persona</target>
+      </trans-unit>
+      <trans-unit id="24">
+        <source>Create questionary</source>
+        <target>Crear cuestionario</target>
+      </trans-unit>
+      <trans-unit id="25">
+        <source>Questionary</source>
+        <target>Cuestionario</target>
+      </trans-unit>
+      <trans-unit id="26">
+        <source>Save</source>
+        <target>Guardar</target>
+      </trans-unit>
+      <trans-unit id="27">
+        <source>No related documentation</source>
+        <target>No hay documentación relacionada</target>
+      </trans-unit>
+      <trans-unit id="28">
+        <source>Related documentation</source>
+        <target>Documentación relacionada</target>
+      </trans-unit>
+      <trans-unit id="29">
+        <source>documents</source>
+        <target>documentos</target>
+      </trans-unit>
+      <trans-unit id="30">
+        <source>Actions</source>
+        <target>Acciones</target>
+      </trans-unit>
+      <trans-unit id="31">
+        <source>Validate</source>
+        <target>Validar</target>
+      </trans-unit>
+      <trans-unit id="32">
+        <source>Results</source>
+        <target>Resultados</target>
+      </trans-unit>
+      <trans-unit id="33">
+        <source>Delete</source>
+        <target>Borrar</target>
+      </trans-unit>
+      <trans-unit id="34">
+        <source>Person Show</source>
+        <target>Mostrar persona</target>
+      </trans-unit>
+      <trans-unit id="35">
+        <source>Delete person</source>
+        <target>Borrar persona</target>
+      </trans-unit>
+      <trans-unit id="36">
+        <source>New report</source>
+        <target>Nuevo informe</target>
+      </trans-unit>
+      <trans-unit id="37">
+        <source>New questionary</source>
+        <target>Nuevo cuestionario</target>
+      </trans-unit>
+      <trans-unit id="38">
+        <source>Edit</source>
+        <target>Editar</target>
+      </trans-unit>
+      <trans-unit id="39">
+        <source>Questionaries</source>
+        <target>Cuestionarios</target>
+      </trans-unit>
+      <trans-unit id="40">
+        <source>Reports</source>
+        <target>Informes</target>
+      </trans-unit>
+      <trans-unit id="41">
+        <source>Select validations</source>
+        <target>Selecciona validaciones</target>
+      </trans-unit>
+      <trans-unit id="42">
+        <source>Questionary results</source>
+        <target>Resultados questionario</target>
+      </trans-unit>
+      <trans-unit id="43">
+        <source>Validation</source>
+        <target>Validación</target>
+      </trans-unit>
+      <trans-unit id="44">
+        <source>Raw value</source>
+        <target>Valor bruto</target>
+      </trans-unit>
+      <trans-unit id="45">
+        <source>Result</source>
+        <target>Resultado</target>
+      </trans-unit>
+      <trans-unit id="46">
+        <source>No matching rule</source>
+        <target>No hay ninguna regla coincidente</target>
+      </trans-unit>
+      <trans-unit id="47">
+        <source>breadcrumb.link_patient_list</source>
+        <target>Listado pacientes</target>
+      </trans-unit>
+      <trans-unit id="48">
+        <source>Active ?</source>
+        <target>¿ Activo ?</target>
+      </trans-unit>
+        <trans-unit id="49">
+            <source>label_per_page</source>
+            <target>Resultados por página</target>
+        </trans-unit>
+        <trans-unit id="50">
+            <source>Patient List</source>
+            <target>Listado personas</target>
+        </trans-unit>
+        <trans-unit id="51">
+            <source>List</source>
+            <target>Listado</target>
+        </trans-unit>
+        <trans-unit id="52">
+            <source>Add questionary</source>
+            <target>Añadir cuestionario</target>
+        </trans-unit>
+    </body>
+  </file>
 </xliff>

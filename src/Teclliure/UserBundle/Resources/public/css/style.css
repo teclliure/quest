@@ -166,12 +166,9 @@ hr {
 .articleContainer > * {
 }
 
-#footer {
-    margin-top: 1em;
-}
-
 #footer p {
-    margin-right: 2em;
+    margin-right: 1em;
+    margin-top: -10px;
     text-align: right;
 }
 

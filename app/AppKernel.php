@@ -37,6 +37,7 @@ class AppKernel extends Kernel
             // new Ideup\ExtraValidatorBundle\ExtraValidatorBundle(),
             new Teclliure\DocBundle\TeclliureDocBundle(),
             new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
+            // new JMS\TranslationBundle\JMSTranslationBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

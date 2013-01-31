@@ -11,14 +11,26 @@ class PatientRepository extends SortableRepository
     public function queryAllFromUser($userId, $searchString = null) {
         $em = $this->getEntityManager();
 
-        $dql = 'SELECT p FROM TeclliurePatientBundle:Patient p where p.user = :user';
-        if ($searchString) {
-            $dql .= ' AND p.name LIKE :search';
+
+        if ($userId) {
+            $dql = 'SELECT p FROM TeclliurePatientBundle:Patient p WHERE p.user = :user';
+            if ($searchString) {
+                $dql .= ' AND p.name LIKE :search';
+            }
         }
+        else {
+            $dql = 'SELECT p FROM TeclliurePatientBundle:Patient p';
+            if ($searchString) {
+                $dql .= ' WHERE p.name LIKE :search';
+            }
+        }
+
         $dql .= ' ORDER BY p.name';
         $query = $em->createQuery($dql);
 
-        $query->setParameter('user', $userId);
+        if ($userId) {
+            $query->setParameter('user', $userId);
+        }
         if ($searchString) {
             $query->setParameter('search', '%'.$searchString.'%');
         }

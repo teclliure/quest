@@ -25,6 +25,7 @@ class ReportType extends AbstractType
                 'property' => 'questionary',
                 'expanded' => true ,
                 'multiple' => true,
+                'label'    => 'Questionaries',
                 'query_builder' => function(EntityRepository $er) use ($patient) {
                     return $er->createQueryBuilder('q')
                         ->where('q.patient = :patient')

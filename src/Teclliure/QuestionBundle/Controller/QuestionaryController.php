@@ -64,7 +64,7 @@ class QuestionaryController extends Controller
         $questionForm = $this->createForm(new QuestionType(), new Question());
         $validationForm = $this->createForm(new ValidationType(), new Validation());
 
-        $this->buildBreadcrumbs('show');
+        $this->buildBreadcrumbs('show', array('id'=>$entity->getId()));
 
         return $this->render('TeclliureQuestionBundle:Questionary:show.html.twig', array(
             'entity'      => $entity,
@@ -157,7 +157,7 @@ class QuestionaryController extends Controller
 
         $editForm = $this->createForm('teclliure_questionbundle_questionarytype', $entity);
 
-        $this->buildBreadcrumbs('edit');
+        $this->buildBreadcrumbs('edit', array('id'=>$entity->getId()));
 
         return $this->render('TeclliureQuestionBundle:Questionary:edit.html.twig', array(
             'entity'      => $entity,
@@ -205,7 +205,7 @@ class QuestionaryController extends Controller
             return $this->redirect($this->generateUrl('questionary_edit', array('id' => $id)));
         }
 
-        $this->buildBreadcrumbs('edit');
+        $this->buildBreadcrumbs('edit', array('id'=>$entity->getId()));
 
         $this->get('session')->setFlash('error',
             'Error saving Questionary'

@@ -27,8 +27,15 @@ class DefaultController extends Controller
 
         $searchString = $request->get('searchString');
 
+        if (!$this->getUser()->getIsAdmin()) {
+            $userId = $this->getUser()->getId();
+        }
+        else {
+            $userId = null;
+        }
+
         $entities = $pager->paginate(
-            $em->getRepository('TeclliurePatientBundle:Patient')->queryAllFromUser($this->getUser()->getId(), $searchString)
+            $em->getRepository('TeclliurePatientBundle:Patient')->queryAllFromUser($userId, $searchString)
         )->getResult();
 
         $this->buildBreadcrumbs('list');
@@ -55,12 +62,14 @@ class DefaultController extends Controller
             throw $this->createNotFoundException('Unable to find Patient entity.');
         }
 
+        $this->checkPerms($entity);
+
         $questionaries = $questionaryRepository->findPatientQuestionaries($entity);
         $reports = $patientRepository->findPatientReports($entity);
 
         $patientForm = $this->createForm(new PatientType(), $entity);
 
-        $this->buildBreadcrumbs('show');
+        $this->buildBreadcrumbs('show', array('id'=>$entity->getId()));
 
         return $this->render('TeclliurePatientBundle:Patient:show.html.twig', array(
             'entity'            => $entity,
@@ -86,9 +95,11 @@ class DefaultController extends Controller
             throw $this->createNotFoundException('Unable to find Patient entity.');
         }
 
+        $this->checkPerms($entity);
+
         $catQuestionaries = $questionaryRepository->getQuestionariesByCategory();
 
-        $this->buildBreadcrumbs('select');
+        $this->buildBreadcrumbs('select', array('id'=>$entity->getId()));
 
         return $this->render('TeclliurePatientBundle:Patient:selectQuestionary.html.twig', array(
             'entity'            => $entity,
@@ -117,6 +128,8 @@ class DefaultController extends Controller
         if (!$questionary) {
             throw $this->createNotFoundException('Unable to find Questionary entity.');
         }
+
+        $this->checkPerms($patient);
         $docs = $questionaryRepository->getDocs($questionary);
 
         if ($patientQuestionaryId) {
@@ -159,15 +172,21 @@ class DefaultController extends Controller
                 }
 
             }
-            else {
+            else
+            {
                 $this->get('session')->setFlash('error',
                     'Error saving Patient questionary'
                 );
             }
-            $this->buildBreadcrumbs('questionaryEdit',array('questionaryId'=>$questionary->getId()));
         }
-        else {
-            $this->buildBreadcrumbs('create',array('questionaryId'=>$questionary->getId()));
+
+        if ($patientQuestionary->getId())
+        {
+            $this->buildBreadcrumbs('questionaryEdit', array('id'=>$patient->getId(),'questionaryId'=>$questionary->getId(), 'patientQuestionaryId'=>$patientQuestionaryId));
+        }
+        else
+        {
+            $this->buildBreadcrumbs('create', array('id'=>$patient->getId(),'questionaryId'=>$questionary->getId()));
         }
 
 
@@ -208,6 +227,8 @@ class DefaultController extends Controller
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Patient entity.');
             }
+
+            $this->checkPerms($entity);
         }
         else {
             $entity = new Patient();
@@ -273,6 +294,7 @@ class DefaultController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Patient entity.');
         }
+        $this->checkPerms($entity);
 
         $em->remove($entity);
         $em->flush();
@@ -292,6 +314,9 @@ class DefaultController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find PatientQuestionary entity.');
         }
+
+        $this->checkPerms($entity);
+
         $patientId = $entity->getPatient()->getId();
         $patientQuestionaryRepository->deleteAnswers($entity);
         $em->remove($entity);
@@ -308,6 +333,8 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('TeclliurePatientBundle:Patient')->find($id);
+
+        $this->checkPerms($entity);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Patient entity.');
@@ -326,7 +353,13 @@ class DefaultController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find PatientQuestionary entity.');
         }
+        $this->checkPerms($entity);
         $patientQuestionaryForm = $this->createForm(new PatientQuestionaryValidationType(), $entity);
+
+        $this->buildBreadcrumbs('validations', array(
+            array('id'=>$entity->getPatient()->getId(),'questionaryId'=>$entity->getQuestionary()->getId(), 'patientQuestionaryId'=>$entity->getId()),
+            array('id'=>$entity->getId())
+        ));
 
         if ($this->getRequest()->isMethod('POST')) {
             $patientQuestionaryForm->bind($this->getRequest());
@@ -359,7 +392,14 @@ class DefaultController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find PatientQuestionary entity.');
         }
+        $this->checkPerms($entity);
         $results = $em->getRepository('TeclliureQuestionBundle:PatientQuestionary')->calculateResults($entity);
+
+        $this->buildBreadcrumbs('results', array(
+            array('id'=>$entity->getPatient()->getId(),'questionaryId'=>$entity->getQuestionary()->getId(), 'patientQuestionaryId'=>$entity->getId()),
+            array('id'=>$entity->getId()),
+            array('id'=>$entity->getId())
+        ));
 
         return $this->render('TeclliurePatientBundle:Validation:validationsResults.html.twig', array(
             'entity'          => $entity,
@@ -393,7 +433,16 @@ class DefaultController extends Controller
             'edit' => array('route'=>'patient_edit', 'label'=>'Person Edit'),
             'select' => array('route'=>'questionary_patient_new', 'label'=>'Select Questionary'),
             'create' => array('route'=>'questionary_patient_create', 'label'=>'Create Questionary'),
-            'questionaryEdit' => array('route'=>'questionary_patient_create', 'label'=>'Create Questionary'),
+            'questionaryEdit' => array('route'=>'questionary_patient_create', 'label'=>'Edit questionary'),
+            'validations' => array(
+                array('route'=>'questionary_patient_create', 'label'=>'Edit questionary'),
+                array('route'=>'questionary_patient_validation', 'label'=>'Validations')
+                ),
+            'results' => array(
+                array('route'=>'questionary_patient_create', 'label'=>'Edit questionary'),
+                array('route'=>'questionary_patient_validation', 'label'=>'Validations'),
+                array('route'=>'questionary_patient_results', 'label'=>'Results')
+            )
         );
     }
 }

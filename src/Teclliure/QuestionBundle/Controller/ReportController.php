@@ -2,7 +2,7 @@
 
 namespace Teclliure\QuestionBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Teclliure\DashboardBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Teclliure\QuestionBundle\Entity\Report;
@@ -42,11 +42,22 @@ class ReportController extends Controller
             if (!$report) {
                 throw $this->createNotFoundException('Unable to find Report entity.');
             }
+            $this->buildBreadcrumbs('edit_report', array(
+                array('id'=>$entity->getId()),
+                array('personId'=>$entity->getId())
+            ));
         }
         else {
             $report = new Report();
             $report->setPatient($entity);
+            $this->buildBreadcrumbs('create_report', array(
+                array('id'=>$entity->getId()),
+                array('personId'=>$entity->getId())
+            ));
         }
+
+
+        $this->checkPerms($entity);
 
         $reportForm = $this->createForm(new ReportType(), $report);
 
@@ -74,72 +85,9 @@ class ReportController extends Controller
         ));
     }
 
-    /**
-     * Saves a validation
-     *
-     */
-    public function saveValidationAction($id, $validationId)
-    {
-        $request = $this->getRequest();
-        $em = $this->getDoctrine()->getManager();
-
-        $questionary = $em->getRepository('TeclliureQuestionBundle:Questionary');
-
-        $entity = $questionary->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Questionary entity.');
-        }
-
-        if ($request->isXmlHttpRequest()) {
-            if ($validationId) {
-                $validation = $em->getRepository('TeclliureQuestionBundle:Validation')->find($validationId);
-            }
-            else {
-                $validation = new Validation();
-            }
-
-            $validation->setQuestionary($entity);
-            $validationForm = $this->createForm(new ValidationType(), $validation);
-            $validationForm->bind($request);
-
-            if ($validationForm->isValid()) {
-                $em->persist($validation);
-                $em->flush();
-
-                $validationForm = $this->createForm(new ValidationType(), new Validation());
-
-
-                $validationFormError = false;
-            }
-            else {
-                $this->get('session')->setFlash('error',
-                    'Error on validation save'
-                );
-                $validationFormError = true;
-            }
-
-
-            $validations = $questionary->findValidations($entity);
-
-            return $this->render(':ajax:base_ajax.html.twig', array(
-                'template'             => 'TeclliureQuestionBundle:Validation:validation.html.twig',
-                'entity'               => $entity,
-                'validations'          => $validations,
-                'validationForm'       => $validationForm->createView(),
-                'validationFormError'  => $validationFormError
-            ));
-        }
-        else {
-            return $this->render(':msg:error.html.twig', array(
-                'msg' => 'Error: Not ajax call'
-            ));
-        }
-    }
 
     /**
-     * Deletes a validation
-     *
+     * Deletes a report
      */
     public function deleteReportAction($id)
     {
@@ -154,6 +102,7 @@ class ReportController extends Controller
             throw $this->createNotFoundException('Unable to find Report entity.');
         }
         $patient = $entity->getPatient();
+        $this->checkPerms($patient);
 
         $em->remove($entity);
 
@@ -181,7 +130,7 @@ class ReportController extends Controller
 
         $reportRepository = $em->getRepository('TeclliureQuestionBundle:Report');
 
-        $entity = $reportRepository->find($id);
+        $entity = $reportRepository->findWithResults($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Report entity.');
@@ -190,6 +139,7 @@ class ReportController extends Controller
         $html = $this->renderView('TeclliureQuestionBundle:Report:report.html.twig', array(
             'report' => $entity
         ));
+        $this->checkPerms($entity->getPatient());
 
         return new Response(
             $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
@@ -198,6 +148,20 @@ class ReportController extends Controller
                 'Content-Type'          => 'application/pdf',
                 'Content-Disposition'   => 'attachment; filename="report'.$entity->getId().'.pdf"'
             )
+        );
+    }
+
+    public function getBreadcrumbsRoutes() {
+        return array(
+            'create_report' => array(
+                array('route'=>'patient_show', 'label'=>'Person show'),
+                array('route'=>'create_report', 'label'=>'Create report')
+            ),
+            'edit_report' => array(
+                array('route'=>'patient_show', 'label'=>'Person show'),
+                array('route'=>'create_report', 'label'=>'Edit report')
+            )
+
         );
     }
 }

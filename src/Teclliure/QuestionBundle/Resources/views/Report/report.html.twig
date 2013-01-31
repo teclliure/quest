@@ -3,6 +3,43 @@
     <title>{{ 'Report'|trans }}: {{ report.name }}</title>
 </head>
 <body>
-    <h2>Hi {{ report.name }} !!</h2>
+    <div style="border-bottom: 1px solid #fffde8">
+        <div style="width: 50%; float: left">
+            <strong>{{ report.patient.name }}</strong> {{ report.patient.identification }}
+        </div>
+        <div style="width: 50%; float: right; text-align: right;">
+            {{ report.name }} - {{ report.created|date('Y-m-d H:i:s') }}
+        </div>
+        <div style="height: 22px">&nbsp;</div>
+    </div>
+    {% if report.description %}
+    <h3>{{ 'Description'|trans }}</h3>
+    <p>{{ report.description }}</p>
+    {% endif %}
+
+    {% for patientQuestionary in report.patientQuestionaries %}
+        <div style="background-color: #f9f9f9; border: 1px solid #dddddd; padding: 10px; margin-bottom: 10px">
+            <div style="float: right; font-size: 9px;">{{ patientQuestionary.created|date('Y-m-d H:i:s') }}</div>
+            <h3>{{ patientQuestionary.questionary.name }}</h3>
+            {% for validation in patientQuestionary.validations %}
+                <h4>{{ validation.name }}</h4>
+                {% if validation.help %}
+                    {{ validation.help }}
+                {% endif %}
+                {{ 'Result'|trans }}:
+                {% if validation.selectedValidationRule is not empty %}
+                    <div style="background-color: #d0e9c6; border-radius: 10px; padding: 10px;">
+                    {{ validation.selectedValidationRule.name }}
+                    <p>{{ validation.selectedValidationRule.help }}</p>
+                    </div>
+                {% else %}
+                    <div style="background-color: #ffe0bb; border-radius: 10px;  padding: 10px;">
+                    {{ 'No result'|trans }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+            <div>&nbsp;</div>
+        </div>
+    {% endfor %}
 </body>
 </html>

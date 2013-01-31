@@ -5,6 +5,7 @@ namespace Teclliure\DashboardBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller as Sf2Controller;
 use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 use Sonata\AdminBundle\Route\RouteGeneratorInterface;
 use Sonata\AdminBundle\Route\DefaultRouteGenerator;
@@ -77,18 +78,36 @@ class Controller extends Sf2Controller
                 $this->trans($breadcrumbsRoutes['list']['label']),
                 array('uri' => $this->generateUrl($breadcrumbsRoutes['list']['route'], $params))
             );
-        }
 
-        $id = $this->getRequest()->get('id');
-        if ($id) {
-            $url = $this->generateUrl($breadcrumbsRoutes[$action]['route'], array_merge(array('id'=>$id), $params));
+            $url = $this->generateUrl($breadcrumbsRoutes[$action]['route'], $params);
+            $child = $child->addChild(
+                $this->trans($breadcrumbsRoutes[$action]['label']), array('uri' => $url)
+            );
         }
         else {
-            $url = $this->generateUrl($breadcrumbsRoutes[$action]['route'], $params);
+            if (is_array($breadcrumbsRoutes[$action]) && isset($breadcrumbsRoutes[$action][0]) && is_array($breadcrumbsRoutes[$action][0])) {
+                foreach ($breadcrumbsRoutes[$action] as $key=>$route) {
+                    if (isset($params[$key])) {
+                        $paramsTmp = $params[$key];
+                    }
+                    else {
+                        $paramsTmp = null;
+                    }
+                    $url = $this->generateUrl($route['route'], $paramsTmp);
+                    $child = $child->addChild(
+                        $this->trans($route['label']), array('uri' => $url)
+                    );
+                }
+            }
+            else {
+                $url = $this->generateUrl($breadcrumbsRoutes[$action]['route'], $params);
+                $child = $child->addChild(
+                    $this->trans($breadcrumbsRoutes[$action]['label']), array('uri' => $url)
+                );
+            }
         }
-        $child = $child->addChild(
-            $this->trans($breadcrumbsRoutes[$action]['label']), array('uri' => $url)
-        );
+
+
 
 
         /*$childAdmin = $this->getCurrentChildAdmin();
@@ -225,5 +244,24 @@ class Controller extends Sf2Controller
         }
 
         return parent::render($view, $parameters, $response);
+    }
+
+    public function checkPerms ($entity) {
+        if ($this->getUser()->getIsAdmin()) {
+            return;
+        }
+
+        $userId = null;
+        $className = get_class($entity);
+        if ($className == 'Teclliure\PatientBundle\Entity\Patient') {
+            $userId = $entity->getUser()->getId();
+        }
+        else if ($className == 'Teclliure\QuestionBundle\Entity\PatientQuestionary') {
+            $userId = $entity->getPatient()->getUser()->getId();
+        }
+
+        if ($userId != $this->getUser()->getId()) {
+            throw new AccessDeniedException();
+        }
     }
 }

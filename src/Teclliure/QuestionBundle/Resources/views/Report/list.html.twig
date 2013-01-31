@@ -20,7 +20,7 @@
                     {{ 'PDF' | trans }}
                 </a>
                 {% endif %}
-                <a class="btn btn-mini btn-danger" href="{{ path('delete_report', { 'id': entity.id}) }}">
+                <a class="btn btn-mini btn-danger confirmDialog" href="{{ path('delete_report', { 'id': entity.id}) }}">
                     <i class="icon-trash"></i>
                     {{ 'Delete'|trans }}
                 </a>

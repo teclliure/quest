@@ -48,7 +48,11 @@
             <div class="hero-unit">
                 <h1 id="logo-text"><a href="{{ path('home') }}">{{ 'Quiz Demo'|trans }}</a></h1>
                 {% if app.user %}
-                    <div style="float: right">{{ 'Hi'|trans }} {{ app.user.username }} <a href="{{ path('logout') }}"><span class="btn btn-danger">{{ 'Logout'|trans }}</span></a></div>
+                    <div style="float: right">{{ 'Hi'|trans }} {{ app.user.username }}
+                        <a href="{{ path('logout') }}">
+                        <span class="btn btn-danger"><i class="icon-off"></i> {{ 'Logout'|trans }}</span>
+                        </a>
+                    </div>
                 {% endif %}
                 <p id="slogan">{{ 'Symfony2 Quiz Application'|trans }}</p>
             </div>
@@ -186,7 +190,7 @@
     '@TeclliureUserBundle/Resources/public/bootstrap/js/bootstrap.min.js'
     '@TeclliureUserBundle/Resources/public/bootstrap/js/bootbox.min.js'
     '@TeclliureUserBundle/Resources/public/js/jquery-ui-1.10.0.custom.min.js'
-    '@TeclliureUserBundle/Resources/public/js/activeDate.js'
+    '@TeclliureUserBundle/Resources/public/js/page.js'
     'bundles/sonatajquery/jquery-ui-i18n.js'
     output='js/footer_js.js' %}
     <script src="{{ asset_url }}" type="text/javascript"></script>

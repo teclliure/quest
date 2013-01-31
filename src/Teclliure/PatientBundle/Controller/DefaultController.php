@@ -59,7 +59,7 @@ class DefaultController extends Controller
         $entity = $patientRepository->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Patient entity.');
+            throw $this->createNotFoundException('Unable to find Person entity.');
         }
 
         $this->checkPerms($entity);
@@ -92,7 +92,7 @@ class DefaultController extends Controller
         $entity = $patientRepository->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Patient entity.');
+            throw $this->createNotFoundException('Unable to find Person entity.');
         }
 
         $this->checkPerms($entity);
@@ -122,7 +122,7 @@ class DefaultController extends Controller
         $questionary = $questionaryRepository->find($questionaryId);
 
         if (!$patient) {
-            throw $this->createNotFoundException('Unable to find Patient entity.');
+            throw $this->createNotFoundException('Unable to find Person entity.');
         }
 
         if (!$questionary) {
@@ -135,7 +135,7 @@ class DefaultController extends Controller
         if ($patientQuestionaryId) {
             $patientQuestionary = $patientQuestionaryRepository->find($patientQuestionaryId);
             if (!$patientQuestionary) {
-                throw $this->createNotFoundException('Unable to find PatientQuestionary entity.');
+                throw $this->createNotFoundException('Unable to find PersonQuestionary entity.');
             }
         }
         else {
@@ -160,7 +160,7 @@ class DefaultController extends Controller
                     $em->getConnection()->commit();
 
                     $this->get('session')->setFlash('notice',
-                        'Patient questionary saved correctly'
+                        'Person questionary saved correctly'
                     );
 
                     return $this->redirect($this->generateUrl('questionary_patient_validation', array('id' => $patientQuestionary->getId())));
@@ -175,7 +175,7 @@ class DefaultController extends Controller
             else
             {
                 $this->get('session')->setFlash('error',
-                    'Error saving Patient questionary'
+                    'Error saving Person questionary'
                 );
             }
         }
@@ -225,7 +225,7 @@ class DefaultController extends Controller
             $entity = $em->getRepository('TeclliurePatientBundle:Patient')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Patient entity.');
+                throw $this->createNotFoundException('Unable to find Person entity.');
             }
 
             $this->checkPerms($entity);
@@ -257,13 +257,13 @@ class DefaultController extends Controller
                 throw $e;
             }
             $this->get('session')->setFlash('notice',
-                'Patient saved correctly'
+                'Person saved correctly'
             );
             $correctlySaved = true;
         }
         else {
             $this->get('session')->setFlash('error',
-                'Error saving Patient'
+                'Error saving Person'
             );
         }
 
@@ -292,17 +292,26 @@ class DefaultController extends Controller
         $entity = $em->getRepository('TeclliurePatientBundle:Patient')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Patient entity.');
+            throw $this->createNotFoundException('Unable to find Person entity.');
         }
         $this->checkPerms($entity);
 
-        $em->remove($entity);
-        $em->flush();
-        $this->get('session')->setFlash('notice',
-            'Patient DELETED correctly'
-        );
+        try {
+            $em->remove($entity);
+            $em->flush();
 
-        return $this->redirect($this->generateUrl('home'));
+            $this->get('session')->setFlash('notice',
+                'Person DELETED correctly'
+            );
+
+            return $this->redirect($this->generateUrl('home'));
+        }
+        catch (\Exception $e) {
+            $this->get('session')->setFlash('error',
+                'Person could NOT BE DELETED because it contains associated data. Delete the associated data before you can delete it.'
+            );
+            return $this->redirect($this->generateUrl('patient_show', array('id' => $entity->getId())));
+        }
     }
 
     public function deletePatientQuestionaryAction($id) {
@@ -312,7 +321,7 @@ class DefaultController extends Controller
         $entity = $patientQuestionaryRepository->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find PatientQuestionary entity.');
+            throw $this->createNotFoundException('Unable to find PersonQuestionary entity.');
         }
 
         $this->checkPerms($entity);
@@ -323,7 +332,7 @@ class DefaultController extends Controller
         $em->flush();
 
         $this->get('session')->setFlash('notice',
-            'PatientQuestionary DELETED correctly'
+            'PersonQuestionary DELETED correctly'
         );
 
         return $this->redirect($this->generateUrl('patient_show', array('id' => $patientId)));
@@ -337,7 +346,7 @@ class DefaultController extends Controller
         $this->checkPerms($entity);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Patient entity.');
+            throw $this->createNotFoundException('Unable to find Person entity.');
         }
 
         return $this->render('TeclliurePatientBundle:Patient:showContent.html.twig', array(
@@ -351,7 +360,7 @@ class DefaultController extends Controller
         $entity = $em->getRepository('TeclliureQuestionBundle:PatientQuestionary')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find PatientQuestionary entity.');
+            throw $this->createNotFoundException('Unable to find PersonQuestionary entity.');
         }
         $this->checkPerms($entity);
         $patientQuestionaryForm = $this->createForm(new PatientQuestionaryValidationType(), $entity);
@@ -372,7 +381,7 @@ class DefaultController extends Controller
                 $em->flush();
 
                 $this->get('session')->setFlash('notice',
-                    'Patient questionary validations saved correctly'
+                    'Person questionary validations saved correctly'
                 );
 
                 return $this->redirect($this->generateUrl('questionary_patient_results', array('id' => $entity->getId())));
@@ -390,7 +399,7 @@ class DefaultController extends Controller
         $entity = $em->getRepository('TeclliureQuestionBundle:PatientQuestionary')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find PatientQuestionary entity.');
+            throw $this->createNotFoundException('Unable to find PersonQuestionary entity.');
         }
         $this->checkPerms($entity);
         $results = $em->getRepository('TeclliureQuestionBundle:PatientQuestionary')->calculateResults($entity);

@@ -9,7 +9,7 @@
 
 {% block inner_content %}
 <div style="float: left">
-    <a class="btn btn-danger btn-sonata-action-element" href="{{ path('patient_delete', { 'id': entity.id }) }}">
+    <a class="btn btn-danger btn-sonata-action-element confirmDialog" href="{{ path('patient_delete', { 'id': entity.id }) }}">
         <i class="icon-trash"></i>
         {{ 'Delete patient' | trans }}
     </a>

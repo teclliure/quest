@@ -4,6 +4,7 @@
 
 {% block inner_content %}
     <a class="btn btn-primary" href="{{ path('patient_new') }}">
+        <i class="icon-plus-sign"></i>
         {{ 'Create new person' | trans }}
     </a>
 
@@ -12,7 +13,7 @@
             <a href="{{ path('home') }}" class="btn btn-mini btn-danger">{{ 'Reset' | trans }}</a>
         {% endif %}
         <input name="searchString" type="text" class="search-query span2" placeholder="{% if searchString %}{{ searchString }}{% else %}{{ 'Search' | trans }}{% endif %}">
-        <button type="submit" class="btn btn-mini">{{ 'Search' | trans }}</button>
+        <button type="submit" class="btn btn-mini"><i class="icon-search"></i> {{ 'Search' | trans }}</button>
     </form>
     
 

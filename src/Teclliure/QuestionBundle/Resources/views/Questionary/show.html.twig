@@ -13,8 +13,12 @@
 {% block inner_content %}
 <div style="float: right">
     <div class="sonata-actions">
-        <a class="btn sonata-action-element" href="{{ path('questionary_new') }}">{{ 'Add new' | trans }}</a>
+        <a class="btn sonata-action-element" href="{{ path('questionary_new') }}">
+            <i class="icon-plus-sign"></i>
+            {{ 'Add new' | trans }}
+        </a>
         <a class="btn sonata-action-element" href="{{ path('questionary') }}">
+            <i class="icon-list"></i>
             {{ 'Back to the list' | trans }}
         </a>
     </div>
@@ -70,10 +74,14 @@
 
       <div class="well form-actions">
           <a class="btn btn-primary" href="{{ path('questionary_edit', { 'id': entity.id }) }}">
+              <i class="icon-edit"></i>
               {{ 'Edit' | trans }}
           </a>
           {{ 'or' | trans }}
-          <a class="btn btn-danger" href="{{ path('questionary_delete', { 'id': entity.id }) }}">{{ 'Delete' | trans }}</a>
+          <a class="btn btn-danger" href="{{ path('questionary_delete', { 'id': entity.id }) }}">
+              <i class="icon-trash"></i>
+              {{ 'Delete' | trans }}
+          </a>
       </div>
     </div>
 

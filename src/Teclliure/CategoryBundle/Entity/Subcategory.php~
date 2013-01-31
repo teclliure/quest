@@ -49,13 +49,6 @@ class Subcategory
      */
     private $questionaries;
 
-    /**
-     *
-     * @ORM\OneToMany(targetEntity="Teclliure\DocBundle\Entity\DocSubcategory", mappedBy="subcategory")
-     *
-     */
-    private $docs;
-
 
     public function __toString()
     {
@@ -181,38 +174,5 @@ class Subcategory
     public function getQuestionaries()
     {
         return $this->questionaries;
-    }
-
-    /**
-     * Add docs
-     *
-     * @param \Teclliure\DocBundle\Entity\DocSubcategory $docs
-     * @return Subcategory
-     */
-    public function addDoc(\Teclliure\DocBundle\Entity\DocSubcategory $docs)
-    {
-        $this->docs[] = $docs;
-    
-        return $this;
-    }
-
-    /**
-     * Remove docs
-     *
-     * @param \Teclliure\DocBundle\Entity\DocSubcategory $docs
-     */
-    public function removeDoc(\Teclliure\DocBundle\Entity\DocSubcategory $docs)
-    {
-        $this->docs->removeElement($docs);
-    }
-
-    /**
-     * Get docs
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getDocs()
-    {
-        return $this->docs;
     }
 }

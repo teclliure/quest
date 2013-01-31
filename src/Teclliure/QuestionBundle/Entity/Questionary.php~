@@ -91,6 +91,13 @@ class Questionary
     private $subcategories;
 
     /**
+     *
+     * @ORM\ManyToMany(targetEntity="Teclliure\DocBundle\Entity\Doc", mappedBy="questionaries")
+     *
+     */
+    private $docs;
+
+    /**
      * @ORM\OneToMany(targetEntity="Teclliure\QuestionBundle\Entity\Question", mappedBy="questionary")
      * @ORM\OrderBy({"position" = "ASC"})
      */

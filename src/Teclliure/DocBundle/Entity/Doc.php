@@ -75,11 +75,11 @@ class Doc
     private $active = false;
 
     /**
-     *
-     * @ORM\OneToMany(targetEntity="Teclliure\DocBundle\Entity\DocSubcategory", mappedBy="doc")
-     *
+     * @ORM\ManyToMany(targetEntity="Teclliure\QuestionBundle\Entity\Questionary", cascade={"persist"},inversedBy="docs" )
+     * @ORM\JoinTable(name="doc_questionary")
+     * @ORM\OrderBy({"name" = "ASC"})
      */
-    private $subcategories;
+    private $questionaries;
 
     /**
      * @Assert\File(
@@ -326,39 +326,6 @@ class Doc
         return $this->active;
     }
 
-    /**
-     * Add subcategories
-     *
-     * @param \Teclliure\DocBundle\Entity\DocSubcategory $subcategories
-     * @return Doc
-     */
-    public function addSubcategorie(\Teclliure\DocBundle\Entity\DocSubcategory $subcategories)
-    {
-        $this->subcategories[] = $subcategories;
-    
-        return $this;
-    }
-
-    /**
-     * Remove subcategories
-     *
-     * @param \Teclliure\DocBundle\Entity\DocSubcategory $subcategories
-     */
-    public function removeSubcategorie(\Teclliure\DocBundle\Entity\DocSubcategory $subcategories)
-    {
-        $this->subcategories->removeElement($subcategories);
-    }
-
-    /**
-     * Get subcategories
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getSubcategories()
-    {
-        return $this->subcategories;
-    }
-
     public function getFile() {
         return $this->file;
     }
@@ -367,20 +334,36 @@ class Doc
         return $this->file = $file;
     }
 
-    public function doSaveSubcategories($entityManager)
+    /**
+     * Add questionaries
+     *
+     * @param \Teclliure\QuestionBundle\Entity\Questionary $questionaries
+     * @return Doc
+     */
+    public function addQuestionarie(\Teclliure\QuestionBundle\Entity\Questionary $questionaries)
     {
-        $docRepository = $entityManager->getRepository('TeclliureDocBundle:Doc');
-
-        if (isset($this->subcategoriesTmp)) {
-            $docRepository->deleteSubcategories($this);
-            $docRepository->addSubcategories($this, $this->subcategoriesTmp);
-        }
+        $this->questionaries[] = $questionaries;
+    
+        return $this;
     }
 
-
-    public function doDeleteSubcategories($entityManager)
+    /**
+     * Remove questionaries
+     *
+     * @param \Teclliure\QuestionBundle\Entity\Questionary $questionaries
+     */
+    public function removeQuestionarie(\Teclliure\QuestionBundle\Entity\Questionary $questionaries)
     {
-        $docRepository = $entityManager->getRepository('TeclliureDocBundle:Doc');
-        $docRepository->deleteSubcategories($this);
+        $this->questionaries->removeElement($questionaries);
+    }
+
+    /**
+     * Get questionaries
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getQuestionaries()
+    {
+        return $this->questionaries;
     }
 }

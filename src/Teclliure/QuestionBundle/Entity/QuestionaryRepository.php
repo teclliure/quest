@@ -156,7 +156,7 @@ class QuestionaryRepository extends SortableRepository
     public function getDocs($questionary) {
         $em = $this->getEntityManager();
 
-        $dql = 'select d FROM TeclliureDocBundle:Doc d JOIN d.subcategories s WHERE s.subcategory IN (select qs.id FROM TeclliureCategoryBundle:Subcategory qs JOIN qs.questionaries qss WHERE qss.questionary = :questionary)';
+        $dql = 'select d FROM TeclliureDocBundle:Doc d JOIN d.questionaries q WHERE q.id = :questionary';
         // $dql = 'select s FROM TeclliureCategoryBundle:Subcategory s JOIN s.questionaries qs WHERE qs.questionary = :questionary AND s.category = :category';
 
         $query = $em->createQuery($dql);

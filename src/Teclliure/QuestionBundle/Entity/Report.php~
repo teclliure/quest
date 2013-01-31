@@ -7,7 +7,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(name="report")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Teclliure\QuestionBundle\Entity\ReportRepository")
  */
 class Report
 {
@@ -207,5 +207,51 @@ class Report
     public function getUpdated()
     {
         return $this->updated;
+    }
+
+    /**
+     * Set patient
+     *
+     * @param \Teclliure\PatientBundle\Entity\Patient $patient
+     * @return Report
+     */
+    public function setPatient(\Teclliure\PatientBundle\Entity\Patient $patient = null)
+    {
+        $this->patient = $patient;
+    
+        return $this;
+    }
+
+    /**
+     * Get patient
+     *
+     * @return \Teclliure\PatientBundle\Entity\Patient 
+     */
+    public function getPatient()
+    {
+        return $this->patient;
+    }
+
+    /**
+     * Add patientQuestionaries
+     *
+     * @param \Teclliure\QuestionBundle\Entity\PatientQuestionary $patientQuestionaries
+     * @return Report
+     */
+    public function addPatientQuestionarie(\Teclliure\QuestionBundle\Entity\PatientQuestionary $patientQuestionaries)
+    {
+        $this->patientQuestionaries[] = $patientQuestionaries;
+    
+        return $this;
+    }
+
+    /**
+     * Remove patientQuestionaries
+     *
+     * @param \Teclliure\QuestionBundle\Entity\PatientQuestionary $patientQuestionaries
+     */
+    public function removePatientQuestionarie(\Teclliure\QuestionBundle\Entity\PatientQuestionary $patientQuestionaries)
+    {
+        $this->patientQuestionaries->removeElement($patientQuestionaries);
     }
 }

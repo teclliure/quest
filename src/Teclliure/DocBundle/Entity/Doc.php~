@@ -75,11 +75,10 @@ class Doc
     private $active = false;
 
     /**
-     *
-     * @ORM\OneToMany(targetEntity="Teclliure\DocBundle\Entity\DocSubcategory", mappedBy="doc")
-     *
+     * @ORM\ManyToMany(targetEntity="Teclliure\QuestionBundle\Entity\Questionary", cascade={"persist"},inversedBy="docs" )
+     * @ORM\JoinTable(name="doc_questionary")
      */
-    private $subcategories;
+    private $questionaries;
 
     /**
      * @Assert\File(
@@ -326,61 +325,11 @@ class Doc
         return $this->active;
     }
 
-    /**
-     * Add subcategories
-     *
-     * @param \Teclliure\DocBundle\Entity\DocSubcategory $subcategories
-     * @return Doc
-     */
-    public function addSubcategorie(\Teclliure\DocBundle\Entity\DocSubcategory $subcategories)
-    {
-        $this->subcategories[] = $subcategories;
-    
-        return $this;
-    }
-
-    /**
-     * Remove subcategories
-     *
-     * @param \Teclliure\DocBundle\Entity\DocSubcategory $subcategories
-     */
-    public function removeSubcategorie(\Teclliure\DocBundle\Entity\DocSubcategory $subcategories)
-    {
-        $this->subcategories->removeElement($subcategories);
-    }
-
-    /**
-     * Get subcategories
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getSubcategories()
-    {
-        return $this->subcategories;
-    }
-
     public function getFile() {
         return $this->file;
     }
 
     public function setFile($file) {
         return $this->file = $file;
-    }
-
-    public function doSaveSubcategories($entityManager)
-    {
-        $docRepository = $entityManager->getRepository('TeclliureDocBundle:Doc');
-
-        if (isset($this->subcategoriesTmp)) {
-            $docRepository->deleteSubcategories($this);
-            $docRepository->addSubcategories($this, $this->subcategoriesTmp);
-        }
-    }
-
-
-    public function doDeleteSubcategories($entityManager)
-    {
-        $docRepository = $entityManager->getRepository('TeclliureDocBundle:Doc');
-        $docRepository->deleteSubcategories($this);
     }
 }

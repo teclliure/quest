@@ -8,6 +8,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Teclliure\CategoryBundle\Form\EventListener\CategoryFieldsSubscriber;
+use Doctrine\ORM\EntityRepository;
 
 class DocAdmin extends Admin {
     /**
@@ -53,12 +54,18 @@ class DocAdmin extends Admin {
         ->add('file', 'file', array('required' => false))
         ->add('description')
         ->add('active','checkbox', array('required' => false))
+        ->add('questionaries', 'entity', array(
+            'class'    => 'TeclliureQuestionBundle:Questionary' ,
+            'property' => 'name',
+            'expanded' => true ,
+            'multiple' => true,
+            'attr'     => array('class'=>'formCssCheckbox'),
+            'query_builder' => function(EntityRepository $er) {
+                return $er->createQueryBuilder('q')
+                    ->orderBy('q.name','ASC');
+
+            }))
         ;
-
-        $builder = $mapper->getFormBuilder();
-        $subscriber = new CategoryFieldsSubscriber($builder->getFormFactory(), $this->em, $modelRepository);
-
-        $builder->addEventSubscriber($subscriber);
     }
 
     public function preUpdate($doc) {
@@ -66,23 +73,5 @@ class DocAdmin extends Admin {
         if (null !== $doc->getFile()) {
             $doc->setName(sha1(uniqid(mt_rand(), true)).'.'.$doc->getFile()->guessExtension());
         }
-    }
-
-    public function postUpdate($doc) {
-        $this->saveCategories($doc);
-    }
-
-    public function postPersist($doc) {
-        $this->saveCategories($doc);
-    }
-
-    public function preRemove($doc) {
-        $doc->doDeleteSubcategories($this->em);
-        $this->em->flush();
-    }
-
-    public function saveCategories ($doc) {
-        $doc->doSaveSubcategories($this->em);
-        $this->em->flush();
     }
 }

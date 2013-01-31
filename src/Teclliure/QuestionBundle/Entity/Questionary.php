@@ -91,6 +91,14 @@ class Questionary
     private $subcategories;
 
     /**
+     *
+     * @ORM\ManyToMany(targetEntity="Teclliure\DocBundle\Entity\Doc", mappedBy="questionaries")
+     * @ORM\OrderBy({"name" = "ASC"})
+     *
+     */
+    private $docs;
+
+    /**
      * @ORM\OneToMany(targetEntity="Teclliure\QuestionBundle\Entity\Question", mappedBy="questionary")
      * @ORM\OrderBy({"position" = "ASC"})
      */
@@ -400,5 +408,38 @@ class Questionary
     public function getHelp()
     {
         return $this->help;
+    }
+
+    /**
+     * Add docs
+     *
+     * @param \Teclliure\DocBundle\Entity\Doc $docs
+     * @return Questionary
+     */
+    public function addDoc(\Teclliure\DocBundle\Entity\Doc $docs)
+    {
+        $this->docs[] = $docs;
+    
+        return $this;
+    }
+
+    /**
+     * Remove docs
+     *
+     * @param \Teclliure\DocBundle\Entity\Doc $docs
+     */
+    public function removeDoc(\Teclliure\DocBundle\Entity\Doc $docs)
+    {
+        $this->docs->removeElement($docs);
+    }
+
+    /**
+     * Get docs
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getDocs()
+    {
+        return $this->docs;
     }
 }

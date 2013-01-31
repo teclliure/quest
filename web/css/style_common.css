@@ -406,13 +406,13 @@ hr {
     margin-left: 20px;
 }
 
-#teclliure_questionbundle_validationquestions_type_questions input, #teclliure_questionbundle_answerquestions_type_disabledQuestions input, #teclliure_questionbundle_report_type_patientQuestionaries input {
+#teclliure_questionbundle_validationquestions_type_questions input, #teclliure_questionbundle_answerquestions_type_disabledQuestions input, #teclliure_questionbundle_report_type_patientQuestionaries input, .formCssCheckbox input {
     display: inline-block;
     float: left;
     clear: left;
 }
 
-#teclliure_questionbundle_validationquestions_type_questions label, #teclliure_questionbundle_answerquestions_type_disabledQuestions label, #teclliure_questionbundle_report_type_patientQuestionaries label {
+#teclliure_questionbundle_validationquestions_type_questions label, #teclliure_questionbundle_answerquestions_type_disabledQuestions label, #teclliure_questionbundle_report_type_patientQuestionaries label, .formCssCheckbox label {
     margin-left: 20px;
 }
 /*! jQuery UI - v1.10.0 - 2013-01-21

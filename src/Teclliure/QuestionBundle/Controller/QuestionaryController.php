@@ -230,15 +230,22 @@ class QuestionaryController extends Controller
             throw $this->createNotFoundException('Unable to find Questionary entity.');
         }
 
-        $em->remove($entity);
-        $entity->doDeleteSubcategories($em);
-        $em->flush();
+        try {
+            $em->remove($entity);
+            $entity->doDeleteSubcategories($em);
+            $em->flush();
 
-        $this->get('session')->setFlash('info',
-            'Questionary correctly deleted'
-        );
-
-        return $this->redirect($this->generateUrl('questionary'));
+            $this->get('session')->setFlash('info',
+                'Questionary correctly deleted'
+            );
+            return $this->redirect($this->generateUrl('questionary'));
+        }
+        catch (\Exception $e) {
+            $this->get('session')->setFlash('error',
+                'Questionary could NOT BE DELETED because it is already used. Delete the associated data before you can delete it.'
+            );
+            return $this->redirect($this->generateUrl('questionary_show', array('id' => $id)));
+        }
     }
 
 

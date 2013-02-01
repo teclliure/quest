@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="es" datatype="plaintext" original="file1.ext">
+    <body>
+        <trans-unit id="1">
+          <source>Category List</source>
+          <target>Listado de categorías</target>
+        </trans-unit>
+        <trans-unit id="2">
+            <source>Link to file</source>
+            <target>Enlace al archivo</target>
+        </trans-unit>
+        <trans-unit id="3">
+            <source>Doc Create</source>
+            <target>Crear documento</target>
+        </trans-unit>
+        <trans-unit id="4">
+            <source>Documentation</source>
+            <target>Documento</target>
+        </trans-unit>
+        <trans-unit id="5">
+            <source>Doc Edit</source>
+            <target>Editar documento</target>
+        </trans-unit>
+        <trans-unit id="6">
+            <source>You should upload a file</source>
+            <target>Debes subir un fichero</target>
+        </trans-unit>
+        <trans-unit id="7">
+            <source>File</source>
+            <target>Archivo</target>
+        </trans-unit>
+    </body>
+  </file>
+</xliff>

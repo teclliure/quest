@@ -30,9 +30,9 @@
 </legend>
 
 <ul class="nav nav-tabs" id="myTab">
-  <li class="active"><a href="#show" data-toggle="tab">Show</a></li>
-  <li><a href="#questions" data-toggle="tab">Questions</a></li>
-  <li><a href="#validations" data-toggle="tab">Validation rules</a></li>
+  <li class="active"><a href="#show" data-toggle="tab">{{ 'Show'|trans }}</a></li>
+  <li><a href="#questions" data-toggle="tab">{{ 'Questions'|trans }}</a></li>
+  <li><a href="#validations" data-toggle="tab">{{ 'Validation rules'|trans }}</a></li>
 </ul>
 
 <div class="tab-content">
@@ -40,27 +40,27 @@
       <table class="record_properties table table-bordered table-striped">
           <tbody>
           <tr>
-              <th>Library reference</th>
+              <th>{{ 'Library reference'|trans }}</th>
               <td>{{ entity.libraryReference }}</td>
           </tr>
           <tr>
-              <th>Description</th>
+              <th>{{ 'Description'|trans }}</th>
               <td>{{ entity.description }}</td>
           </tr>
           <tr>
-              <th>Help</th>
+              <th>{{ 'Help'|trans }}</th>
               <td>{{ entity.help }}</td>
           </tr>
           <tr>
-              <th>Created</th>
+              <th>{{ 'Created'|trans }}</th>
               <td>{{ entity.created|date('Y-m-d H:i:s') }}</td>
           </tr>
           <tr>
-              <th>Updated</th>
+              <th>{{ 'Updated'|trans }}</th>
               <td>{{ entity.updated|date('Y-m-d H:i:s') }}</td>
           </tr>
           <tr>
-              <th>Active</th>
+              <th>{{ 'Active'|trans }}</th>
               <td>
                   {% if entity.active %}
                       <img src="{{ asset('bundles/sonataadmin/famfamfam/accept.png') }}" alt="{%- trans from 'SonataAdminBundle' %}label_type_yes{% endtrans -%}" />

@@ -6,6 +6,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\ExecutionContext;
 
 /*
  *  TODO:
@@ -17,6 +18,8 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  * @ORM\Table(name="doc")
  * @ORM\Entity(repositoryClass="Teclliure\DocBundle\Entity\DocRepository")
  * @ORM\HasLifecycleCallbacks
+ *
+ * @Assert\Callback(methods={"checkValidateFile"})
  */
 class Doc
 {
@@ -32,6 +35,7 @@ class Doc
     /**
      *
      * @ORM\Column(type="string", length=255)
+     *
      *
      */
     protected $name;
@@ -75,7 +79,7 @@ class Doc
     private $active = false;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Teclliure\QuestionBundle\Entity\Questionary", cascade={"persist"},inversedBy="docs" )
+     * @ORM\ManyToMany(targetEntity="Teclliure\QuestionBundle\Entity\Questionary", cascade={"persist"}, inversedBy="docs" )
      * @ORM\JoinTable(name="doc_questionary")
      * @ORM\OrderBy({"name" = "ASC"})
      */
@@ -126,8 +130,6 @@ class Doc
             }
             $this->setName($this->file->getClientOriginalName());
             $this->setPath(sha1(uniqid(mt_rand(), true)).'.'.$this->file->guessExtension());
-
-
         }
     }
 
@@ -365,5 +367,21 @@ class Doc
     public function getQuestionaries()
     {
         return $this->questionaries;
+    }
+
+    /**
+     * Set questionaries
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function setQuestionaries($questionaries)
+    {
+        $this->questionaries = $questionaries;
+    }
+
+    public function checkValidateFile(ExecutionContext $ec) {
+        if ($this->getFile() == '' && $this->getName() == '') {
+            $ec->addViolationAtSubPath('file', 'You should upload a file', array(), null);
+        }
     }
 }

@@ -34,6 +34,54 @@
                 <source>Dashboard</source>
                 <target>Escritorio</target>
             </trans-unit>
+            <trans-unit id="9">
+                <source>Persons</source>
+                <target>Personas</target>
+            </trans-unit>
+            <trans-unit id="10">
+                <source>Add person</source>
+                <target>Añadir persona</target>
+            </trans-unit>
+            <trans-unit id="11">
+                <source>Docs</source>
+                <target>Documentos</target>
+            </trans-unit>
+            <trans-unit id="12">
+                <source>Add doc</source>
+                <target>Añadir documento</target>
+            </trans-unit>
+            <trans-unit id="13">
+                <source>Categories and subcategories</source>
+                <target>Categorías y subcategorías</target>
+            </trans-unit>
+            <trans-unit id="14">
+                <source>Add category</source>
+                <target>Añadir categoría</target>
+            </trans-unit>
+            <trans-unit id="15">
+                <source>Add subcategory</source>
+                <target>Añadir subcategoría</target>
+            </trans-unit>
+            <trans-unit id="16">
+                <source>Categories list</source>
+                <target>Listar categorías</target>
+            </trans-unit>
+            <trans-unit id="17">
+                <source>Subcategories list</source>
+                <target>Listar subcategorías</target>
+            </trans-unit>
+            <trans-unit id="18">
+                <source>Users</source>
+                <target>Usuarios</target>
+            </trans-unit>
+            <trans-unit id="19">
+                <source>Add user</source>
+                <target>Añadir usuario</target>
+            </trans-unit>
+            <trans-unit id="20">
+                <source>List persons</source>
+                <target>Listar personas</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

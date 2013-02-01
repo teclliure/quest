@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="es" datatype="plaintext" original="file1.ext">
+    <body>
+      <trans-unit id="1">
+        <source>Questions Number</source>
+        <target>Número de preguntas</target>
+      </trans-unit>
+      <trans-unit id="2">
+          <source>Create a new entry</source>
+          <target>Crear una nueva entrada</target>
+      </trans-unit>
+      <trans-unit id="3">
+          <source>List questionaries</source>
+          <target>Listar cuestionarios</target>
+      </trans-unit>
+        <trans-unit id="4">
+            <source>Questionary Show</source>
+            <target>Mostrar cuestionario</target>
+        </trans-unit>
+        <trans-unit id="5">
+            <source>Questions</source>
+            <target>Preguntas</target>
+        </trans-unit>
+        <trans-unit id="6">
+            <source>Validation rules</source>
+            <target>Reglas validación</target>
+        </trans-unit>
+        <trans-unit id="7">
+            <source>Library reference</source>
+            <target>Referencia bibliográfica</target>
+        </trans-unit>
+        <trans-unit id="8">
+            <source>Description</source>
+            <target>Descripción</target>
+        </trans-unit>
+        <trans-unit id="9">
+            <source>Help</source>
+            <target>Ayuda</target>
+        </trans-unit>
+        <trans-unit id="10">
+            <source>Libraryreference</source>
+            <target>Referencia bibliográfica</target>
+        </trans-unit>
+        <trans-unit id="11">
+            <source>Questionary Edit</source>
+            <target>Editar questionario</target>
+        </trans-unit>
+        <trans-unit id="12">
+            <source>Add new</source>
+            <target>Añadir nuevo</target>
+        </trans-unit>
+        <trans-unit id="13">
+            <source>Error saving Questionary</source>
+            <target>Error salvando questionario</target>
+        </trans-unit>
+        <trans-unit id="14">
+            <source>Questionary saved</source>
+            <target>Cuestionario guardado</target>
+        </trans-unit>
+        <trans-unit id="15">
+            <source>Questionary Create</source>
+            <target>Crear cuestionario</target>
+        </trans-unit>
+    </body>
+  </file>
+</xliff>

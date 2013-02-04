@@ -46,6 +46,30 @@
                 <source>User account is disabled.</source>
                 <target>La cuenta de usuario ha sido deshabilitada.</target>
             </trans-unit>
+            <trans-unit id="12">
+                <source>User List</source>
+                <target>Listado usuarios</target>
+            </trans-unit>
+            <trans-unit id="13">
+                <source>User Edit</source>
+                <target>Editar usuario</target>
+            </trans-unit>
+            <trans-unit id="14">
+                <source>User Create</source>
+                <target>Crear usuario</target>
+            </trans-unit>
+            <trans-unit id="15">
+                <source>Repeat password</source>
+                <target>Repetir contraseña</target>
+            </trans-unit>
+            <trans-unit id="16">
+                <source>Expire Date</source>
+                <target>Fecha caducidad</target>
+            </trans-unit>
+            <trans-unit id="17">
+                <source>Is Admin</source>
+                <target>¿ Es administrador ?</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

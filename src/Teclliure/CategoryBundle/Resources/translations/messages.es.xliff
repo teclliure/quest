@@ -30,6 +30,50 @@
             <source>File</source>
             <target>Archivo</target>
         </trans-unit>
+        <trans-unit id="8">
+            <source>Is Required</source>
+            <target>¿ Es requerido ?</target>
+        </trans-unit>
+        <trans-unit id="9">
+            <source>Is Multiple</source>
+            <target>¿ Es múltiple ?</target>
+        </trans-unit>
+        <trans-unit id="10">
+            <source>Required ?</source>
+            <target>¿ Es requerido ?</target>
+        </trans-unit>
+        <trans-unit id="11">
+            <source>Multiple select ?</source>
+            <target>¿ Selección múltiple ?</target>
+        </trans-unit>
+        <trans-unit id="12">
+            <source>Category</source>
+            <target>Categoría</target>
+        </trans-unit>
+        <trans-unit id="13">
+            <source>Subcategory List</source>
+            <target>Listado subcategorías</target>
+        </trans-unit>
+        <trans-unit id="14">
+            <source>Subcategory Edit</source>
+            <target>Editar subcategoría</target>
+        </trans-unit>
+        <trans-unit id="15">
+            <source>Subcategory Create</source>
+            <target>Crear subcategoría</target>
+        </trans-unit>
+        <trans-unit id="16">
+            <source>Subcategories</source>
+            <target>Subcategorías</target>
+        </trans-unit>
+        <trans-unit id="17">
+            <source>Category Edit</source>
+            <target>Editar categoría</target>
+        </trans-unit>
+        <trans-unit id="18">
+            <source>Category Create</source>
+            <target>Crear categoría</target>
+        </trans-unit>
     </body>
   </file>
 </xliff>

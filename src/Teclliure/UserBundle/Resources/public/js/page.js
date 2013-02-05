@@ -9,4 +9,6 @@ $(function() {
             }
         });
     });
+
+     $('textarea.wysiwyg').wysiwyg();
 });

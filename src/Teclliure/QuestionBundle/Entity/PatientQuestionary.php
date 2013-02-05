@@ -373,4 +373,8 @@ class PatientQuestionary
     {
         return $this->reports;
     }
+
+    public function getQuestionaryDate() {
+        return $this->getQuestionary().' - '.$this->getCreated()->format('d-m-Y');
+    }
 }

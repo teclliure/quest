@@ -6,12 +6,12 @@
     <title>{% block title %}{{ 'Default pagename'|trans }}{% endblock %} | {{ 'Quiz Devel'|trans }}</title>
 
     {% block stylesheets %}
-        {% stylesheets
-        '@TeclliureUserBundle/Resources/public/bootstrap/css/bootstrap.min.css'
-        '@TeclliureUserBundle/Resources/public/bootstrap/css/bootstrap-responsive.min.css'
-        '@TeclliureUserBundle/Resources/public/css/style.css'
-        '@TeclliureUserBundle/Resources/public/css/flick/jquery-ui-1.10.0.custom.min.css'
-        output='css/style_common.css'
+        {% stylesheets output='css/style_common.css'
+        'bundles/teclliureuser/bootstrap/css/bootstrap.min.css'
+        'bundles/teclliureuser/bootstrap/css/bootstrap-responsive.min.css'
+        'bundles/teclliureuser/css/style.css'
+        'bundles/teclliureuser/css/flick/jquery-ui-1.10.0.custom.min.css'
+        'bundles/teclliureuser/css/wysiwyg/jquery.wysiwyg.css'
         %}
         <link rel="stylesheet" href="{{ asset_url }}" media="screen" type="text/css"/>
         {% endstylesheets %}
@@ -187,6 +187,7 @@
     '@TeclliureUserBundle/Resources/public/bootstrap/js/bootbox.min.js'
     '@TeclliureUserBundle/Resources/public/js/jquery-ui-1.10.0.custom.min.js'
     '@TeclliureUserBundle/Resources/public/js/page.js'
+    '@TeclliureUserBundle/Resources/public/js/wysiwyg/jquery.wysiwyg.js'
     'bundles/sonatajquery/jquery-ui-i18n.js'
     output='js/footer_js.js' %}
     <script src="{{ asset_url }}" type="text/javascript"></script>

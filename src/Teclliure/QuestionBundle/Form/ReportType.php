@@ -19,10 +19,10 @@ class ReportType extends AbstractType
 
         $builder
             ->add('name')
-            ->add('description')
+            ->add('description', 'textarea', array('attr'=>array('class'=>'wysiwyg')))
             ->add('patientQuestionaries', 'entity', array(
                 'class'    => 'TeclliureQuestionBundle:PatientQuestionary' ,
-                'property' => 'questionary',
+                'property' => 'questionaryDate',
                 'expanded' => true ,
                 'multiple' => true,
                 'label'    => 'Questionaries',
@@ -31,7 +31,7 @@ class ReportType extends AbstractType
                         ->where('q.patient = :patient')
                         ->setParameter('patient', $patient->getId())
                         ->orderBy('q.created','DESC')
-                        ->addOrderBy('q.updated', 'ASC');
+                        ->addOrderBy('q.updated', 'DESC');
                 },
             )
         );

@@ -14,7 +14,7 @@
     </div>
     {% if report.description %}
     <h3>{{ 'Description'|trans }}</h3>
-    <p>{{ report.description }}</p>
+    <p>{{ report.description|raw }}</p>
     {% endif %}
 
     {% for patientQuestionary in report.patientQuestionaries %}

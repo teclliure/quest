@@ -39,6 +39,12 @@ class UserAdmin extends Admin {
         $userManager->updatePassword($user);
     }
 
+    public function preUpdate($user)
+    {
+        $userManager = new UserManager($this->encoderFactory);
+        $userManager->updatePassword($user);
+    }
+
     protected function configureListFields(ListMapper $mapper)
     {
         $mapper

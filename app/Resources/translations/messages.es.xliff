@@ -82,6 +82,10 @@
                 <source>List persons</source>
                 <target>Listar personas</target>
             </trans-unit>
+            <trans-unit id="21">
+                <source>If you want to use this tool or have any questions write a mail to</source>
+                <target>Si quieres usar esta herramiento o tienes alguna pregunta escribe un correo a</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

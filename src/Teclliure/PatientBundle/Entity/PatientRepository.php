@@ -37,15 +37,21 @@ class PatientRepository extends SortableRepository
         return $query;
     }
 
-    public function findPatientReports($patient) {
+    public function findPatientReports($patient, $user) {
         $em = $this->getEntityManager();
 
-        // $patientQuestionaryAnswers = $patientQuestionary->getPatientQuestionaryAnswers();
-        $dql = 'SELECT r FROM TeclliureQuestionBundle:Report r WHERE r.patient = :person ORDER BY r.created desc';
+        if ($user->getIsAdmin()) {
+            $dql = 'SELECT r FROM TeclliureQuestionBundle:Report r WHERE r.patient = :person ORDER BY r.created desc';
+        }
+        else {
+            $dql = 'SELECT r FROM TeclliureQuestionBundle:Report r WHERE r.patient = :person AND r.user = :user ORDER BY r.created desc';
+        }
 
         $query = $em->createQuery($dql);
         $query->setParameter('person', $patient->getId());
-
+        if (!$user->getIsAdmin()) {
+            $query->setParameter('user', $user->getId());
+        }
 
         return $query->getResult();
     }

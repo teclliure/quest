@@ -65,7 +65,7 @@ class DefaultController extends Controller
         $this->checkPerms($entity);
 
         $questionaries = $questionaryRepository->findPatientQuestionaries($entity);
-        $reports = $patientRepository->findPatientReports($entity);
+        $reports = $patientRepository->findPatientReports($entity, $this->getUser());
 
         $patientForm = $this->createForm(new PatientType(), $entity);
 

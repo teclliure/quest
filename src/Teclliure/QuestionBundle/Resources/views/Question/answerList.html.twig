@@ -23,7 +23,7 @@
                     </a>
                 </div>
                 <p class="answer">{{ answer.answer }} ({{ 'Raw value' | trans }}: <strong>{{ answer.rawValue }}</strong>)</p>
-                <p class="answerHelp">{{ answer.help }}</p>
+                <p class="answerHelp">{{ answer.help|raw }}</p>
                 <!-- Modal -->
                 <div id="answerQuestionsModal{{ answer.id }}" class="modal hide fade answerQuestionsModal" >
                     <img src="{{ asset('bundles/teclliureuser/images/ajax-loading.gif') }}" alt="{{ 'Ajax loading'|trans }}" style="margin: auto auto">

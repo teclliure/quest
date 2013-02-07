@@ -17,7 +17,7 @@
                     </a>
                 </div>
                 <p class="rule">{{ rule.name }} ({{ 'Range' | trans }}: <strong>{{ rule.rangeMin }} {{ rule.rangeMax }}</strong>)</p>
-                <p class="ruleHelp">{{ rule.help }}</p>
+                <p class="ruleHelp">{{ rule.help|raw }}</p>
             </li>
         {% endfor %}
     </ul>

@@ -10,7 +10,7 @@
     </a>
 </div>
 <h4>{{ question.question }}</h4>
-<p class="questionHelp">{{ question.help }}</p>
+<p class="questionHelp">{{ question.help|raw }}</p>
 
 <div id="questionId{{ question.id }}answers">
     {% include 'TeclliureQuestionBundle:Question:answerElement.html.twig' %}

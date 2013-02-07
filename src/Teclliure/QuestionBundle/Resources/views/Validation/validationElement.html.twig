@@ -17,7 +17,7 @@
     </a>
 </div>
 <h4>{{ validation.name }}</h4>
-<p class="validationHelp">{{ validation.help }}</p>
+<p class="validationHelp">{{ validation.help|raw }}</p>
 
 <div id="validationId{{ validation.id }}rules">
     {% include 'TeclliureQuestionBundle:Validation:ruleElement.html.twig' %}

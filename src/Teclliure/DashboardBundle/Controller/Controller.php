@@ -261,6 +261,8 @@ class Controller extends Sf2Controller
         }
 
         if ($userId != $this->getUser()->getId()) {
+            $logger = $this->get('logger');
+            $logger->err('ACL ERROR: Needed user id: '.$userId.' - Current user id: '.$this->getUser()->getId().' on Class '.$className.' with id '.$entity->getId());
             throw new AccessDeniedException();
         }
     }

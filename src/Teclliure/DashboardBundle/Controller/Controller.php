@@ -252,11 +252,11 @@ class Controller extends Sf2Controller
         }
 
         $userId = null;
-        $className = get_class($entity);
-        if ($className == 'Teclliure\PatientBundle\Entity\Patient') {
+        $className = $this->get_class_name($entity);
+        if ($className == 'Patient') {
             $userId = $entity->getUser()->getId();
         }
-        else if ($className == 'Teclliure\QuestionBundle\Entity\PatientQuestionary') {
+        else if ($className == 'PatientQuestionary') {
             $userId = $entity->getPatient()->getUser()->getId();
         }
 
@@ -265,5 +265,24 @@ class Controller extends Sf2Controller
             $logger->err('ACL ERROR: Needed user id: '.$userId.' - Current user id: '.$this->getUser()->getId().' on Class '.$className.' with id '.$entity->getId());
             throw new AccessDeniedException();
         }
+    }
+
+    /**
+     * Returns the name of a class using get_class with the namespaces stripped.
+     * This will not work inside a class scope as get_class() a workaround for
+     * that is using get_class_name(get_class());
+     *
+     * @param  object|string  $object  Object or Class Name to retrieve name
+
+     * @return  string  Name of class with namespaces stripped
+     */
+    protected function get_class_name($object = null)
+    {
+        if (!is_object($object) && !is_string($object)) {
+            return false;
+        }
+
+        $class = explode('\\', (is_string($object) ? $object : get_class($object)));
+        return $class[count($class) - 1];
     }
 }

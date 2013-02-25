@@ -11,19 +11,11 @@ $(function() {
     });
 
     $('textarea.wysiwyg').css('height','300px').css('width', '350px');
-    $('textarea.wysiwyg').wysiwyg({
-        rmUnusedControls: true,
-        rmUnwantedBr: true,
-        controls: {
-            bold: { visible : true },
-            italic: { visible : true },
-            h1: { visible : true },
-            h2: { visible : true },
-            h3: { visible : true },
-            html: { visible : true },
-            insertOrderedList: { visible : true },
-            removeFormat: { visible : true }
-        }
+    $('textarea.wysiwyg').wysihtml5({
+        "font-styles": true, //Font styling, e.g. h1, h2, etc. Default true
+        "emphasis": true, //Italics, bold, etc. Default true
+        "lists": true, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
+        "html": false //Button which allows you to edit the generated HTML. Default false
     });
 
 

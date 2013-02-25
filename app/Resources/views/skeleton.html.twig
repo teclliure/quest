@@ -46,7 +46,7 @@
     <div class="row">
         <div id="banner" class="span12">
             <div class="hero-unit">
-                <h1 id="logo-text"><a href="{{ path('home') }}">{{ 'ENFOCS'|trans }}</a></h1>
+                <h1 id="logo-text"><a href="{{ path('home') }}">{{ 'Quiz Demo'|trans }}</a></h1>
                 {% if app.user %}
                     <div style="float: right">{{ 'Hi'|trans }} {{ app.user.username }}
                         <a href="{{ path('logout') }}">
@@ -54,9 +54,12 @@
                         </a>
                     </div>
                 {% endif %}
-                <p id="slogan">{{ 'Multifaceted person analysis tool'|trans }}</p>
+                <p id="slogan">{{ 'Symfony2 Quiz Application'|trans }}</p>
             </div>
         </div>
+
+
+
     </div>
 
     <div class="row">
@@ -173,7 +176,7 @@
         <div id="footer" class="span12">
             <hr />
             {% block footer %}
-                <p>{{ 'If you want to use this tool or have any questions write a mail to'| trans }} <a href="mailto: enfocs@gass.cat">enfocs@gass.cat</a></p>
+                <p>{{ 'Powered by'| trans }} <a href="http://symfony.com/">Symfony</a></p>
             {% endblock %}
         </div>
     </div>

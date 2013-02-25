@@ -242,6 +242,10 @@
             <source>Patient Create</source>
             <target>Crear persona</target>
         </trans-unit>
+        <trans-unit id="61">
+            <source>Filter questionaries by name</source>
+            <target>Filtrar cuestionarios por nombre</target>
+        </trans-unit>
     </body>
   </file>
 </xliff>

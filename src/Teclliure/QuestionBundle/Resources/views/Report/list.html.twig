@@ -15,7 +15,7 @@
             <td>{{ entity.updated|date('Y-m-d H:i:s') }}</td>
             <td style="text-align: center">
                 {% if entity.patientQuestionaries and entity.patientQuestionaries is not empty %}
-                <a class="btn btn-mini" href="{{ path('print_report', { 'id': entity.id}) }}">
+                <a class="btn btn-mini" target="_report{{ entity.id }}" href="{{ path('print_report', { 'id': entity.id}) }}">
                     <i class="icon-print"></i>
                     {{ 'PDF' | trans }}
                 </a>

@@ -1,0 +1,30 @@
+<ul>
+    {% if catQuestionaries.questionaries is defined %}
+        {% for questionary in catQuestionaries.questionaries %}
+            <li>
+                <a class="tooltiplink" data-content="{{ questionary.description }}" title="{{ questionary.name }}" href="{{ path('questionary_patient_create', {'id': entity.id, 'questionaryId': questionary.id}) }}">{{ questionary.name }}</a>
+            </li>
+        {% endfor %}
+    {% endif %}
+    {% if catQuestionaries.categories is defined %}
+        {% for category in catQuestionaries.categories %}
+            <li class="category">
+                <a class="tooltiplink" data-content="{{ category.cat.description }}" title="{{ category.cat.name }}">{{ category.cat.name }}</a>
+
+                <ul class="subcat">
+                    {% for subcat in category.subcats %}
+                        <li>
+                            <a class="tooltiplink" data-content="{{ subcat.subcat.description }}" title="{{ subcat.subcat.name }}">{{ subcat.subcat.name }}</a>
+
+                            <ul class="subcategoryQuestionaries">
+                                {% for subQuestionary in subcat.questionaries %}
+                                    <li><a class="tooltiplink" data-content="{{ subQuestionary.description }}" title="{{ subQuestionary.name }}" href="{{ path('questionary_patient_create', {'id': entity.id, 'questionaryId': subQuestionary.id}) }}">{{ subQuestionary.name }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+    {% endif %}
+</ul>

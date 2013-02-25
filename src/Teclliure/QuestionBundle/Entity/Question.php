@@ -21,9 +21,9 @@ class Question
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=600)
      *
-     * @Assert\Length(min = 5, max = 255)
+     * @Assert\Length(min = 5, max = 600)
      * @Assert\NotBlank()
      *
      */

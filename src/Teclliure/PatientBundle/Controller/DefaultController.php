@@ -84,6 +84,7 @@ class DefaultController extends Controller
      */
     public function selectQuestionaryAction($id)
     {
+        $request = $this->getRequest();
         $em = $this->getDoctrine()->getManager();
 
         $patientRepository = $em->getRepository('TeclliurePatientBundle:Patient');
@@ -97,14 +98,35 @@ class DefaultController extends Controller
 
         $this->checkPerms($entity);
 
-        $catQuestionaries = $questionaryRepository->getQuestionariesByCategory();
+        $searchForm = $form = $this->createFormBuilder(array())
+            ->add('name', 'search', array('required' => false))
+            ->getForm();
+
+        $searchArray = null;
+        if ($request->isMethod('POST')) {
+            $searchForm->bind($request);
+
+            if ($form->isValid()) {
+                $searchArray = $searchForm->getData();
+            }
+        }
+        $catQuestionaries = $questionaryRepository->getQuestionariesByCategory(true, $searchArray);
 
         $this->buildBreadcrumbs('select', array('id'=>$entity->getId()));
 
-        return $this->render('TeclliurePatientBundle:Patient:selectQuestionary.html.twig', array(
-            'entity'            => $entity,
-            'catQuestionaries'  => $catQuestionaries
-        ));
+        if ($request->isXmlHttpRequest()) {
+            return $this->render('TeclliurePatientBundle:Patient:questionariesList.html.twig', array(
+                'entity'            => $entity,
+                'catQuestionaries'  => $catQuestionaries
+            ));
+        }
+        else {
+            return $this->render('TeclliurePatientBundle:Patient:selectQuestionary.html.twig', array(
+                'entity'            => $entity,
+                'catQuestionaries'  => $catQuestionaries,
+                'searchForm'        => $searchForm->createView()
+            ));
+        }
     }
 
     /**

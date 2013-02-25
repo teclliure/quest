@@ -105,21 +105,35 @@ class QuestionaryRepository extends SortableRepository
         return $result;
     }
 
-    public function getQuestionariesByCategory($active = true) {
+    public function getQuestionariesByCategory($active = true, $searchArray = null) {
         $em = $this->getEntityManager();
 
         // $dql = 'select q, qs, s, c FROM TeclliureQuestionBundle:Questionary q LEFT JOIN q.subcategories qs JOIN qs.subcategory s JOIN s.category c ORDER BY q.name ASC';
+        $searchString = '';
+        if ($searchArray) {
+            if (isset($searchArray['name']) && $searchArray['name']) {
+                if ($active) {
+                    $searchString = 'q.name LIKE :search AND';
+                }
+                else {
+                    $searchString = ' WHERE q.name LIKE :search';
+                }
+            }
+        }
         if ($active) {
-            $dql = 'select q FROM TeclliureQuestionBundle:Questionary q LEFT JOIN q.subcategories qs LEFT JOIN qs.subcategory s LEFT JOIN s.category c where q.active = :active ORDER BY c.name ASC, q.name ASC';
+            $dql = 'select q FROM TeclliureQuestionBundle:Questionary q LEFT JOIN q.subcategories qs LEFT JOIN qs.subcategory s LEFT JOIN s.category c WHERE '.$searchString.' q.active = :active ORDER BY c.name ASC, q.name ASC';
         }
         else {
-            $dql = 'select q FROM TeclliureQuestionBundle:Questionary q LEFT JOIN q.subcategories qs LEFT JOIN qs.subcategory s LEFT JOIN s.category c ORDER BY c.name ASC, q.name ASC';
+            $dql = 'select q FROM TeclliureQuestionBundle:Questionary q LEFT JOIN q.subcategories qs LEFT JOIN qs.subcategory s LEFT JOIN s.category c '.$searchString.' ORDER BY c.name ASC, q.name ASC';
         }
 
         $query = $em->createQuery($dql);
 
         if ($active) {
             $query->setParameter('active', true);
+        }
+        if ($searchString) {
+            $query->setParameter('search', '%'.$searchArray['name'].'%');
         }
 
         $resultArray = array();

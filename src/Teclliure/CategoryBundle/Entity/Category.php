@@ -83,7 +83,7 @@ class Category
 
 
     /**
-     * @ORM\OneToMany(targetEntity="Teclliure\CategoryBundle\Entity\Subcategory", mappedBy="category")
+     * @ORM\OneToMany(targetEntity="Teclliure\CategoryBundle\Entity\Subcategory", mappedBy="category", cascade={"remove"})
      * @ORM\OrderBy({"name" = "ASC"})
      */
     private $subcategories;

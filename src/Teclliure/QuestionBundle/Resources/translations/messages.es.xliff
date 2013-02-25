@@ -62,6 +62,10 @@
             <source>Questionary Create</source>
             <target>Crear cuestionario</target>
         </trans-unit>
+        <trans-unit id="16">
+            <source>Do you really want download the document ? Remember that personal data will be saved on this computer and you MUST delete it.</source>
+            <target>¿ Estás seguro de que quieres bajar el documento ? Recuerda que esto contiene INFORMACIÓN CONFIDENCIAL que será guardada en este ordenador y que debes borrarla.</target>
+        </trans-unit>
     </body>
   </file>
 </xliff>

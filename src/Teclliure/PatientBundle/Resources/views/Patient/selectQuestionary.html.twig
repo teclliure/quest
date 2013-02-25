@@ -8,6 +8,18 @@
 {% block title %}{{ "Select questionary" | trans }}{% endblock %}
 
 {% block inner_content %}
+<div id="filterQuestionaryName" >
+    <form action="{{ path('questionary_patient_new', { 'id': entity.id }) }}" method="post" {{ form_enctype(searchForm) }} class="form-search" id="filterQuestionaryNameForm">
+        <div class="input-append">
+        {{ form_widget(searchForm.name, { 'attr': {'class': 'search-query', 'placeholder': 'Filter questionaries by name'|trans } }) }}
+        <button type="submit" class="btn">{{ 'Search'|trans }}</button>
+        <button type="button" id="resetSearch" style="margin-left: 10px" class="btn-small btn-danger">{{ 'Reset search'|trans }}</button>
+        <img src="{{ asset('bundles/teclliureuser/images/ajaxLoadingMedium.gif') }}" style="display: none; margin-left: 15px;" id="searchLoading" />
+        {{ form_widget(searchForm) }}
+        </div>
+    </form>
+
+</div>
 <div style="float: right">
     <div class="sonata-actions">
         <a class="btn sonata-action-element" href="{{ path('patient_show', { 'id': entity.id }) }}">
@@ -21,34 +33,7 @@
     {{ 'Person' | trans }} <span id="legendName">{{ entity.name }}</span>
 </legend>
 
-<ul id=""selectQuestionary">
-    {% if catQuestionaries.questionaries is defined %}
-        {% for questionary in catQuestionaries.questionaries %}
-            <li>
-                <a class="tooltiplink" data-content="{{ questionary.description }}" title="{{ questionary.name }}" href="{{ path('questionary_patient_create', {'id': entity.id, 'questionaryId': questionary.id}) }}">{{ questionary.name }}</a>
-            </li>
-        {% endfor %}
-    {% endif %}
-    {% if catQuestionaries.categories is defined %}
-    {% for category in catQuestionaries.categories %}
-        <li class="category">
-            <a class="tooltiplink" data-content="{{ category.cat.description }}" title="{{ category.cat.name }}">{{ category.cat.name }}</a>
-
-            <ul class="subcat">
-            {% for subcat in category.subcats %}
-                <li>
-                    <a class="tooltiplink" data-content="{{ subcat.subcat.description }}" title="{{ subcat.subcat.name }}">{{ subcat.subcat.name }}</a>
-
-                    <ul class="subcategoryQuestionaries">
-                        {% for subQuestionary in subcat.questionaries %}
-                            <li><a class="tooltiplink" data-content="{{ subQuestionary.description }}" title="{{ subQuestionary.name }}" href="{{ path('questionary_patient_create', {'id': entity.id, 'questionaryId': subQuestionary.id}) }}">{{ subQuestionary.name }}</a></li>
-                        {% endfor %}
-                    </ul>
-                </li>
-            {% endfor %}
-            </ul>
-        </li>
-    {% endfor %}
-    {% endif %}
-</ul>
+<div  id="selectQuestionary">
+    {% include 'TeclliurePatientBundle:Patient:questionariesList.html.twig' %}
+</div>
 {% endblock %}

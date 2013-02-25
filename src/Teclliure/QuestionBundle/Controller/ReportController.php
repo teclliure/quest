@@ -122,9 +122,6 @@ class ReportController extends Controller
         return $this->redirect($this->generateUrl('patient_show', array('id' => $patient->getId())));
     }
 
-    /*
-     * @Pdf()
-     */
     public function printReportAction($id) {
         $em = $this->getDoctrine()->getManager();
 
@@ -136,8 +133,31 @@ class ReportController extends Controller
             throw $this->createNotFoundException('Unable to find Report entity.');
         }
 
+        $this->checkPerms($entity->getPatient());
+
+        return $this->render('TeclliureQuestionBundle:Report:report.html.twig', array(
+            'report' => $entity,
+            'hidePdf' => false
+        ));
+    }
+
+    /*
+     * @Pdf()
+     */
+    public function printReportPdfAction($id) {
+        $em = $this->getDoctrine()->getManager();
+
+        $reportRepository = $em->getRepository('TeclliureQuestionBundle:Report');
+
+        $entity = $reportRepository->findWithResults($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Report entity.');
+        }
+
         $html = $this->renderView('TeclliureQuestionBundle:Report:report.html.twig', array(
-            'report' => $entity
+            'report' => $entity,
+            'hidePdf' => true
         ));
         $this->checkPerms($entity->getPatient());
 

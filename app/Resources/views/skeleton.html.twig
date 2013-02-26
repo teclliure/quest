@@ -11,7 +11,7 @@
         'bundles/teclliureuser/bootstrap/css/bootstrap-responsive.min.css'
         'bundles/teclliureuser/css/style.css'
         'bundles/teclliureuser/css/flick/jquery-ui-1.10.0.custom.min.css'
-        'bundles/teclliureuser/js/wysiwyg/bootstrap-wysihtml5-0.0.2.css'
+        'bundles/teclliureuser/css/wysiwyg/jquery.wysiwyg.css'
         %}
         <link rel="stylesheet" href="{{ asset_url }}" media="screen" type="text/css"/>
         {% endstylesheets %}
@@ -46,7 +46,7 @@
     <div class="row">
         <div id="banner" class="span12">
             <div class="hero-unit">
-                <h1 id="logo-text"><a href="{{ path('home') }}">{{ 'Quiz Demo'|trans }}</a></h1>
+                <h1 id="logo-text"><a href="{{ path('home') }}">{{ 'ENFOCS'|trans }}</a></h1>
                 {% if app.user %}
                     <div style="float: right">{{ 'Hi'|trans }} {{ app.user.username }}
                         <a href="{{ path('logout') }}">
@@ -54,12 +54,9 @@
                         </a>
                     </div>
                 {% endif %}
-                <p id="slogan">{{ 'Symfony2 Quiz Application'|trans }}</p>
+                <p id="slogan">{{ 'Multifaceted person analysis tool'|trans }}</p>
             </div>
         </div>
-
-
-
     </div>
 
     <div class="row">
@@ -176,7 +173,7 @@
         <div id="footer" class="span12">
             <hr />
             {% block footer %}
-                <p>{{ 'Powered by'| trans }} <a href="http://symfony.com/">Symfony</a></p>
+                <p>{{ 'If you want to use this tool or have any questions write a mail to'| trans }} <a href="mailto: enfocs@gass.cat">enfocs@gass.cat</a></p>
             {% endblock %}
         </div>
     </div>
@@ -186,8 +183,7 @@
     '@TeclliureUserBundle/Resources/public/bootstrap/js/bootstrap.min.js'
     '@TeclliureUserBundle/Resources/public/bootstrap/js/bootbox.min.js'
     '@TeclliureUserBundle/Resources/public/js/jquery-ui-1.10.0.custom.min.js'
-    '@TeclliureUserBundle/Resources/public/js/wysiwyg/libs/js/wysihtml5-0.3.0_rc2.min.js'
-    '@TeclliureUserBundle/Resources/public/js/wysiwyg/bootstrap-wysihtml5-0.0.2.min.js'
+    '@TeclliureUserBundle/Resources/public/js/wysiwyg/jquery.wysiwyg.js'
     'bundles/sonatajquery/jquery-ui-i18n.js'
     '@TeclliureUserBundle/Resources/public/js/page.js'
     output='js/footer_js.js' %}

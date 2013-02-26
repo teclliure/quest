@@ -12,6 +12,13 @@
         <link rel="stylesheet" href="{{ asset_url }}" media="screen" type="text/css"/>
         {% endstylesheets %}
     {% endblock %}
+    <style type="text/css" media="screen,print">
+        .page-breaker {
+        display: block;
+        page-break-after: always;
+        border :1px solid red
+        }
+    </style>
 </head>
 <body class="container">
     {% if hidePdf != true %}
@@ -69,6 +76,7 @@
             {% endfor %}
             <div>&nbsp;</div>
         </div>
+        <div class="page-breaker"></div>
     {% endfor %}
 </body>
 </html>

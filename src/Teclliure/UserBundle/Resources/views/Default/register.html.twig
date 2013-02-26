@@ -1,0 +1,27 @@
+{% extends '::one_column.html.twig' %}
+
+{% block title %}{{ "User register" | trans }}{% endblock %}
+
+{% block inner_content %}
+<div style="float: right">
+    <div class="sonata-actions">
+        <a class="btn sonata-action-element" href="{{ path('login') }}">
+            {{ 'Back to login' | trans }}
+        </a>
+    </div>
+</div>
+<br />
+<form action="{{ path('register') }}" method="post" {{ form_enctype(form) }} class="form-signin">
+    <legend>
+        {{ 'User register' | trans }}
+    </legend>
+
+    <p class="label label-important" style="width: 90%; text-align: justify; margin: 10px; padding: 5px; white-space: normal;">{{ 'Remember that this is NOT a direct registration. You will have to wait until administrators approval' | trans }}</p>
+
+    {{ form_widget(form) }}
+
+    <div style="text-align: right">
+        <button class="btn btn-primary" type="submit">{{ 'Register'| trans }}</button>
+    </div>
+</form>
+{% endblock %}

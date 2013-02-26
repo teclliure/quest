@@ -46,21 +46,21 @@
     {% if questionary.libraryReference %}
     <div class="description well well-small">
         <h5>{{ 'Library reference' | trans }}</h5>
-        {{ questionary.libraryReference }}
+        {{ questionary.libraryReference|raw }}
     </div>
     {% endif %}
 
     {% if questionary.description %}
     <div class="description well well-small">
         <h5>{{ 'Description' | trans }}</h5>
-        {{ questionary.description }}
+        {{ questionary.description|raw }}
     </div>
     {% endif %}
 
     {% if questionary.help %}
     <div class="description well well-small">
         <h5>{{ 'Help' | trans }}</h5>
-        {{ questionary.help }}
+        {{ questionary.help|raw }}
     </div>
     {% endif %}
 

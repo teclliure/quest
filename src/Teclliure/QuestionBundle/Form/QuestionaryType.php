@@ -24,9 +24,9 @@ class QuestionaryType extends AbstractType
 
         $builder
             ->add('name')
-            ->add('libraryReference')
-            ->add('description')
-            ->add('help')
+            ->add('libraryReference', 'textarea', array('attr'=>array('class'=>'wysiwyg')))
+            ->add('description', 'textarea', array('attr'=>array('class'=>'wysiwyg')))
+            ->add('help', 'textarea', array('attr'=>array('class'=>'wysiwyg')))
             ->add('active','checkbox', array('required' => false))
         ;
 

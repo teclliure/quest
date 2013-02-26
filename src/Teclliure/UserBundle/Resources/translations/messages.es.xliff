@@ -20,7 +20,7 @@
             </trans-unit>
             <trans-unit id="5">
                 <source>Sign in</source>
-                <target>Registrarse</target>
+                <target>Entrar</target>
             </trans-unit>
             <trans-unit id="6">
                 <source>Error!</source>
@@ -69,6 +69,34 @@
             <trans-unit id="17">
                 <source>Is Admin</source>
                 <target>¿ Es administrador ?</target>
+            </trans-unit>
+            <trans-unit id="18">
+                <source>User registered correctly. You will receive a welcome email when activated.</source>
+                <target>Usuario registrado correctamente. Usted recibirá un correo electrónico de bienvenida cuando se active la cuenta.</target>
+            </trans-unit>
+            <trans-unit id="19">
+                <source>Want to use the tool ?</source>
+                <target>¿ Deseas utilizar la herramienta ?</target>
+            </trans-unit>
+            <trans-unit id="20">
+                <source>Register now</source>
+                <target>Regístrate ahora</target>
+            </trans-unit>
+            <trans-unit id="21">
+                <source>Remember that this is NOT a direct registration. You will have to wait until administrators approval</source>
+                <target>Recuerde que esto NO es un registro directo. Usted tendrá que esperar hasta la aprobación por parte de los administradores</target>
+            </trans-unit>
+            <trans-unit id="22">
+                <source>Register</source>
+                <target>Regístrarse</target>
+            </trans-unit>
+            <trans-unit id="23">
+                <source>Back to login</source>
+                <target>Volver al login</target>
+            </trans-unit>
+            <trans-unit id="24">
+                <source>User register</source>
+                <target>Regístro de usuario</target>
             </trans-unit>
         </body>
     </file>

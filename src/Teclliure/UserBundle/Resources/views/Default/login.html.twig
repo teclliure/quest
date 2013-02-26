@@ -18,6 +18,11 @@
         <label class="checkbox">
             <input name="_remember_me" value="remember-me" type="checkbox" checked> {{ 'Remember me'| trans }}
         </label>
-        <button class="btn btn-large btn-primary" type="submit">{{ 'Sign in'| trans }}</button>
+        <div style="text-align: right">
+            <button class="btn btn-primary" type="submit">{{ 'Sign in'| trans }}</button>
+        </div>
+        <div style="text-align: center; margin: 10px 0;" class="well well-small">
+            {{ 'Want to use the tool ?'|trans }}<a href="{{ path('register') }}" class="btn btn-link"><i class="icon-user"></i>{{ 'Register now'|trans }}</a>
+        </div>
     </form>
 {% endblock %}

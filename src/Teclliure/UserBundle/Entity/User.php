@@ -70,7 +70,7 @@ class User implements AdvancedUserInterface
      *
      * @Assert\Type(type="bool")
      */
-    private $active = true;
+    private $active = false;
 
     /**
      * @ORM\Column(type="date")

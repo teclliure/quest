@@ -1,9 +1,13 @@
 login:
-  pattern:  /login
-  defaults: { _controller: TeclliureUserBundle:Default:login }
+    pattern:  /login
+    defaults: { _controller: TeclliureUserBundle:Default:login }
+
+register:
+    pattern:  /register
+    defaults: { _controller: TeclliureUserBundle:Default:register }
 
 login_check:
-  pattern:  /login_check
+    pattern:  /login_check
 
 logout:
-  pattern:  /logout
+    pattern:  /logout

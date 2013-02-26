@@ -246,6 +246,14 @@
             <source>Filter questionaries by name</source>
             <target>Filtrar cuestionarios por nombre</target>
         </trans-unit>
+        <trans-unit id="62">
+            <source>Reset search</source>
+            <target>Reinicializar búsqueda</target>
+        </trans-unit>
+        <trans-unit id="63">
+            <source>Select Questionary</source>
+            <target>Seleccionar cuestionario</target>
+        </trans-unit>
     </body>
   </file>
 </xliff>

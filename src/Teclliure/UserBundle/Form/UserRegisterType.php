@@ -6,16 +6,19 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class UserType extends AbstractType
+class UserRegisterType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('email')
-        ->add('password')
-        ->add('is_admin')
-        ->add('active')
-        ;
+             ->add('email','email')
+             ->add('plainPassword', 'repeated', array(
+                 'type' => 'password',
+                 'required' => false,
+                 'invalid_message' => 'Two passwords must be the same',
+                 'first_options' => array('label' => 'Password'),
+                 'second_options' => array('label' => 'Repeat password')
+             ));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
@@ -27,6 +30,6 @@ class UserType extends AbstractType
 
     public function getName()
     {
-        return 'teclliure_userbundle_usertype';
+        return 'teclliure_userbundle_userregistertype';
     }
 }

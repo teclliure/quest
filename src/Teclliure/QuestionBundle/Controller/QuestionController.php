@@ -322,12 +322,20 @@ class QuestionController extends Controller
             }
             $question = $entity->getQuestion();
 
-            $em->remove($entity);
-            $em->flush();
+            try {
+                $em->remove($entity);
+                $em->flush();
 
-            $this->get('session')->setFlash('error',
-                'Question DELETED correctly'
-            );
+                $this->get('session')->setFlash('error',
+                    'Answer DELETED correctly'
+                );
+
+            }
+            catch (\Exception $e) {
+                $this->get('session')->setFlash('error',
+                    'Answer could not be deleted. You should delete related content (questionary answers, ...) before.'
+                );
+            }
 
             return $this->render(':ajax:base_ajax.html.twig', array(
                 'template'      => 'TeclliureQuestionBundle:Question:answerList.html.twig',

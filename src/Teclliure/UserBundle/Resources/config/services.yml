@@ -1,6 +1,6 @@
 parameters:
-    teclliure_user.email.from: from_quest@example.net
-    teclliure_user.email.admin: admin_quest@example.net
+    teclliure_user.email.from: enfocs@gass.cat
+    teclliure_user.email.admin: enfocs@gass.cat
 
 services:
     sonata.teclliure.admin.user:

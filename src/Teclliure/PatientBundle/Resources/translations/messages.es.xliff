@@ -254,6 +254,14 @@
             <source>Select Questionary</source>
             <target>Seleccionar cuestionario</target>
         </trans-unit>
+        <trans-unit id="64">
+            <source>Edit questionary</source>
+            <target>Editar cuestionario</target>
+        </trans-unit>
+        <trans-unit id="65">
+            <source>Validations</source>
+            <target>Validaciones</target>
+        </trans-unit>
     </body>
   </file>
 </xliff>

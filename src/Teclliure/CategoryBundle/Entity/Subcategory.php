@@ -44,7 +44,7 @@ class Subcategory
 
     /**
      *
-     * @ORM\OneToMany(targetEntity="Teclliure\QuestionBundle\Entity\QuestionarySubcategory", mappedBy="subcategory", cascade={"remove"}, orphanRemoval="true")
+     * @ORM\OneToMany(targetEntity="Teclliure\QuestionBundle\Entity\QuestionarySubcategory", mappedBy="subcategory", cascade={"remove"}, orphanRemoval=true)
      *
      */
     private $questionaries;

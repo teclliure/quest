@@ -51,7 +51,7 @@
     <div class="row">
         <div id="banner" class="span12">
             <div class="hero-unit">
-                <h1 id="logo-text"><a href="{{ path('home') }}">{{ 'ENFOCS'|trans }}</a></h1>
+                <h1 id="logo-text"><a href="{{ path('home') }}">{{ 'QUEST'|trans }}</a></h1>
                 {% if app.user %}
                     <div style="float: right">{{ 'Hi'|trans }} {{ app.user.username }}
                         <a href="{{ path('logout') }}">
@@ -59,7 +59,7 @@
                         </a>
                     </div>
                 {% endif %}
-                <p id="slogan">{{ 'Multifaceted person analysis tool'|trans }}</p>
+                <p id="slogan">{{ 'Open quest Symfony2 application'|trans }}</p>
             </div>
         </div>
     </div>

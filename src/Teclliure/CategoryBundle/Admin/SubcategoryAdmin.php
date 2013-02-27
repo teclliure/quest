@@ -19,7 +19,6 @@ class SubcategoryAdmin extends Admin {
     {
         $mapper
         ->addIdentifier('name', null, array('label' => 'Name'))
-        ->add('description')
         ->add('category')
         ;
     }

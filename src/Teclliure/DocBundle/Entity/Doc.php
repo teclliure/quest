@@ -79,7 +79,7 @@ class Doc
     private $active = false;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Teclliure\QuestionBundle\Entity\Questionary", cascade={"persist"}, inversedBy="docs", orphanRemoval=true)
+     * @ORM\ManyToMany(targetEntity="Teclliure\QuestionBundle\Entity\Questionary", cascade={"persist"}, inversedBy="docs")
      * @ORM\JoinTable(name="doc_questionary")
      * @ORM\OrderBy({"name" = "ASC"})
      */

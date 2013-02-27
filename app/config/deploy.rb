@@ -1,3 +1,5 @@
+logger.level = Logger::MAX_LEVEL
+
 set :application, "quest"
 set :domain,      "#{application}.teclliure.net"
 set :deploy_to,   "/home/marc/quest"
@@ -12,6 +14,7 @@ set :scm,         :git
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `subversion`, `mercurial`, `perforce`, or `none`
 
 set :model_manager, "doctrine"
+
 # Or: `propel`
 
 role :web,        domain                         # Your HTTP server, Apache/etc
